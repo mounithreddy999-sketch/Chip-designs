@@ -4,6 +4,7 @@ Lightweight Regression Simulation Runner for Icarus Verilog
 Compiles and runs design verification testbenches for:
   1. Parameterized MAC Unit (rtl/mac.v)
   2. INT4 Vector Dot Product PE (rtl/dot_product_pe.v)
+  3. Reconfigurable CGRA PE Node (rtl/cgra_pe.v)
 """
 
 import subprocess
@@ -84,14 +85,21 @@ def main():
     test2_vvp = os.path.join(sim_dir, "dot_product_pe_tb.vvp")
     t2_success = run_test("INT4 Vector Dot Product PE", test2_rtl, test2_tb, test2_vvp)
 
+    # Test 3: Reconfigurable CGRA PE Node
+    test3_rtl = os.path.join(repo_root, "rtl", "cgra_pe.v")
+    test3_tb  = os.path.join(repo_root, "tb", "tb_cgra_pe.v")
+    test3_vvp = os.path.join(sim_dir, "cgra_pe_tb.vvp")
+    t3_success = run_test("Reconfigurable CGRA PE Node", test3_rtl, test3_tb, test3_vvp)
+
     print("\n" + "="*50)
     print("   Regression Test Results Summary")
     print("="*50)
     print(f"1. Parameterized MAC Unit:      {'PASSED' if t1_success else 'FAILED'}")
     print(f"2. INT4 Vector Dot Product PE:  {'PASSED' if t2_success else 'FAILED'}")
+    print(f"3. Reconfigurable CGRA PE Node: {'PASSED' if t3_success else 'FAILED'}")
     print("="*50)
 
-    if t1_success and t2_success:
+    if t1_success and t2_success and t3_success:
         print("   [SUCCESS] All design suites fully verified!")
         print("="*50)
         sys.exit(0)
