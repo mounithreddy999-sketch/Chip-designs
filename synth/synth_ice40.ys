@@ -1,0 +1,26 @@
+# ==============================================================================
+# iCE40 HX8K FPGA Technology Mapping Script for Yosys
+# Target: Lattice iCE40 HX8K (7,680 LCs, 32 BRAMs)
+# Output: synth/out/mx_attention_core_ice40.v, synth/out/report_ice40.txt
+# ==============================================================================
+
+# Read all RTL source files
+read_verilog -sv ../rtl/mx_pe.v
+read_verilog -sv ../rtl/mx_systolic_mesh.v
+read_verilog -sv ../rtl/scratchpad_sram.v
+read_verilog -sv ../rtl/mx_pwl_exp.v
+read_verilog -sv ../rtl/mx_pwl_recip.v
+read_verilog -sv ../rtl/mx_softmax_unit.v
+read_verilog -sv ../rtl/mx_attention_core.v
+
+# Run iCE40-targeted synthesis
+synth_ice40 -top mx_attention_core -device hx
+
+# Structural check
+check
+
+# Dump statistics to report file
+tee -o out/report_ice40.txt stat
+
+# Write iCE40-mapped netlist
+write_verilog -noattr out/mx_attention_core_ice40.v

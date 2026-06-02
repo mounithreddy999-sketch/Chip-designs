@@ -75,12 +75,12 @@ module cgra_pe (
     // 8-bit Output Saturation (prevents data width expansion between nodes)
     reg signed [7:0] alu_out_sat;
     always @(*) begin
-        if (alu_out > 16'sd127) begin
+        if (r_accumulator > 16'sd127) begin
             alu_out_sat = 8'sd127;
-        end else if (alu_out < -16'sd128) begin
+        end else if (r_accumulator < -16'sd128) begin
             alu_out_sat = -8'sd128;
         end else begin
-            alu_out_sat = alu_out[7:0];
+            alu_out_sat = r_accumulator[7:0];
         end
     end
 
@@ -127,6 +127,10 @@ module cgra_pe (
             end
             if (en) begin
                 r_accumulator <= alu_out;
+`ifndef SYNTHESIS
+                $display("[%0t] PE Exec: op=%0d src_a_val=%0d src_b_val=%0d next_acc=%0d dest=%0d", 
+                         $time, r_config[7:6], op_a, op_b, alu_out, r_config[10:8]);
+`endif
             end
         end
     end

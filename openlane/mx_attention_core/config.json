@@ -1,0 +1,27 @@
+{
+    "DESIGN_NAME": "mx_attention_core",
+    "VERILOG_FILES": [
+        "dir::../../rtl/mx_pe.v",
+        "dir::../../rtl/mx_systolic_mesh.v",
+        "dir::../../rtl/scratchpad_sram.v",
+        "dir::../../rtl/mx_pwl_exp.v",
+        "dir::../../rtl/mx_pwl_recip.v",
+        "dir::../../rtl/mx_softmax_unit.v",
+        "dir::../../rtl/mx_attention_core.v"
+    ],
+    "CLOCK_PERIOD": 20.0,
+    "CLOCK_PORT": "clk",
+    "CLOCK_NET": "clk",
+    "SYNTH_PARAMETERS": [
+        "N=4"
+    ],
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 1000 1000",
+    "PL_TARGET_DENSITY": 0.45,
+    "SYNTH_STRATEGY": "DELAY 0",
+    "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+    "DESIGN_IS_CORE": 0,
+    "FP_PDN_CORE_RING": 0,
+    "VDD_NETS": ["vccd1"],
+    "GND_NETS": ["vssd1"]
+}

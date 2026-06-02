@@ -1,0 +1,2321 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+
+-- Running command `read_verilog -sv -D SYNTHESIS ../rtl/cgra_pe.v; read_verilog -sv -D SYNTHESIS ../rtl/cgra_mesh.v; read_verilog -sv -D SYNTHESIS ../rtl/cgra_sequencer.v; read_verilog -sv -D SYNTHESIS ../rtl/cgra_top.v; hierarchy -top cgra_top -chparam ROWS 4 -chparam COLS 4; synth -top cgra_top; dfflibmap -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib; abc -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib; clean; tee -o out/report_cgra_top_sky130.txt stat; write_verilog -noattr out/cgra_top_sky130.v' --
+
+1. Executing Verilog-2005 frontend: ../rtl/cgra_pe.v
+Parsing SystemVerilog input from `../rtl/cgra_pe.v' to AST representation.
+Generating RTLIL representation for module `\cgra_pe'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ../rtl/cgra_mesh.v
+Parsing SystemVerilog input from `../rtl/cgra_mesh.v' to AST representation.
+Generating RTLIL representation for module `\cgra_mesh'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ../rtl/cgra_sequencer.v
+Parsing SystemVerilog input from `../rtl/cgra_sequencer.v' to AST representation.
+Generating RTLIL representation for module `\cgra_sequencer'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ../rtl/cgra_top.v
+Parsing SystemVerilog input from `../rtl/cgra_top.v' to AST representation.
+Generating RTLIL representation for module `\cgra_top'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+Parameter \ROWS = 4
+Parameter \COLS = 4
+
+6. Executing AST frontend in derive mode using pre-parsed AST for module `\cgra_top'.
+Parameter \ROWS = 4
+Parameter \COLS = 4
+Generating RTLIL representation for module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_top'.
+
+6.1. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     \cgra_sequencer
+Used module:     \cgra_mesh
+Used module:         \cgra_pe
+Parameter \ROWS = 4
+Parameter \COLS = 4
+
+6.2. Executing AST frontend in derive mode using pre-parsed AST for module `\cgra_sequencer'.
+Parameter \ROWS = 4
+Parameter \COLS = 4
+Generating RTLIL representation for module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Parameter \ROWS = 4
+Parameter \COLS = 4
+
+6.3. Executing AST frontend in derive mode using pre-parsed AST for module `\cgra_mesh'.
+Parameter \ROWS = 4
+Parameter \COLS = 4
+Generating RTLIL representation for module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+
+6.4. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+
+6.5. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+Removing unused module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_top'.
+Removing unused module `\cgra_sequencer'.
+Removing unused module `\cgra_mesh'.
+Removed 3 unused modules.
+
+7. Executing SYNTH pass.
+
+7.1. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1.1. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+
+7.1.2. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+Removed 0 unused modules.
+
+7.2. Executing PROC pass (convert processes to netlists).
+
+7.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$../rtl/cgra_sequencer.v:64$100 in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Marked 9 switch rules as full_case in process $proc$../rtl/cgra_sequencer.v:64$100 in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_sequencer.v:46$92 in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_pe.v:120$11 in module cgra_pe.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_pe.v:98$10 in module cgra_pe.
+Marked 2 switch rules as full_case in process $proc$../rtl/cgra_pe.v:77$7 in module cgra_pe.
+Removed 1 dead cases from process $proc$../rtl/cgra_pe.v:65$3 in module cgra_pe.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_pe.v:65$3 in module cgra_pe.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_pe.v:51$2 in module cgra_pe.
+Marked 1 switch rules as full_case in process $proc$../rtl/cgra_pe.v:39$1 in module cgra_pe.
+Removed a total of 2 dead cases.
+
+7.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 2 redundant assignments.
+Promoted 75 assignments to connections.
+
+7.2.4. Executing PROC_INIT pass (extract init attributes).
+
+7.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+7.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~20 debug messages>
+
+7.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+Creating decoders for process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+     1/7: $0\mesh_en[0:0]
+     2/7: $0\mesh_config_valid[0:0]
+     3/7: $0\step_mode[0:0]
+     4/7: $0\state[1:0]
+     5/7: $0\mesh_config_data[255:0]
+     6/7: $0\running[0:0]
+     7/7: $0\pc[4:0]
+Creating decoders for process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+     1/3: $1$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$98
+     2/3: $1$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_DATA[255:0]$97
+     3/3: $1$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_ADDR[4:0]$96
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:120$11'.
+     1/2: $0\r_accumulator[15:0]
+     2/2: $0\r_config[15:0]
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+     1/4: $1\r_out_w[7:0]
+     2/4: $1\r_out_e[7:0]
+     3/4: $1\r_out_s[7:0]
+     4/4: $1\r_out_n[7:0]
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:77$7'.
+     1/2: $2\alu_out_sat[7:0]
+     2/2: $1\alu_out_sat[7:0]
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:65$3'.
+     1/1: $1\alu_out[15:0]
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:51$2'.
+     1/1: $1\op_b[7:0]
+Creating decoders for process `\cgra_pe.$proc$../rtl/cgra_pe.v:39$1'.
+     1/1: $1\op_a[7:0]
+
+7.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[0]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[1]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[2]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[3]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[4]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[5]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[6]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[7]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[8]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[9]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[10]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[11]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[12]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[13]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[14]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_n[15]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[0]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[1]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[2]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[3]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[4]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[5]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[6]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[7]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[8]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[9]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[10]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[11]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[12]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[13]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[14]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_s[15]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[0]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[1]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[2]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[3]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[4]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[5]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[6]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[7]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[8]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[9]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[10]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[11]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[12]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[13]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[14]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_e[15]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[0]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[1]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[2]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[3]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[4]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[5]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[6]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[7]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[8]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[9]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[10]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[11]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[12]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[13]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[14]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.\pe_out_w[15]' from process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+No latch inferred for signal `\cgra_pe.\r_out_n' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+No latch inferred for signal `\cgra_pe.\r_out_s' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+No latch inferred for signal `\cgra_pe.\r_out_e' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+No latch inferred for signal `\cgra_pe.\r_out_w' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+No latch inferred for signal `\cgra_pe.\alu_out_sat' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:77$7'.
+No latch inferred for signal `\cgra_pe.\alu_out' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:65$3'.
+No latch inferred for signal `\cgra_pe.\op_b' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:51$2'.
+No latch inferred for signal `\cgra_pe.\op_a' from process `\cgra_pe.$proc$../rtl/cgra_pe.v:39$1'.
+
+7.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\pc' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$367' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\running' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$368' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\mesh_config_data' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$369' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\mesh_config_valid' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$370' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\mesh_en' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$371' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\state' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$372' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.\step_mode' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+  created $dff cell `$procdff$373' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_ADDR' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+  created $dff cell `$procdff$374' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_DATA' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+  created $dff cell `$procdff$375' with positive edge clock.
+Creating register for signal `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN' using process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+  created $dff cell `$procdff$376' with positive edge clock.
+Creating register for signal `\cgra_pe.\r_config' using process `\cgra_pe.$proc$../rtl/cgra_pe.v:120$11'.
+  created $dff cell `$procdff$377' with positive edge clock.
+Creating register for signal `\cgra_pe.\r_accumulator' using process `\cgra_pe.$proc$../rtl/cgra_pe.v:120$11'.
+  created $dff cell `$procdff$378' with positive edge clock.
+
+7.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.$proc$../rtl/cgra_mesh.v:0$169'.
+Found and cleaned up 10 empty switches in `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+Removing empty process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:64$100'.
+Found and cleaned up 1 empty switch in `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+Removing empty process `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$proc$../rtl/cgra_sequencer.v:46$92'.
+Found and cleaned up 3 empty switches in `\cgra_pe.$proc$../rtl/cgra_pe.v:120$11'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:120$11'.
+Found and cleaned up 1 empty switch in `\cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:98$10'.
+Found and cleaned up 2 empty switches in `\cgra_pe.$proc$../rtl/cgra_pe.v:77$7'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:77$7'.
+Found and cleaned up 1 empty switch in `\cgra_pe.$proc$../rtl/cgra_pe.v:65$3'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:65$3'.
+Found and cleaned up 1 empty switch in `\cgra_pe.$proc$../rtl/cgra_pe.v:51$2'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:51$2'.
+Found and cleaned up 1 empty switch in `\cgra_pe.$proc$../rtl/cgra_pe.v:39$1'.
+Removing empty process `cgra_pe.$proc$../rtl/cgra_pe.v:39$1'.
+Cleaned up 20 empty switches.
+
+7.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~4 debug messages>
+Optimizing module cgra_top.
+Optimizing module cgra_pe.
+<suppressed ~7 debug messages>
+
+7.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_top.
+Optimizing module cgra_pe.
+
+7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_top..
+Finding unused cells or wires in module \cgra_pe..
+Removed 3 unused cells and 216 unused wires.
+<suppressed ~6 debug messages>
+
+7.5. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh...
+Checking module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer...
+Checking module cgra_pe...
+Checking module cgra_top...
+Found and reported 0 problems.
+
+7.6. Executing OPT pass (performing simple optimizations).
+
+7.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+<suppressed ~30 debug messages>
+Finding identical cells in module `\cgra_pe'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\cgra_top'.
+Removed a total of 13 cells.
+
+7.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$250: \running -> 1'0
+      Replacing known input bits on port A of cell $procmux$248: \running -> 1'1
+      Replacing known input bits on port B of cell $procmux$246: \running -> 1'1
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$341.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 1 multiplexer ports.
+<suppressed ~19 debug messages>
+
+7.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+    Consolidated identical input bits for $mux cell $procmux$297:
+      Old ports: A=256'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000, B=256'1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111, Y=$0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95
+      New ports: A=1'0, B=1'1, Y=$0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0]
+      New connections: $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [255:1] = { $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] $0$memwr$\inst_mem$../rtl/cgra_sequencer.v:48$91_EN[255:0]$95 [0] }
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+    New ctrl vector for $pmux cell $procmux$316: $auto$opt_reduce.cc:134:opt_pmux$381
+    New ctrl vector for $pmux cell $procmux$321: $auto$opt_reduce.cc:134:opt_pmux$383
+    New ctrl vector for $pmux cell $procmux$327: $auto$opt_reduce.cc:134:opt_pmux$385
+    New ctrl vector for $pmux cell $procmux$334: $auto$opt_reduce.cc:134:opt_pmux$387
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 5 changes.
+
+7.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 0 unused cells and 14 unused wires.
+<suppressed ~2 debug messages>
+
+7.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~19 debug messages>
+
+7.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.6.16. Finished OPT passes. (There is nothing left to do.)
+
+7.7. Executing FSM pass (extract and optimize FSM).
+
+7.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.state.
+
+7.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\state' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+  found $dff cell for state register: $procdff$372
+  root of input selection tree: $0\state[1:0]
+  found reset state: 2'00 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: \stop
+  found ctrl input: $procmux$218_CMP
+  found ctrl input: $procmux$172_CMP
+  found ctrl input: $procmux$182_CMP
+  found ctrl input: $procmux$198_CMP
+  found ctrl input: \step_mode
+  found ctrl input: \running
+  found state code: 2'00
+  found ctrl input: $eq$../rtl/cgra_sequencer.v:109$101_Y
+  found state code: 2'01
+  found ctrl input: \loop_en
+  found state code: 2'11
+  found state code: 2'10
+  found ctrl input: \start
+  found ctrl input: \step
+  found ctrl output: $procmux$218_CMP
+  found ctrl output: $procmux$198_CMP
+  found ctrl output: $procmux$182_CMP
+  found ctrl output: $procmux$172_CMP
+  ctrl inputs: { $eq$../rtl/cgra_sequencer.v:109$101_Y \step_mode \running \loop_en \step \stop \start \rst }
+  ctrl outputs: { $0\state[1:0] $procmux$172_CMP $procmux$182_CMP $procmux$198_CMP $procmux$218_CMP }
+  transition:       2'00 8'----0000 ->       2'00 6'000010
+  transition:       2'00 8'----1000 ->       2'01 6'010010
+  transition:       2'00 8'-----010 ->       2'01 6'010010
+  transition:       2'00 8'-----1-0 ->       2'00 6'000010
+  transition:       2'00 8'-------1 ->       2'00 6'000010
+  transition:       2'10 8'-----0-0 ->       2'11 6'111000
+  transition:       2'10 8'-----1-0 ->       2'00 6'001000
+  transition:       2'10 8'-------1 ->       2'00 6'001000
+  transition:       2'01 8'-----0-0 ->       2'10 6'100100
+  transition:       2'01 8'-----1-0 ->       2'00 6'000100
+  transition:       2'01 8'-------1 ->       2'00 6'000100
+  transition:       2'11 8'-00--0-0 ->       2'00 6'000001
+  transition:       2'11 8'001--0-0 ->       2'01 6'010001
+  transition:       2'11 8'1010-0-0 ->       2'00 6'000001
+  transition:       2'11 8'1011-0-0 ->       2'01 6'010001
+  transition:       2'11 8'-1---0-0 ->       2'00 6'000001
+  transition:       2'11 8'-----1-0 ->       2'00 6'000001
+  transition:       2'11 8'-------1 ->       2'00 6'000001
+
+7.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$388' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+
+7.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 14 unused cells and 14 unused wires.
+<suppressed ~15 debug messages>
+
+7.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$388' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+  Removing unused output signal $0\state[1:0] [0].
+  Removing unused output signal $0\state[1:0] [1].
+
+7.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\state$388' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  00 -> ---1
+  10 -> --1-
+  01 -> -1--
+  11 -> 1---
+
+7.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\state$388' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer':
+-------------------------------------
+
+  Information on FSM $fsm$\state$388 (\state):
+
+  Number of input signals:    8
+  Number of output signals:   4
+  Number of state bits:       4
+
+  Input signals:
+    0: \rst
+    1: \start
+    2: \stop
+    3: \step
+    4: \loop_en
+    5: \running
+    6: \step_mode
+    7: $eq$../rtl/cgra_sequencer.v:109$101_Y
+
+  Output signals:
+    0: $procmux$218_CMP
+    1: $procmux$198_CMP
+    2: $procmux$182_CMP
+    3: $procmux$172_CMP
+
+  State encoding:
+    0:     4'---1  <RESET STATE>
+    1:     4'--1-
+    2:     4'-1--
+    3:     4'1---
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 8'----0000   ->     0 4'0010
+      1:     0 8'-----1-0   ->     0 4'0010
+      2:     0 8'-------1   ->     0 4'0010
+      3:     0 8'----1000   ->     2 4'0010
+      4:     0 8'-----010   ->     2 4'0010
+      5:     1 8'-----1-0   ->     0 4'1000
+      6:     1 8'-------1   ->     0 4'1000
+      7:     1 8'-----0-0   ->     3 4'1000
+      8:     2 8'-----1-0   ->     0 4'0100
+      9:     2 8'-------1   ->     0 4'0100
+     10:     2 8'-----0-0   ->     1 4'0100
+     11:     3 8'1010-0-0   ->     0 4'0001
+     12:     3 8'-00--0-0   ->     0 4'0001
+     13:     3 8'-1---0-0   ->     0 4'0001
+     14:     3 8'-----1-0   ->     0 4'0001
+     15:     3 8'-------1   ->     0 4'0001
+     16:     3 8'1011-0-0   ->     2 4'0001
+     17:     3 8'001--0-0   ->     2 4'0001
+
+-------------------------------------
+
+7.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\state$388' from module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+
+7.8. Executing OPT pass (performing simple optimizations).
+
+7.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~5 debug messages>
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 1 cells.
+
+7.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~18 debug messages>
+
+7.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$373 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$200_Y, Q = \step_mode, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$444 ($sdff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$195_Y, Q = \step_mode).
+Adding SRST signal on $procdff$371 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$171_Y, Q = \mesh_en, rval = 1'0).
+Adding SRST signal on $procdff$370 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$181_Y, Q = \mesh_config_valid, rval = 1'0).
+Adding SRST signal on $procdff$369 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$238_Y, Q = \mesh_config_data, rval = 256'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$458 ($sdff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \current_instruction, Q = \mesh_config_data).
+Adding SRST signal on $procdff$368 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$255_Y, Q = \running, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$464 ($sdff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$255_Y, Q = \running).
+Adding SRST signal on $procdff$367 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$291_Y, Q = \pc, rval = 5'00000).
+Adding EN signal on $auto$ff.cc:266:slice$474 ($sdff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = $procmux$284_Y, Q = \pc).
+Adding SRST signal on $procdff$378 ($dff) from module cgra_pe (D = $procmux$305_Y, Q = \r_accumulator, rval = 16'0000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$488 ($sdff) from module cgra_pe (D = \alu_out, Q = \r_accumulator).
+Adding SRST signal on $procdff$377 ($dff) from module cgra_pe (D = $procmux$310_Y, Q = \r_config, rval = 16'0000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$490 ($sdff) from module cgra_pe (D = \config_data, Q = \r_config).
+
+7.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 18 unused cells and 27 unused wires.
+<suppressed ~20 debug messages>
+
+7.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~3 debug messages>
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~16 debug messages>
+
+7.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+<suppressed ~18 debug messages>
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 6 cells.
+
+7.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+7.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+7.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.8.23. Finished OPT passes. (There is nothing left to do.)
+
+7.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 4 bits (of 5) from port B of cell $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$add$../rtl/cgra_sequencer.v:112$102 ($add).
+Removed top 1 bits (of 3) from port B of cell $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$auto$fsm_map.cc:77:implement_pattern_cache$428 ($eq).
+Removed top 2 bits (of 5) from port B of cell $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.$auto$fsm_map.cc:77:implement_pattern_cache$436 ($eq).
+Removed top 8 bits (of 16) from port A of cell cgra_pe.$add$../rtl/cgra_pe.v:68$6 ($add).
+Removed top 8 bits (of 16) from port B of cell cgra_pe.$add$../rtl/cgra_pe.v:68$6 ($add).
+Removed top 7 bits (of 16) from port Y of cell cgra_pe.$add$../rtl/cgra_pe.v:68$6 ($add).
+Removed top 8 bits (of 16) from port B of cell cgra_pe.$gt$../rtl/cgra_pe.v:78$8 ($gt).
+Removed top 8 bits (of 16) from port B of cell cgra_pe.$lt$../rtl/cgra_pe.v:80$9 ($lt).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$322_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$328_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell cgra_pe.$procmux$335_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell cgra_pe.$procmux$349_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$355_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$356_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell cgra_pe.$procmux$357_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$363_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell cgra_pe.$procmux$364_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell cgra_pe.$procmux$365_CMP0 ($eq).
+Removed top 5 bits (of 16) from FF cell cgra_pe.$auto$ff.cc:266:slice$491 ($sdffe).
+Removed top 5 bits (of 16) from wire cgra_pe.r_config.
+
+7.10. Executing PEEPOPT pass (run peephole optimizers).
+
+7.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+7.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer:
+  creating $macc model for $add$../rtl/cgra_sequencer.v:112$102 ($add).
+  creating $alu model for $macc $add$../rtl/cgra_sequencer.v:112$102.
+  creating $alu cell for $add$../rtl/cgra_sequencer.v:112$102: $auto$alumacc.cc:485:replace_alu$493
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module cgra_pe:
+  creating $macc model for $add$../rtl/cgra_pe.v:67$5 ($add).
+  creating $macc model for $add$../rtl/cgra_pe.v:68$6 ($add).
+  creating $macc model for $mul$../rtl/cgra_pe.v:67$4 ($mul).
+  merging $macc model for $mul$../rtl/cgra_pe.v:67$4 into $add$../rtl/cgra_pe.v:67$5.
+  creating $alu model for $macc $add$../rtl/cgra_pe.v:68$6.
+  creating $macc cell for $add$../rtl/cgra_pe.v:67$5: $auto$alumacc.cc:365:replace_macc$496
+  creating $alu model for $gt$../rtl/cgra_pe.v:78$8 ($gt): new $alu
+  creating $alu model for $lt$../rtl/cgra_pe.v:80$9 ($lt): new $alu
+  creating $alu cell for $lt$../rtl/cgra_pe.v:80$9: $auto$alumacc.cc:485:replace_alu$499
+  creating $alu cell for $gt$../rtl/cgra_pe.v:78$8: $auto$alumacc.cc:485:replace_alu$512
+  creating $alu cell for $add$../rtl/cgra_pe.v:68$6: $auto$alumacc.cc:485:replace_alu$519
+  created 3 $alu and 1 $macc cells.
+Extracting $alu and $macc cells in module cgra_top:
+  created 0 $alu and 0 $macc cells.
+
+7.13. Executing SHARE pass (SAT-based resource sharing).
+
+7.14. Executing OPT pass (performing simple optimizations).
+
+7.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+<suppressed ~1 debug messages>
+Optimizing module cgra_top.
+
+7.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+7.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 2 unused cells and 4 unused wires.
+<suppressed ~3 debug messages>
+
+7.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+7.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.14.16. Finished OPT passes. (There is nothing left to do.)
+
+7.15. Executing MEMORY pass.
+
+7.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.inst_mem write port 0.
+
+7.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\inst_mem'[0] in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer': merging output FF to cell.
+    Write port 0: non-transparent.
+
+7.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 1 unused cells and 257 unused wires.
+<suppressed ~3 debug messages>
+
+7.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.17. Executing OPT pass (performing simple optimizations).
+
+7.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~14 debug messages>
+Optimizing module cgra_pe.
+<suppressed ~2 debug messages>
+Optimizing module cgra_top.
+
+7.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 1 cells.
+
+7.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 8 unused cells and 20 unused wires.
+<suppressed ~10 debug messages>
+
+7.17.5. Finished fast OPT passes.
+
+7.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \inst_mem in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer:
+  created 32 $dff cells and 0 static cells of width 256.
+Extracted data FF from read port 0 of $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.inst_mem: $\inst_mem$rdreg[0]
+  read interface: 1 $dff and 31 $mux cells.
+  write interface: 32 write mux blocks.
+
+7.19. Executing OPT pass (performing simple optimizations).
+
+7.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~12 debug messages>
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+7.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.19.6. Executing OPT_SHARE pass.
+
+7.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 0 unused cells and 70 unused wires.
+<suppressed ~1 debug messages>
+
+7.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~44 debug messages>
+
+7.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.19.14. Executing OPT_SHARE pass.
+
+7.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\inst_mem[9]$811 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[9]).
+Adding EN signal on $memory\inst_mem[8]$809 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[8]).
+Adding EN signal on $memory\inst_mem[7]$807 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[7]).
+Adding EN signal on $memory\inst_mem[6]$805 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[6]).
+Adding EN signal on $memory\inst_mem[5]$803 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[5]).
+Adding EN signal on $memory\inst_mem[4]$801 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[4]).
+Adding EN signal on $memory\inst_mem[3]$799 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[3]).
+Adding EN signal on $memory\inst_mem[31]$855 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[31]).
+Adding EN signal on $memory\inst_mem[30]$853 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[30]).
+Adding EN signal on $memory\inst_mem[2]$797 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[2]).
+Adding EN signal on $memory\inst_mem[29]$851 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[29]).
+Adding EN signal on $memory\inst_mem[28]$849 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[28]).
+Adding EN signal on $memory\inst_mem[27]$847 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[27]).
+Adding EN signal on $memory\inst_mem[26]$845 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[26]).
+Adding EN signal on $memory\inst_mem[25]$843 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[25]).
+Adding EN signal on $memory\inst_mem[24]$841 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[24]).
+Adding EN signal on $memory\inst_mem[23]$839 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[23]).
+Adding EN signal on $memory\inst_mem[22]$837 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[22]).
+Adding EN signal on $memory\inst_mem[21]$835 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[21]).
+Adding EN signal on $memory\inst_mem[20]$833 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[20]).
+Adding EN signal on $memory\inst_mem[1]$795 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[1]).
+Adding EN signal on $memory\inst_mem[19]$831 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[19]).
+Adding EN signal on $memory\inst_mem[18]$829 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[18]).
+Adding EN signal on $memory\inst_mem[17]$827 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[17]).
+Adding EN signal on $memory\inst_mem[16]$825 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[16]).
+Adding EN signal on $memory\inst_mem[15]$823 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[15]).
+Adding EN signal on $memory\inst_mem[14]$821 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[14]).
+Adding EN signal on $memory\inst_mem[13]$819 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[13]).
+Adding EN signal on $memory\inst_mem[12]$817 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[12]).
+Adding EN signal on $memory\inst_mem[11]$815 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[11]).
+Adding EN signal on $memory\inst_mem[10]$813 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[10]).
+Adding EN signal on $memory\inst_mem[0]$793 ($dff) from module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer (D = \inst_write_data, Q = \inst_mem[0]).
+
+7.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 32 unused cells and 32 unused wires.
+<suppressed ~33 debug messages>
+
+7.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+7.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_pe..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \cgra_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~12 debug messages>
+
+7.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+  Optimizing cells in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+  Optimizing cells in module \cgra_pe.
+  Optimizing cells in module \cgra_top.
+Performed a total of 0 changes.
+
+7.19.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+Finding identical cells in module `\cgra_top'.
+Removed a total of 0 cells.
+
+7.19.22. Executing OPT_SHARE pass.
+
+7.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+
+7.19.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.19.26. Finished OPT passes. (There is nothing left to do.)
+
+7.20. Executing TECHMAP pass (map to technology primitives).
+
+7.20.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+7.20.2. Continuing TECHMAP pass.
+Using template $paramod$e830d104b5de63a966ae948f6aff012e63986700\_90_pmux for cells of type $pmux.
+Using template $paramod$381d5ac9ce4d79feb95fa03ade8f84c5a58bb3c0\_90_alu for cells of type $alu.
+Using template $paramod$003256218b736a5f72fe70a6e5006b2214b99da4\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $or.
+Using extmapper maccmap for cells of type $macc.
+  add \r_accumulator (16 bits, signed)
+  add \op_a * \op_b (8x8 bits, signed)
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$dab6169b2c646fd744827f2141b78f93fabad1a7\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod$d5c1c4131927aec19f116e7a36372b1981bfcd7e\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $and.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000001001 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
+Using template $paramod$6df0329addda9228fcc2546de2aaf14ad26c98e1\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using template $paramod$672a140277c71df8314410f22acc08d55222c3c7\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $dff.
+Using extmapper simplemap for cells of type $sdff.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1147 debug messages>
+
+7.21. Executing OPT pass (performing simple optimizations).
+
+7.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~81 debug messages>
+Optimizing module cgra_pe.
+<suppressed ~444 debug messages>
+Optimizing module cgra_top.
+
+7.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+<suppressed ~75 debug messages>
+Finding identical cells in module `\cgra_pe'.
+<suppressed ~504 debug messages>
+Finding identical cells in module `\cgra_top'.
+Removed a total of 193 cells.
+
+7.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 82 unused cells and 551 unused wires.
+<suppressed ~84 debug messages>
+
+7.21.5. Finished fast OPT passes.
+
+7.22. Executing ABC pass (technology mapping using ABC).
+
+7.22.1. Extracting gate netlist of module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+7.22.2. Extracting gate netlist of module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer' to `<abc-temp-dir>/input.blif'..
+Extracted 8126 gates and 16342 wires to a netlist network with 8214 inputs and 304 outputs.
+
+7.22.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+7.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:               MUX cells:     7938
+ABC RESULTS:               XOR cells:        4
+ABC RESULTS:               NOT cells:       11
+ABC RESULTS:             ORNOT cells:        9
+ABC RESULTS:              NAND cells:       10
+ABC RESULTS:                OR cells:       72
+ABC RESULTS:            ANDNOT cells:       55
+ABC RESULTS:        internal signals:     7824
+ABC RESULTS:           input signals:     8214
+ABC RESULTS:          output signals:      304
+Removing temp directory.
+
+7.22.3. Extracting gate netlist of module `\cgra_pe' to `<abc-temp-dir>/input.blif'..
+Extracted 1039 gates and 1108 wires to a netlist network with 67 inputs and 48 outputs.
+
+7.22.3.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+7.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       33
+ABC RESULTS:              XNOR cells:       58
+ABC RESULTS:               NOT cells:       21
+ABC RESULTS:              NAND cells:       24
+ABC RESULTS:                OR cells:      183
+ABC RESULTS:             ORNOT cells:       33
+ABC RESULTS:               NOR cells:       66
+ABC RESULTS:            ANDNOT cells:      397
+ABC RESULTS:               XOR cells:      156
+ABC RESULTS:               MUX cells:       16
+ABC RESULTS:        internal signals:      993
+ABC RESULTS:           input signals:       67
+ABC RESULTS:          output signals:       48
+Removing temp directory.
+
+7.22.4. Extracting gate netlist of module `\cgra_top' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+7.23. Executing OPT pass (performing simple optimizations).
+
+7.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh.
+Optimizing module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer.
+<suppressed ~3841 debug messages>
+Optimizing module cgra_pe.
+Optimizing module cgra_top.
+
+7.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Finding identical cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Finding identical cells in module `\cgra_pe'.
+<suppressed ~9 debug messages>
+Finding identical cells in module `\cgra_top'.
+Removed a total of 3 cells.
+
+7.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh..
+Finding unused cells or wires in module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer..
+Finding unused cells or wires in module \cgra_pe..
+Finding unused cells or wires in module \cgra_top..
+Removed 2 unused cells and 9040 unused wires.
+<suppressed ~7 debug messages>
+
+7.23.5. Finished fast OPT passes.
+
+7.24. Executing HIERARCHY pass (managing design hierarchy).
+
+7.24.1. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+
+7.24.2. Analyzing design hierarchy..
+Top module:  \cgra_top
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh
+Used module:         \cgra_pe
+Used module:     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer
+Removed 0 unused modules.
+
+7.25. Printing statistics.
+
+=== $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh ===
+
+   Number of wires:                175
+   Number of wire bits:           1824
+   Number of public wires:         175
+   Number of public wire bits:    1824
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     cgra_pe                        16
+
+=== $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer ===
+
+   Number of wires:               7893
+   Number of wire bits:          16832
+   Number of public wires:          49
+   Number of public wire bits:    8733
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              16560
+     $_ANDNOT_                      55
+     $_DFFE_PP_                   8192
+     $_DFF_P_                        4
+     $_MUX_                       7938
+     $_NAND_                        10
+     $_NOR_                          2
+     $_NOT_                          9
+     $_ORNOT_                        9
+     $_OR_                          72
+     $_SDFFE_PP0P_                 263
+     $_SDFF_PP0_                     2
+     $_XOR_                          4
+
+=== cgra_pe ===
+
+   Number of wires:                957
+   Number of wire bits:           1103
+   Number of public wires:          21
+   Number of public wire bits:     167
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1011
+     $_ANDNOT_                     397
+     $_AND_                         30
+     $_MUX_                         16
+     $_NAND_                        24
+     $_NOR_                         66
+     $_NOT_                         21
+     $_ORNOT_                       33
+     $_OR_                         183
+     $_SDFFE_PP0P_                  27
+     $_XNOR_                        58
+     $_XOR_                        156
+
+=== cgra_top ===
+
+   Number of wires:                 24
+   Number of wire bits:            800
+   Number of public wires:          24
+   Number of public wire bits:     800
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh      1
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer      1
+
+=== design hierarchy ===
+
+   cgra_top                          1
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh      1
+       cgra_pe                      16
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer      1
+
+   Number of wires:              23404
+   Number of wire bits:          37104
+   Number of public wires:         584
+   Number of public wire bits:   14029
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              32736
+     $_ANDNOT_                    6407
+     $_AND_                        480
+     $_DFFE_PP_                   8192
+     $_DFF_P_                        4
+     $_MUX_                       8194
+     $_NAND_                       394
+     $_NOR_                       1058
+     $_NOT_                        345
+     $_ORNOT_                      537
+     $_OR_                        3000
+     $_SDFFE_PP0P_                 695
+     $_SDFF_PP0_                     2
+     $_XNOR_                       928
+     $_XOR_                       2500
+
+7.26. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh...
+Checking module $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer...
+Checking module cgra_pe...
+Checking module cgra_top...
+Found and reported 0 problems.
+
+8. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbn_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtn_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE|IQ&!DE' in pin attribute of cell 'sky130_fd_sc_hd__edfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfbbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfrtp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfsbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfstp_4' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sdfxtp_4' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxbp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_1' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_2' - skipping.
+Warning: Found unsupported expression 'D&DE&!SCE|IQ&!DE&!SCE|SCD&SCE' in pin attribute of cell 'sky130_fd_sc_hd__sedfxtp_4' - skipping.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+8.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh':
+Mapping DFF cells in module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer':
+  mapped 8461 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+Mapping DFF cells in module `\cgra_pe':
+  mapped 27 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+Mapping DFF cells in module `\cgra_top':
+
+9. Executing ABC pass (technology mapping using ABC).
+
+9.1. Extracting gate netlist of module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+9.2. Extracting gate netlist of module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer' to `<abc-temp-dir>/input.blif'..
+Extracted 16819 gates and 25546 wires to a netlist network with 8726 inputs and 8461 outputs.
+
+9.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /mnt/c/Users/mouni/Documents/GitHub/My-Chips/synth/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.08 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "AMUX2_3V" without logic function.
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/mnt/c/Users/mouni/Documents/GitHub/My-Chips/synth/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (95 skipped: 63 seq; 13 tri-state; 19 no func; 0 dont_use).  Time =     0.11 sec
+ABC: Memory =   19.60 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+9.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o31a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__mux4_2 cells:     2304
+ABC RESULTS:   sky130_fd_sc_hd__a311oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a211oi_1 cells:      259
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:     1026
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__or3b_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      291
+ABC RESULTS:   sky130_fd_sc_hd__mux2_1 cells:     8192
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        5
+ABC RESULTS:        internal signals:     8359
+ABC RESULTS:           input signals:     8726
+ABC RESULTS:          output signals:     8461
+Removing temp directory.
+
+9.3. Extracting gate netlist of module `\cgra_pe' to `<abc-temp-dir>/input.blif'..
+Extracted 1038 gates and 1120 wires to a netlist network with 81 inputs and 59 outputs.
+
+9.3.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /mnt/c/Users/mouni/Documents/GitHub/My-Chips/synth/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.07 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "AMUX2_3V" without logic function.
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/mnt/c/Users/mouni/Documents/GitHub/My-Chips/synth/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (95 skipped: 63 seq; 13 tri-state; 19 no func; 0 dont_use).  Time =     0.11 sec
+ABC: Memory =   19.60 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+9.3.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__nor4_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__nor3b_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__o211ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__o21ba_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a221oi_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand4_1 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__xor3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a222oi_1 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__a22oi_1 cells:       11
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__a31oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__xnor3_1 cells:        9
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__a21o_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       10
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        7
+ABC RESULTS:   sky130_fd_sc_hd__o32ai_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:       14
+ABC RESULTS:   sky130_fd_sc_hd__nor2b_1 cells:        4
+ABC RESULTS:   sky130_fd_sc_hd__o31ai_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:      113
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:       13
+ABC RESULTS:   sky130_fd_sc_hd__nand3_1 cells:       22
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       47
+ABC RESULTS:   sky130_fd_sc_hd__maj3_1 cells:       20
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:       54
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:       84
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       51
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:       22
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:      106
+ABC RESULTS:        internal signals:      980
+ABC RESULTS:           input signals:       81
+ABC RESULTS:          output signals:       59
+Removing temp directory.
+
+9.4. Extracting gate netlist of module `\cgra_top' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+Removed 0 unused cells and 26394 unused wires.
+
+10. Printing statistics.
+
+=== $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh ===
+
+   Number of wires:                175
+   Number of wire bits:           1824
+   Number of public wires:         175
+   Number of public wire bits:    1824
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     cgra_pe                        16
+
+=== $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer ===
+
+   Number of wires:              12169
+   Number of wire bits:          20853
+   Number of public wires:          49
+   Number of public wire bits:    8733
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              20581
+     sky130_fd_sc_hd__a211oi_1     259
+     sky130_fd_sc_hd__a21oi_1        4
+     sky130_fd_sc_hd__a221oi_1       1
+     sky130_fd_sc_hd__a311oi_1       1
+     sky130_fd_sc_hd__a31oi_1        1
+     sky130_fd_sc_hd__and2_0         5
+     sky130_fd_sc_hd__clkinv_1       3
+     sky130_fd_sc_hd__dfxtp_1     8461
+     sky130_fd_sc_hd__lpflow_isobufsrc_1      1
+     sky130_fd_sc_hd__mux2_1      8192
+     sky130_fd_sc_hd__mux2i_1     1026
+     sky130_fd_sc_hd__mux4_2      2304
+     sky130_fd_sc_hd__nand2_1        5
+     sky130_fd_sc_hd__nand2b_1       2
+     sky130_fd_sc_hd__nand3_1        4
+     sky130_fd_sc_hd__nand3b_1       5
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nor2_1       291
+     sky130_fd_sc_hd__nor3_1         2
+     sky130_fd_sc_hd__o21ai_0        5
+     sky130_fd_sc_hd__o31a_1         1
+     sky130_fd_sc_hd__o31ai_1        1
+     sky130_fd_sc_hd__or3_1          2
+     sky130_fd_sc_hd__or3b_1         3
+     sky130_fd_sc_hd__xor2_1         1
+
+=== cgra_pe ===
+
+   Number of wires:                677
+   Number of wire bits:            808
+   Number of public wires:          20
+   Number of public wire bits:     151
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                716
+     sky130_fd_sc_hd__a21o_1         7
+     sky130_fd_sc_hd__a21oi_1       47
+     sky130_fd_sc_hd__a221oi_1       3
+     sky130_fd_sc_hd__a222oi_1      32
+     sky130_fd_sc_hd__a22oi_1       11
+     sky130_fd_sc_hd__a31oi_1        5
+     sky130_fd_sc_hd__and2_0        10
+     sky130_fd_sc_hd__and3b_1        4
+     sky130_fd_sc_hd__and4_1         3
+     sky130_fd_sc_hd__clkinv_1       7
+     sky130_fd_sc_hd__dfxtp_1       27
+     sky130_fd_sc_hd__lpflow_inputiso1p_1     14
+     sky130_fd_sc_hd__lpflow_isobufsrc_1     14
+     sky130_fd_sc_hd__maj3_1        20
+     sky130_fd_sc_hd__mux2i_1       22
+     sky130_fd_sc_hd__nand2_1      113
+     sky130_fd_sc_hd__nand2b_1      13
+     sky130_fd_sc_hd__nand3_1       22
+     sky130_fd_sc_hd__nand4_1        6
+     sky130_fd_sc_hd__nor2_1       106
+     sky130_fd_sc_hd__nor2b_1        4
+     sky130_fd_sc_hd__nor3_1         3
+     sky130_fd_sc_hd__nor3b_1        6
+     sky130_fd_sc_hd__nor4_1         2
+     sky130_fd_sc_hd__nor4b_1        1
+     sky130_fd_sc_hd__o211ai_1       2
+     sky130_fd_sc_hd__o21a_1         4
+     sky130_fd_sc_hd__o21ai_0       51
+     sky130_fd_sc_hd__o21ba_1        1
+     sky130_fd_sc_hd__o31ai_1        1
+     sky130_fd_sc_hd__o32ai_1        2
+     sky130_fd_sc_hd__or3_1          3
+     sky130_fd_sc_hd__xnor2_1       84
+     sky130_fd_sc_hd__xnor3_1        9
+     sky130_fd_sc_hd__xor2_1        54
+     sky130_fd_sc_hd__xor3_1         3
+
+=== cgra_top ===
+
+   Number of wires:                 24
+   Number of wire bits:            800
+   Number of public wires:          24
+   Number of public wire bits:     800
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh      1
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer      1
+
+=== design hierarchy ===
+
+   cgra_top                          1
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh      1
+       cgra_pe                      16
+     $paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer      1
+
+   Number of wires:              23200
+   Number of wire bits:          36405
+   Number of public wires:         568
+   Number of public wire bits:   13773
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              32037
+     sky130_fd_sc_hd__a211oi_1     259
+     sky130_fd_sc_hd__a21o_1       112
+     sky130_fd_sc_hd__a21oi_1      756
+     sky130_fd_sc_hd__a221oi_1      49
+     sky130_fd_sc_hd__a222oi_1     512
+     sky130_fd_sc_hd__a22oi_1      176
+     sky130_fd_sc_hd__a311oi_1       1
+     sky130_fd_sc_hd__a31oi_1       81
+     sky130_fd_sc_hd__and2_0       165
+     sky130_fd_sc_hd__and3b_1       64
+     sky130_fd_sc_hd__and4_1        48
+     sky130_fd_sc_hd__clkinv_1     115
+     sky130_fd_sc_hd__dfxtp_1     8893
+     sky130_fd_sc_hd__lpflow_inputiso1p_1    224
+     sky130_fd_sc_hd__lpflow_isobufsrc_1    225
+     sky130_fd_sc_hd__maj3_1       320
+     sky130_fd_sc_hd__mux2_1      8192
+     sky130_fd_sc_hd__mux2i_1     1378
+     sky130_fd_sc_hd__mux4_2      2304
+     sky130_fd_sc_hd__nand2_1     1813
+     sky130_fd_sc_hd__nand2b_1     210
+     sky130_fd_sc_hd__nand3_1      356
+     sky130_fd_sc_hd__nand3b_1       5
+     sky130_fd_sc_hd__nand4_1       97
+     sky130_fd_sc_hd__nor2_1      1987
+     sky130_fd_sc_hd__nor2b_1       64
+     sky130_fd_sc_hd__nor3_1        50
+     sky130_fd_sc_hd__nor3b_1       96
+     sky130_fd_sc_hd__nor4_1        32
+     sky130_fd_sc_hd__nor4b_1       16
+     sky130_fd_sc_hd__o211ai_1      32
+     sky130_fd_sc_hd__o21a_1        64
+     sky130_fd_sc_hd__o21ai_0      821
+     sky130_fd_sc_hd__o21ba_1       16
+     sky130_fd_sc_hd__o31a_1         1
+     sky130_fd_sc_hd__o31ai_1       17
+     sky130_fd_sc_hd__o32ai_1       32
+     sky130_fd_sc_hd__or3_1         50
+     sky130_fd_sc_hd__or3b_1         3
+     sky130_fd_sc_hd__xnor2_1     1344
+     sky130_fd_sc_hd__xnor3_1      144
+     sky130_fd_sc_hd__xor2_1       865
+     sky130_fd_sc_hd__xor3_1        48
+
+11. Executing Verilog backend.
+
+11.1. Executing BMUXMAP pass.
+
+11.2. Executing DEMUXMAP pass.
+Dumping module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_mesh'.
+Dumping module `$paramod$cda889e3c6fee9ca598247ba2ab5e3685993eec8\cgra_sequencer'.
+Dumping module `\cgra_pe'.
+Dumping module `\cgra_top'.
+
+Warnings: 26 unique messages, 234 total
+End of script. Logfile hash: 129edf7259, CPU: user 4.07s system 0.09s, MEM: 81.89 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 54% 2x abc (4 sec), 10% 25x opt_expr (0 sec), ...

@@ -1,0 +1,31 @@
+16. Executing LTP pass (find longest path).
+
+Longest topological path in $paramod$0f7a849fd3b16b45b749fa73ac8de8f3eb8e2723\scratchpad_sram (length=0):
+    0: \sram_query[9] [31]
+
+Longest topological path in $paramod$f992dee89dd87cafcde108f9de7051d905fa8022\mx_systolic_mesh (length=7):
+    0: \weight_in_flat [7]
+    1: \act_wire[1] [0] (via row_gen[0].col_gen[0].pe_inst)
+    2: \act_wire[2] [0] (via row_gen[0].col_gen[1].pe_inst)
+    3: \act_wire[3] [0] (via row_gen[0].col_gen[2].pe_inst)
+    4: \psum_wire[7] [0] (via row_gen[0].col_gen[3].pe_inst)
+    5: \psum_wire[11] [0] (via row_gen[1].col_gen[3].pe_inst)
+    6: \psum_wire[15] [0] (via row_gen[2].col_gen[3].pe_inst)
+    7: \act_wire[19] [0] (via row_gen[3].col_gen[3].pe_inst)
+
+Longest topological path in $paramod\mx_softmax_unit\N=32'00000000000000000000000000000100 (length=1):
+    0: \rst
+    1: \recip_out [0] (via recip0)
+
+Longest topological path in mx_attention_core (length=1):
+    0: \weight_in[3] [7]
+    1: \mesh_out_flat [0] (via mesh)
+
+Longest topological path in mx_pe (length=0):
+    0: \weight_out [7]
+
+Longest topological path in mx_pwl_exp (length=0):
+    0: \rst
+
+Longest topological path in mx_pwl_recip (length=0):
+    0: \rst

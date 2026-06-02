@@ -1,0 +1,33 @@
+# Read Verilog RTL files
+read_verilog -sv ../rtl/mx_pe.v
+read_verilog -sv ../rtl/mx_systolic_mesh.v
+read_verilog -sv ../rtl/scratchpad_sram.v
+read_verilog -sv ../rtl/mx_pwl_exp.v
+read_verilog -sv ../rtl/mx_pwl_recip.v
+read_verilog -sv ../rtl/mx_softmax_unit.v
+read_verilog -sv ../rtl/mx_attention_core.v
+
+# Elaborate hierarchy (N=4)
+hierarchy -top mx_attention_core -chparam N 4
+
+# Coarse synthesis
+synth -top mx_attention_core
+
+# Map flip-flops to Sky130 cells
+dfflibmap -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Map combinational logic using ABC
+abc -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Cleanup
+clean
+opt -purge
+
+# Write gate-level netlist
+write_verilog -noattr out/mx_attention_core_sky130.v
+
+# Output statistics report including area estimations using the liberty file
+tee -o out/report_sky130.txt stat -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Find and report longest timing path (topological gate depth)
+tee -o out/timing_sky130.txt ltp

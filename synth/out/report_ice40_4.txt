@@ -1,0 +1,22 @@
+
+12. Printing statistics.
+
+=== mx_attention_core ===
+
+   Number of wires:              16294
+   Number of wire bits:          73689
+   Number of public wires:       16294
+   Number of public wire bits:   73689
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              43159
+     SB_CARRY                     5613
+     SB_DFF                         85
+     SB_DFFE                       386
+     SB_DFFESR                    2481
+     SB_DFFESS                       1
+     SB_DFFSR                      514
+     SB_LUT4                     34075
+     SB_RAM40_4K                     4
+

@@ -1,0 +1,20 @@
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
+
+# RTL source files
+VERILOG_SOURCES += $(PWD)/../rtl/picorv32.v
+VERILOG_SOURCES += $(PWD)/../rtl/soc_mem.v
+VERILOG_SOURCES += $(PWD)/../rtl/cgra_pe.v
+VERILOG_SOURCES += $(PWD)/../rtl/cgra_mesh.v
+VERILOG_SOURCES += $(PWD)/../rtl/cgra_sequencer.v
+VERILOG_SOURCES += $(PWD)/../rtl/cgra_top.v
+VERILOG_SOURCES += $(PWD)/../rtl/cgra_mmio_bridge.v
+VERILOG_SOURCES += $(PWD)/../rtl/soc_top.v
+
+# Top-level module name inside RTL
+TOPLEVEL = soc_top
+
+# Name of the python testbench file (without .py)
+MODULE = tb_soc_top
+
+include $(shell cocotb-config --makefiles)/Makefile.sim

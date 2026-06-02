@@ -1,0 +1,12 @@
+{
+    "name": "Simple Linear",
+    "layers": [
+        {
+            "type": "Linear",
+            "in_dim": 1,
+            "out_dim": 1,
+            "weights": [3],
+            "biases": [0]
+        }
+    ]
+}

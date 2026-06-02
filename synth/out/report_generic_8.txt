@@ -1,0 +1,198 @@
+
+12. Printing statistics.
+
+=== $paramod$523d6a26dd96f32cc7976f74afa1dd4bc20ec3fe\mx_systolic_mesh ===
+
+   Number of wires:               3624
+   Number of wire bits:           6365
+   Number of public wires:         298
+   Number of public wire bits:    2919
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               3702
+     $_ANDNOT_                     691
+     $_AND_                         19
+     $_MUX_                       1792
+     $_NAND_                        18
+     $_NOR_                         52
+     $_NOT_                         18
+     $_ORNOT_                      333
+     $_OR_                         557
+     $_SDFFE_PP0P_                 128
+     $_XNOR_                         6
+     $_XOR_                         24
+     mx_pe                          64
+
+=== $paramod$cc2a04cb33e62d05e9d855cbc5988d4fb875db83\scratchpad_sram ===
+
+   Number of wires:              16985
+   Number of wire bits:          33515
+   Number of public wires:         269
+   Number of public wire bits:   16673
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              33354
+     $_ANDNOT_                     256
+     $_DFFE_PP_                  16512
+     $_MUX_                      16256
+     $_NAND_                         6
+     $_NOT_                          2
+     $_ORNOT_                       12
+     $_OR_                         310
+
+=== $paramod\mx_softmax_unit\N=32'00000000000000000000000000001000 ===
+
+   Number of wires:              14380
+   Number of wire bits:          15576
+   Number of public wires:          55
+   Number of public wire bits:    1131
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              14987
+     $_ANDNOT_                    4014
+     $_AND_                       1984
+     $_MUX_                        114
+     $_NAND_                       690
+     $_NOR_                        937
+     $_NOT_                        609
+     $_ORNOT_                      384
+     $_OR_                        1400
+     $_SDFFE_PP0P_                 397
+     $_XNOR_                      1786
+     $_XOR_                       2663
+     mx_pwl_exp                      8
+     mx_pwl_recip                    1
+
+=== mx_attention_core ===
+
+   Number of wires:               7067
+   Number of wire bits:          13205
+   Number of public wires:         162
+   Number of public wire bits:    6298
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               9139
+     $_ANDNOT_                    1147
+     $_AND_                        598
+     $_DFFE_PP_                   1024
+     $_DFF_P_                        5
+     $_MUX_                       3180
+     $_NAND_                        61
+     $_NOR_                         86
+     $_NOT_                        519
+     $_ORNOT_                      722
+     $_OR_                         523
+     $_SDFFCE_PN0P_               1024
+     $_SDFFE_PP0P_                  32
+     $_SDFFE_PP1P_                   1
+     $_SDFF_PP0_                     3
+     $_XNOR_                        59
+     $_XOR_                        145
+     $paramod$523d6a26dd96f32cc7976f74afa1dd4bc20ec3fe\mx_systolic_mesh      1
+     $paramod$cc2a04cb33e62d05e9d855cbc5988d4fb875db83\scratchpad_sram      1
+     $paramod\mx_softmax_unit\N=32'00000000000000000000000000001000      8
+
+=== mx_pe ===
+
+   Number of wires:               1118
+   Number of wire bits:           1236
+   Number of public wires:          22
+   Number of public wire bits:     140
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1168
+     $_ANDNOT_                     301
+     $_AND_                         16
+     $_MUX_                        333
+     $_NAND_                        16
+     $_NOR_                         57
+     $_NOT_                         36
+     $_ORNOT_                       79
+     $_OR_                         108
+     $_SDFFE_PP0P_                  24
+     $_SDFF_PP0_                    32
+     $_XNOR_                        37
+     $_XOR_                        129
+
+=== mx_pwl_exp ===
+
+   Number of wires:               1517
+   Number of wire bits:           1691
+   Number of public wires:          15
+   Number of public wire bits:     189
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1604
+     $_ANDNOT_                     508
+     $_AND_                        143
+     $_NAND_                        64
+     $_NOR_                         89
+     $_NOT_                         38
+     $_ORNOT_                      114
+     $_OR_                         116
+     $_SDFFE_PP0P_                  51
+     $_XNOR_                       152
+     $_XOR_                        329
+
+=== mx_pwl_recip ===
+
+   Number of wires:               1638
+   Number of wire bits:           1784
+   Number of public wires:          13
+   Number of public wire bits:     159
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1721
+     $_ANDNOT_                     644
+     $_AND_                         59
+     $_NAND_                        35
+     $_NOR_                         74
+     $_NOT_                         61
+     $_ORNOT_                      138
+     $_OR_                         172
+     $_SDFFE_PP0P_                  56
+     $_XNOR_                       145
+     $_XOR_                        337
+
+=== design hierarchy ===
+
+   mx_attention_core                 1
+     $paramod$523d6a26dd96f32cc7976f74afa1dd4bc20ec3fe\mx_systolic_mesh      1
+       mx_pe                        64
+     $paramod$cc2a04cb33e62d05e9d855cbc5988d4fb875db83\scratchpad_sram      1
+     $paramod\mx_softmax_unit\N=32'00000000000000000000000000001000      8
+       mx_pwl_exp                    8
+       mx_pwl_recip                  1
+
+   Number of wires:             324460
+   Number of wire bits:         379293
+   Number of public wires:        3641
+   Number of public wire bits:   57266
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:             357121
+     $_ANDNOT_                   91134
+     $_AND_                      27137
+     $_DFFE_PP_                  17536
+     $_DFF_P_                        5
+     $_MUX_                      43452
+     $_NAND_                     11005
+     $_NOR_                      17570
+     $_NOT_                      10635
+     $_ORNOT_                    17595
+     $_OR_                       28302
+     $_SDFFCE_PN0P_               1024
+     $_SDFFE_PP0P_                8584
+     $_SDFFE_PP1P_                   1
+     $_SDFF_PP0_                  2051
+     $_XNOR_                     27609
+     $_XOR_                      53481
+

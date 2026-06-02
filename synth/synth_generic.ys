@@ -1,0 +1,26 @@
+# ==============================================================================
+# Generic Gate-Level Synthesis Script for Yosys
+# Target: Technology-independent gate-level netlist
+# Output: synth/out/mx_attention_core_generic.v, synth/out/report_generic.txt
+# ==============================================================================
+
+# Read all RTL source files
+read_verilog -sv ../rtl/mx_pe.v
+read_verilog -sv ../rtl/mx_systolic_mesh.v
+read_verilog -sv ../rtl/scratchpad_sram.v
+read_verilog -sv ../rtl/mx_pwl_exp.v
+read_verilog -sv ../rtl/mx_pwl_recip.v
+read_verilog -sv ../rtl/mx_softmax_unit.v
+read_verilog -sv ../rtl/mx_attention_core.v
+
+# Run generic synthesis (hierarchical, not flattened)
+synth -top mx_attention_core
+
+# Structural check: assert 0 problems
+check
+
+# Dump statistics to report file
+tee -o out/report_generic.txt stat
+
+# Write gate-level netlist
+write_verilog -noattr out/mx_attention_core_generic.v

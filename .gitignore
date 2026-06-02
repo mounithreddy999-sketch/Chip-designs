@@ -1,0 +1,5 @@
+.pdk/
+openlane/*/runs/
+synth/pdk/
+*.vcd
+__pycache__/
