@@ -1,5 +1,13 @@
 .pdk/
 openlane/*/runs/
 synth/pdk/
+# Simulation / build artifacts
+*.vvp
+a.out
+sim_build/
 *.vcd
+*.xml
 __pycache__/
+*.pyc
+# Compiled binaries
+*.exe

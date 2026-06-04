@@ -1,0 +1,26 @@
+{
+    "DESIGN_NAME": "pim_matmul_macro",
+    "VERILOG_FILES": [
+        "dir::../../rtl/pim_matmul_macro.v"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 10.0,
+    "FP_SIZING": "relative",
+    "FP_CORE_UTIL": 45,
+    "VDD_NETS": [
+        "vccd1"
+    ],
+    "GND_NETS": [
+        "vssd1"
+    ],
+    "SYNTH_PARAMETERS": [
+        "N=16"
+    ],
+    "ROUTING_CORES": 8,
+    "PL_ROUTABILITY_DRIVEN": 1,
+    "PL_TIME_DRIVEN": 1,
+    "GLB_RT_MAX_DIODE_INS_ITERS": 1,
+    "GRT_ALLOW_CONGESTION": 1,
+    "FP_PIN_ORDER_CFG": "dir::pin_order.cfg",
+    "DIODE_INSERTION_STRATEGY": 3
+}

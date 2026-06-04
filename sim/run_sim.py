@@ -227,8 +227,11 @@ def main():
     test9_vvp = os.path.join(sim_dir, "pim_neural_layer_tb.vvp")
     t9_success = run_test("PIM Neural Network Layer", test9_rtl, test9_tb, test9_vvp)
 
-    # Test 10: CGRA Instruction Sequencer (Disabled - hardcoded to 2x2 64-bit instruction)
-    t10_success = True
+    # Test 10: PIM Matmul Macro (Digital Baseline)
+    test10_rtl = os.path.join(repo_root, "rtl", "pim_matmul_macro.v")
+    test10_tb  = os.path.join(repo_root, "tb", "tb_pim_matmul_macro.v")
+    test10_vvp = os.path.join(sim_dir, "pim_matmul_macro_tb.vvp")
+    t10_success = run_test("PIM Matmul Macro", test10_rtl, test10_tb, test10_vvp)
 
     # Test 11: Microscaled Attention Core
     test11_rtl = [
@@ -278,7 +281,7 @@ def main():
     print(f"7.  2D Systolic Array Multiplier:  {'PASSED' if t7_success else 'FAILED'}")
     print(f"8.  PWL Activation Unit:           {'PASSED' if t8_success else 'FAILED'}")
     print(f"9.  PIM Neural Network Layer:      {'PASSED' if t9_success else 'FAILED'}")
-    print(f"10. CGRA Instruction Sequencer:    DEPRECATED (2x2)")
+    print(f"10. PIM Matmul Macro:              {'PASSED' if t10_success else 'FAILED'}")
     print(f"11. Microscaled Attention Core:    {'PASSED' if t11_success else 'FAILED'}")
     print(f"12. MX Attention Synthesis Check:  {'PASSED' if t12_success else 'FAILED'}")
     print(f"13. CGRA Software Driver (Cocotb): DEPRECATED")
