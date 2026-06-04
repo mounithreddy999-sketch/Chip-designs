@@ -1,0 +1,5 @@
+design,variant,throughput_tops,mac_per_cycle,fmax_mhz,area_mm2,power_mw,tops_per_w,pj_per_mac,measurement,notes
+Flop baseline,CG_WEIGHTS=0,0.0512,256,100,2.92,52.2,0.98,2.04,workload-VCD post-CTS,parallel array; weights in flops
+Clock-gated,CG_WEIGHTS=1,0.0512,256,100,2.92,32.8,1.56,1.28,workload-VCD post-CTS,clock-gates 2048 stationary weight flops; -37% dynamic
+Batched near-memory,B=4,0.0032,16,100,0.602,18.5,0.17,11.56,workload-VCD synth-netlist,one OpenRAM SRAM; 4 weights/cyc reused across 4 vectors
+Streaming near-memory,B=1,0.0008,4,100,0.602,7.59,0.11,18.98,workload-VCD synth-netlist,one OpenRAM SRAM; 4-wide output-stationary stream

@@ -1,0 +1,28 @@
+* Sky130 Current-Domain Compute-In-Memory (CIM) Cell
+*
+* Multiplying node using differential current steering:
+* Out_diff = I(BL) - I(BL_bar)
+*
+* Inputs:
+*   X      - Activation input (0V to 1.8V)
+*   W      - Storage node Weight True (0V or 1.8V)
+*   W_bar  - Storage node Weight Complement (1.8V or 0V)
+* Outputs:
+*   BL     - Accumulation Bitline (High-impedance sum node)
+*   BL_bar - Accumulation Complement Bitline (High-impedance sum node)
+* Supply:
+*   VPWR   - 1.8V
+*   VGND   - 0.0V
+
+.subckt cim_cell VGND VPWR X W W_bar BL BL_bar
+
+* Mtail: Activation switch. Pulls current from internal differential node (src_diff) when X is high.
+Xtail src_diff X VGND VGND sky130_fd_pr__nfet_01v8 w=1.0 l=0.15
+
+* Mleft: Steers current to BL when Weight is active (W=1.8V)
+Xleft BL W src_diff VGND sky130_fd_pr__nfet_01v8 w=1.0 l=0.15
+
+* Mright: Steers current to BL_bar when Weight Complement is active (W_bar=1.8V)
+Xright BL_bar W_bar src_diff VGND sky130_fd_pr__nfet_01v8 w=1.0 l=0.15
+
+.ends

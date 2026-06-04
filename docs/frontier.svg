@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="470" viewBox="0 0 780 470" font-family="system-ui,Segoe UI,Arial,sans-serif">
+<rect width="780" height="470" fill="#ffffff"/>
+<text x="72" y="27" font-size="17" font-weight="700" fill="#0f172a">Sky130 16×16 INT8 PIM — Verified Pareto Frontier</text>
+<rect x="72" y="48" width="648" height="364" fill="#f8fafc" stroke="#cbd5e1"/>
+<line x1="72.0" y1="48" x2="72.0" y2="412" stroke="#eef2f7"/>
+<text x="72.0" y="429" font-size="11" fill="#475569" text-anchor="middle">0.5</text>
+<line x1="133.8" y1="48" x2="133.8" y2="412" stroke="#eef2f7"/>
+<text x="133.8" y="429" font-size="11" fill="#475569" text-anchor="middle">0.602</text>
+<line x1="302.8" y1="48" x2="302.8" y2="412" stroke="#eef2f7"/>
+<text x="302.8" y="429" font-size="11" fill="#475569" text-anchor="middle">1</text>
+<line x1="533.6" y1="48" x2="533.6" y2="412" stroke="#eef2f7"/>
+<text x="533.6" y="429" font-size="11" fill="#475569" text-anchor="middle">2</text>
+<line x1="659.7" y1="48" x2="659.7" y2="412" stroke="#eef2f7"/>
+<text x="659.7" y="429" font-size="11" fill="#475569" text-anchor="middle">2.92</text>
+<line x1="72" y1="412.0" x2="720" y2="412.0" stroke="#eef2f7"/>
+<text x="63" y="416.0" font-size="11" fill="#475569" text-anchor="end">1</text>
+<line x1="72" y1="333.6" x2="720" y2="333.6" stroke="#eef2f7"/>
+<text x="63" y="337.6" font-size="11" fill="#475569" text-anchor="end">2</text>
+<line x1="72" y1="230.0" x2="720" y2="230.0" stroke="#eef2f7"/>
+<text x="63" y="234.0" font-size="11" fill="#475569" text-anchor="end">5</text>
+<line x1="72" y1="151.6" x2="720" y2="151.6" stroke="#eef2f7"/>
+<text x="63" y="155.6" font-size="11" fill="#475569" text-anchor="end">10</text>
+<line x1="72" y1="73.2" x2="720" y2="73.2" stroke="#eef2f7"/>
+<text x="63" y="77.2" font-size="11" fill="#475569" text-anchor="end">20</text>
+<text x="396" y="456" font-size="13" fill="#0f172a" text-anchor="middle">die area (mm²) — smaller is better →</text>
+<text x="20" y="230" font-size="13" fill="#0f172a" text-anchor="middle" transform="rotate(-90 20 230)">pJ / MAC — lower is better ↓</text>
+<text x="82" y="400" font-size="12" font-weight="700" fill="#b45309">★ empty: small AND efficient → analog compute-in-memory</text>
+<circle cx="659.7" cy="331.4" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="1.6"/>
+<text x="647.7" y="335.4" font-size="11.5" fill="#0f172a" text-anchor="end">Flop baseline (2.04 pJ, 51.2 GOPS)</text>
+<circle cx="659.7" cy="384.1" r="9" fill="#2563eb" stroke="#ffffff" stroke-width="1.6"/>
+<text x="644.7" y="388.1" font-size="11.5" fill="#0f172a" text-anchor="end">Clock-gated ★ (1.28 pJ, 51.2 GOPS)</text>
+<circle cx="133.8" cy="135.2" r="6" fill="#059669" stroke="#ffffff" stroke-width="1.6"/>
+<text x="145.8" y="139.2" font-size="11.5" fill="#0f172a" text-anchor="start">Batched near-memory (11.56 pJ, 3.2 GOPS)</text>
+<circle cx="133.8" cy="79.2" r="6" fill="#059669" stroke="#ffffff" stroke-width="1.6"/>
+<text x="145.8" y="83.2" font-size="11.5" fill="#0f172a" text-anchor="start">Streaming near-memory (18.98 pJ, 0.8 GOPS)</text>
+<text x="716" y="64" font-size="11" fill="#64748b" text-anchor="end">blue = parallel (256 MAC/cyc) · green = near-memory SRAM</text>
+</svg>

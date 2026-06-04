@@ -1,0 +1,51 @@
+* ngspice Transient Testbench for Sky130 Analog CIM Cell
+*
+* Biases the bitlines at 1.2V and sweeps input/weight combinations
+* to measure current and compute energy per MAC.
+
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+* Power supplies
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+
+* Bitline Bias (mimics a column precharge/readout bias)
+Vbl     BL     0 DC 1.2
+Vbl_bar BL_bar 0 DC 1.2
+
+* Weight definition (W=1, W_bar=0 for first 20ns, then W=0, W_bar=1)
+Vw     W     0 PWL(0 1.8  20n 1.8  20.1n 0    40n 0)
+Vw_bar W_bar 0 PWL(0 0    20n 0    20.1n 1.8  40n 1.8)
+
+* Activation pulse (pulses high at 5ns and 25ns)
+Vx X 0 PULSE(0 1.8 5n 0.1n 0.1n 5n 20n)
+
+* Instantiate CIM cell
+Xcell VGND VPWR X W W_bar BL BL_bar cim_cell
+
+* Simulation control
+.control
+  * Run transient analysis
+  tran 0.1n 40n
+
+  * Calculate total current drawn from bitline bias supplies
+  let i_total = - (i(vbl) + i(vbl_bar))
+  
+  * Calculate instantaneous power (Pin = I_total * 1.2V bitline bias)
+  let p_inst = i_total * 1.2
+
+  * Run simulation
+  run
+
+  * Integrate power to calculate energy
+  * We measure the energy of the first activation pulse (from 4.5ns to 11.0ns)
+  meas tran energy_mac_1 integ i_total from=4.5n to=11.0n
+  
+  * Print results to console for python wrapper
+  print energy_mac_1
+  
+  quit
+.endc
+
+.end
