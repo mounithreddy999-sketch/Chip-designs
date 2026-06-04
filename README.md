@@ -38,6 +38,29 @@ this project is heading toward next.
 
 ---
 
+## Architecture
+
+A weight-stationary INT8 matrix-vector-multiply (MVM) datapath. **Every point on
+the frontier above is the *same* datapath with a different weight-storage choice:**
+
+```mermaid
+flowchart LR
+    A["Activations<br/>(N x INT8)"] --> M["MAC Array<br/>256 INT8 multipliers"]
+    W["Weight Storage<br/>flops / gated / SRAM / batched"] -->|stationary weights| M
+    M --> T["Balanced Adder Tree<br/>log2(N) depth, pipelined"]
+    T --> ACC["Accumulators<br/>+ out_valid handshake"]
+    ACC --> O["Output Vector"]
+```
+
+| Weight-storage variant | Frontier point |
+| :--- | :--- |
+| Flip-flop array | parallel baseline — 2.04 pJ/MAC |
+| **Clock-gated flops** ⭐ | energy win — **1.28 pJ/MAC**, 256 MAC/cyc |
+| OpenRAM SRAM (streaming) | area win — **0.602 mm²** |
+| SRAM + batched reuse (`B=4`) | mid-frontier — 16 MAC/cyc @ 0.602 mm² |
+
+---
+
 ## Why you can trust these numbers
 
 This repo is built around measurement discipline that most open accelerator
@@ -76,6 +99,36 @@ This sits on a larger from-scratch RTL library also in `rtl/`: an **MXFP4/8
 microscaling attention core** (`mx_*`), a **CGRA reconfigurable fabric** with a Go
 compiler (`cgra_*`, `sw/compiler/`), a systolic array, PIM crossbar, and a
 PicoRV32 SoC.
+
+---
+
+## Toolchain (open-source EDA)
+
+Designed and signed off **entirely on free, open-source EDA** — reproducible
+end-to-end with no commercial licenses (no Synopsys / Cadence / Siemens required):
+
+```mermaid
+flowchart LR
+    R["Verilog RTL"] --> S["Icarus Verilog<br/>self-checking TBs"]
+    S --> Y["Yosys<br/>synthesis"]
+    Y --> OL["OpenLane<br/>place &amp; route"]
+    OL --> OR["OpenROAD<br/>STA + VCD power"]
+    OL --> SG["Magic DRC<br/>Netgen LVS"]
+    SP["Analog SPICE"] --> NG["ngspice<br/>Sky130 devices"]
+```
+
+| Stage | Tool(s) |
+| :--- | :--- |
+| RTL simulation | **Icarus Verilog** · cocotb · pytest |
+| Synthesis | **Yosys** |
+| Place &amp; route | **OpenLane** (OpenROAD, TritonRoute) |
+| Static timing + power | **OpenROAD** — workload-VCD driven |
+| DRC / LVS signoff | **Magic** / **Netgen** |
+| Layout / GDS | **Magic**, **KLayout** |
+| SRAM macros | **OpenRAM** |
+| Analog device sim | **ngspice** (Sky130 BSIM) via `iic-osic-tools` (Docker) |
+| Waveforms | **GTKWave** |
+| PDK | **SkyWater Sky130** (`sky130_fd_sc_hd`) |
 
 ---
 

@@ -1,0 +1,91 @@
+* Sky130 Charge-Domain Analog CIM 4-Row Array Testbench
+*
+* Evaluates a 4-row current-steering CIM array with capacitive bitlines
+* and PMOS precharge switches to measure true charge-domain energy and functionality.
+
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+* Power supplies
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+
+* Precharge control pulse (low = active precharge to 1.8V, high = evaluate)
+Vpre PRE 0 PULSE(0 1.8 4n 0.1n 0.1n 8n 20n)
+
+* PMOS Precharge Switches (connects BL/BL_bar to VPWR when PRE is low)
+Xpre_l BL     PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r BL_bar PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* Bitline Parasitic Capacitors (modeling column wire + sense amp loading)
+Cbl     BL     0 100f
+Cbl_bar BL_bar 0 100f
+
+* ----------------------------------------------------
+* 4-Row Weights Configuration (Binary/Analog weights)
+* Row 0: W=1 (W=1.8V, W_bar=0V)
+Vw0     W0     0 DC 1.8
+Vw0_bar W0_bar 0 DC 0
+
+* Row 1: W=1 (W=1.8V, W_bar=0V)
+Vw1     W1     0 DC 1.8
+Vw1_bar W1_bar 0 DC 0
+
+* Row 2: W=0 (W=0V, W_bar=1.8V)
+Vw2     W2     0 DC 0
+Vw2_bar W2_bar 0 DC 1.8
+
+* Row 3: W=1 (W=1.8V, W_bar=0V)
+Vw3     W3     0 DC 1.8
+Vw3_bar W3_bar 0 DC 0
+* ----------------------------------------------------
+
+* ----------------------------------------------------
+* 4-Row Activation Inputs (Pulses)
+* Drive X0 and X1 high during evaluation phase (5ns to 9ns)
+* This should result in Row 0 (W=1) and Row 1 (W=1) discharging BL twice,
+* while BL_bar is discharged only by inactive leakage.
+Vx0 X0 0 PULSE(0 1.8 6n 0.1n 0.1n 3n 20n)
+Vx1 X1 0 PULSE(0 1.8 6n 0.1n 0.1n 3n 20n)
+Vx2 X2 0 DC 0
+Vx3 X3 0 DC 0
+* ----------------------------------------------------
+
+* Instantiate 4 rows of CIM cells
+Xrow0 VGND VPWR X0 W0 W0_bar BL BL_bar cim_cell
+Xrow1 VGND VPWR X1 W1 W1_bar BL BL_bar cim_cell
+Xrow2 VGND VPWR X2 W2 W2_bar BL BL_bar cim_cell
+Xrow3 VGND VPWR X3 W3 W3_bar BL BL_bar cim_cell
+
+* Simulation control
+.control
+  * Run transient analysis
+  tran 0.05n 15n
+
+  * Monitor node voltages and precharge current
+  run
+
+  * Measure final discharged voltages at t = 10ns (after activation pulse)
+  meas tran vbl_final find v(bl) at=10n
+  meas tran vbl_bar_final find v(bl_bar) at=10n
+
+  * Calculate differential discharge delta voltage
+  let v_diff = v(bl) - v(bl_bar)
+  meas tran vdiff_final find v_diff at=10n
+
+  * Measure dynamic energy drawn from VPWR during the second precharge phase
+  * (precharge starts again at 22ns, but we can integrate current from VPWR
+  * during the active precharge interval 0ns to 5ns to capture the initialization cost)
+  let p_pwr = -i(vpwr) * 1.8
+  meas tran energy_precharge integ p_pwr from=12n to=15n
+
+  * Print results for Python scorecard parser
+  print vbl_final
+  print vbl_bar_final
+  print vdiff_final
+  print energy_precharge
+
+  quit
+.endc
+
+.end

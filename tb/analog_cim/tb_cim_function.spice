@@ -1,0 +1,40 @@
+* Function verification  --  the analog "scoreboard".
+*
+* Energy means nothing if the cell doesn't compute X*W. This deck sweeps the
+* activation X (0 -> 1.8 V) and measures the bitline current I_BL, which is the
+* analog product. Run it twice:
+*   W = 1  (Vw=1.8, Vw_bar=0)   -> I_BL should track X      (product = X*1)
+*   W = 0  (Vw=0,   Vw_bar=1.8) -> I_BL should stay ~0       (product = X*0)
+* Steer-to-complement (W=0) should instead drive I_BL_bar. Plot I_BL vs X for
+* both weights to confirm the multiply and read off linearity / dynamic range.
+*
+* (Ideal bitline bias is appropriate HERE: we want the transfer curve I_BL(X),
+*  not the energy. Energy is measured by tb_cim_charge.spice.)
+
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+
+Vbl     BL     0 DC 1.2
+Vbl_bar BL_bar 0 DC 1.2
+
+* Weight = True.  For the W=0 curve: set Vw=0 and Vw_bar=1.8, re-run.
+Vw     W     0 DC 1.8
+Vw_bar W_bar 0 DC 0
+
+Vx X 0 DC 0
+
+Xcell VGND VPWR X W W_bar BL BL_bar cim_cell
+
+.control
+  dc Vx 0 1.8 0.05
+  let i_bl     = -i(vbl)
+  let i_bl_bar = -i(vbl_bar)
+  print i_bl i_bl_bar
+  wrdata cim_transfer.dat i_bl i_bl_bar     ; columns: X  I_BL  I_BL_bar
+  quit
+.endc
+
+.end

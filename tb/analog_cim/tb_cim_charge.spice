@@ -1,0 +1,53 @@
+* Charge-domain CIM readout  --  the corrected energy measurement.
+*
+* The original tb_cim_transient.spice drove the bitlines with IDEAL 1.2 V
+* sources, so it measured pure per-cell STATIC CURRENT (energy = V*I*t, which
+* does NOT amortize across rows). This deck puts the actual CIM mechanism in the
+* loop: the bitline is a REAL capacitor, precharged to VPRE, that the cell
+* discharges during a bounded activation window. The energy delivered is the
+* charge-domain energy (~1/2 C dV^2), and the readout signal is the bitline dV.
+*
+* Tuning knobs (size so dV is a readable fraction of VPRE, ~10-30%, not railed):
+*   CBL   bitline capacitance        (literal in Cblt/Cblc AND in e_mac below)
+*   pulse width of Vx                (shorter -> less discharge, lower energy)
+*
+* Conventions match the working flow: X-prefix subckt, relative w/l (global
+* scale=1u), tt corner.
+
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+
+* --- Bitlines are REAL capacitors (the accumulation nodes), precharged ---
+Cblt BL     0 1p
+Cblc BL_bar 0 1p
+.ic v(BL)=1.2 v(BL_bar)=1.2
+
+* --- Weight = True active (W=1) ---
+Vw     W     0 DC 1.8
+Vw_bar W_bar 0 DC 0
+
+* --- Activation: short pulse for a partial (linear) discharge ---
+Vx X 0 PULSE(0 1.8 5n 0.1n 0.1n 1n 40n)
+
+Xcell VGND VPWR X W W_bar BL BL_bar cim_cell
+
+.control
+  tran 0.02n 12n uic
+  run
+
+  meas tran v_i find v(BL) at=4.9n      ; bitline before activation
+  meas tran v_f find v(BL) at=6.6n      ; bitline after the ~1 ns pulse
+  let dv    = v_i - v_f                 ; charge-domain readout signal
+  let e_mac = 0.5 * 1e-12 * (v_i*v_i - v_f*v_f)   ; 1/2*CBL*(Vi^2-Vf^2), CBL=1p
+
+  print v_i
+  print v_f
+  print dv
+  print e_mac
+  quit
+.endc
+
+.end
