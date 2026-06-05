@@ -167,6 +167,30 @@ beats one that *relies* on error-correction.
 - **Magic PEX**: `ext2spice cthresh 0.01`, `ext2spice extresist on` → annotated netlist → resim
   the charge-sharing on the *real* global bitline → confirm step stays above the SA offset.
 
+## The payoff — energy/MAC vs the digital frontier (`sw/cim_energy.py`)
+Charge-domain energy/MAC from **measured inputs only**: extracted caps (Cc 1 fF M10b, wire 0.464 fF/row
+M10a, junction 0.073 fF/cell M10c) + measured StrongARM decision energy (**58.8 fJ**, integ i(VDD) over
+one cycle). `E_eval = C_tot·VDD² + E_SA`, `C_tot = N·(Cc + wire/row + junc) = N·1.537 fF` (conservative
+full-swing).
+
+| N rows | native binary | INT8 (×64 bit-serial, conservative) | vs digital best (1.28 pJ) |
+| --: | --: | --: | --: |
+| 16 | 8.65 fJ/MAC | 0.554 pJ/MAC | 2.3× |
+| 64 | 5.90 fJ/MAC | 0.378 pJ/MAC | **3.4×** |
+| 256 | 5.21 fJ/MAC | 0.333 pJ/MAC | 3.8× |
+
+Energy **floor (N→∞) = 4.98 fJ/binary-MAC** (per-row cap switching) — fundamentally below a digital
+multiplier + adder tree. **Conservative INT8 is ~3.4× better than the best *verified* digital point
+(clock-gated 1.28 pJ/MAC)**; multi-bit charge-weighted cells cut the bit-slice factor ~4–8× →
+~0.05–0.1 pJ/MAC (10–25×). The native binary-MAC (~6 fJ) is the BNN/low-precision regime where analog
+CIM dominates outright. Plotted on `docs/frontier.svg` as a **clearly-marked *projected* point** that
+lands in the empty lower-left "small AND efficient" corner.
+
+**Honesty line:** the 4 digital points are silicon-measured; the analog point is *projected* — its
+energy is rigorous (extracted caps + measured SA), but the ×64 INT8 factor and the area are estimates.
+It closes the original thesis — *the analog column does the MAC for less energy* — on extracted-silicon
+footing, not hand-waving.
+
 ## Target
 Break the measured ~9-row passive ceiling → a **segmented charge-domain CIM column on open
 Sky130** with a measured pJ/MAC that beats the digital frontier and a *layout-validated* (PEX)
