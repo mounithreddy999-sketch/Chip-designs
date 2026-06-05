@@ -127,6 +127,21 @@ The **16-row segment is now fully silicon-grounded** — wire, MOM, junction all
 from real-PDK MC — and resolvable with zero calibration. The cell load `N·Cc` dominates; the verdict is
 robust to the 2 µm pitch assumption (3 µm → step still ~64 mV).
 
+**M10-stretch — INTEGRATED tiled-column extraction (`pex/run_column_pex.py`):** instead of summing the
+three pieces, tiled N real MOM cells on ONE shared met2 bitline (measured pitch 2.5 µm) and extracted
+that single net:
+
+| N | C_tot | Cc/cell | wire | step (mV/row) |
+| --: | --: | --: | --: | --: |
+| 8 | 9.37 fF | 0.984 fF | 1.50 fF | 189 |
+| 16 | 18.74 fF | 0.988 fF | 2.93 fF | 95 |
+
+Confirms **Cc ≈ 0.99 fF in-layout** and that `N·Cc` dominates. The integrated wire is 0.073 fF/µm —
+*lower* than M10a's 0.232, because this cell's bitlines sit ~2 µm apart (cell width), **not** at min
+spacing, so M10a was a worst-case bound. Adding the M10c junction (16×0.073 = 1.2 fF) → C_tot ≈ 19.9 fF,
+**16-row step ≈ 89 mV/row = 2.9× the 31 mV 3σ** — *more* margin than the conservative component-sum.
+*Remaining for the full cell:* add the 6T+2T transistors (so it's a real 8T1C, not MOM-only) + Netgen LVS.
+
 ## M9 result — offset reduction by input-pair sizing (`sw/mc_offset_vs_size.py`)
 Swept the StrongARM input-pair width (area) and re-ran the `tt_mm` MC + probit fit at each:
 
