@@ -33,10 +33,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
 - **M8 — Real PDK Monte-Carlo offset** ✅ *done*: We ran a 50-sample Monte Carlo simulation for $V_{diff}$ using Sky130 `tt_mm` mismatch models on the StrongARM sense amp. Extracted $\sigma_{offset} = 9.66\ mV$. 3-sigma tolerance = $29\ mV$. Since our bitline swing is $\approx 100\ mV$, this offset is safely resolvable!
 - **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
   StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
-- **M10 — Layout + PEX** ◑ *part A done*: bitline WIRE cap extracted in Magic
-  (`pex/run_bitline_pex.py`) = **0.232 fF/µm** (met2, min-width, min-spacing grounded neighbors).
-  See result below. *Part B (pending):* draw the cell → extract the MOM cap Cc + access-transistor
-  junction; LVS via Netgen. The `C_BL / N·Cc` ratio is what decides whether the math survives physics.
+- **M10 — Layout + PEX** ◑ *parts A+B done*: bitline WIRE cap = **0.232 fF/µm**
+  (`pex/run_bitline_pex.py`) and MOM `Cc` density = **0.308 fF/µm²** (`pex/run_mom_pex.py` — 1 fF in
+  ~3 µm² single-layer). See results below. *Remaining:* access-transistor junction (needs the cell
+  drawn) + LVS via Netgen. The `C_BL / N·Cc` ratio is what decides whether the math survives physics.
 - **M11 — EACB**: train a small classifier on the extracted hardware offset/noise model so final
   accuracy ≈ FP baseline at the analog macro's TOPS/W.
 
@@ -88,8 +88,21 @@ the cells' MOM load (Cc = 1 fF, *still placeholder*):
 | 64 (continuous) | 64 fF | ~44 fF | **~17** | 0.6× — marginal, needs M9 |
 
 The 16-row verdict is **robust to the junction estimate**: even at a generous 0.5 fF/cell the step is
-~57 mV ≫ 29 mV. **Measured = the wire cap (0.232 fF/µm).** Still estimated/assumed: the MOM cap `Cc`
-(→ M10b extract the interdigitated fingers), the junction (→ draw the cell), and the 2 µm pitch.
+~57 mV ≫ 29 mV.
+
+**M10b — MOM cap `Cc` (`pex/run_mom_pex.py`):** single-layer met2 interdigitated comb (min finger
+W/spacing) extracts **0.308 fF/µm²**:
+
+| fingers | area (µm²) | Cc (fF) |
+| --: | --: | --: |
+| 8 | 4.48 | 1.30 |
+| 12 | 6.72 | 2.03 |
+| 16 | 13.44 | 4.45 |
+
+So the **1 fF `Cc` assumption is real** — achievable in ~3.2 µm² single-layer (~1.8 µm square), or
+~1.3 µm² stacking M2–M4. The 16-row step is now silicon-grounded on *both* the wire `C_BL` and the
+MOM `Cc`. **Measured = wire cap (0.232 fF/µm) + MOM `Cc` (0.308 fF/µm²).** Still estimated: the
+access-transistor junction (→ draw the cell; verdict shown robust to it) and the 2 µm cell pitch.
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
