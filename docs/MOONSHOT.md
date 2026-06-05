@@ -30,7 +30,11 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   coupling cap + product driver. RBL voltage confirmed **linear** in Σ(X·W) (R²=1.0). See result below.
 - **M7 — Segmented vs continuous** ✅ *done (behavioral)*: `sw/run_charge_linearity.py`. Per-row step
   stays resolvable at 16 rows (15.5 mV) where the continuous 64-row line collapses (3.2 mV). See below.
-- **M8 — Real PDK Monte-Carlo offset** ✅ *done*: We ran a 50-sample Monte Carlo simulation for $V_{diff}$ using Sky130 `tt_mm` mismatch models on the StrongARM sense amp. Extracted $\sigma_{offset} = 9.66\ mV$. 3-sigma tolerance = $29\ mV$. Since our bitline swing is $\approx 100\ mV$, this offset is safely resolvable!
+- **M8 — Real PDK Monte-Carlo offset** ✅ *done + re-verified*: 50-sample MC sweep of $V_{diff}$ with
+  Sky130 `tt_mm` mismatch on the StrongARM (`sw/mc_sa_probit.py`). Re-run confirms the probit CDF is
+  **smooth, R²=0.97** → real per-sample mismatch, Gaussian offset (not a degenerate single draw). Robust
+  **probit-regression $\sigma_{offset} \approx 10.3\ mV$** (3σ ≈ 31 mV); this supersedes the fragile
+  two-crossing read, which scatters 9.66–10.9 mV at 50 samples/point. Verdicts hold (see M10 below).
 - **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
   StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
 - **M10 — Layout + PEX** ◑ *parts A+B done*: bitline WIRE cap = **0.232 fF/µm**
@@ -57,7 +61,7 @@ PEX (below) extracts the real value, which revises the magnitudes substantially.
 **Does NOT prove / since-corrected (honest caveats):**
 - Behavioral cell (ideal product source + ideal cap): no NMOS-pass Vth drop, charge injection,
   or junction cap. R²=1.0 confirms the *math is self-consistent*, **not silicon**.
-- **σ_offset = 9.66 mV** extracted (M8 MC on the StrongARM) → 3σ ≈ 29 mV.
+- **σ_offset ≈ 10.3 mV** extracted + re-verified (M8 MC, probit R²=0.97) → 3σ ≈ 31 mV.
 - **The C_BL placeholders were ~10× too high.** M10 PEX (below) measures the real wire C_BL; with it
   the 16-row step is ~67 mV (resolvable, *no* calibration) and the 64-row step ~17 mV (marginal, M9).
   i.e. the cell load `N·Cc` dominates the small parasitic — the *opposite* of what the placeholders
@@ -82,13 +86,13 @@ At a ~2 µm cell pitch the realistic **wire** C_BL is 0.46 fF/row → **7.4 fF o
 Real per-row step `Cc·VDD/(N·Cc + C_BL)`, using extracted wire + estimated ~0.2 fF/cell junction +
 the cells' MOM load (Cc = 1 fF, *still placeholder*):
 
-| rows | N·Cc | C_BL (wire+junc) | step (mV/row) | vs 29 mV (3σ) |
+| rows | N·Cc | C_BL (wire+junc) | step (mV/row) | vs 31 mV (3σ) |
 | --: | --: | --: | --: | :-- |
 | 16 (segment) | 16 fF | ~11 fF | **~67** | 2.3× — resolvable per-row, no cal |
 | 64 (continuous) | 64 fF | ~44 fF | **~17** | 0.6× — marginal, needs M9 |
 
 The 16-row verdict is **robust to the junction estimate**: even at a generous 0.5 fF/cell the step is
-~57 mV ≫ 29 mV.
+~57 mV ≫ 31 mV.
 
 **M10b — MOM cap `Cc` (`pex/run_mom_pex.py`):** single-layer met2 interdigitated comb (min finger
 W/spacing) extracts **0.308 fF/µm²**:

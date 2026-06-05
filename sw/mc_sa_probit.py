@@ -12,6 +12,7 @@ Uses linear interpolation of the CDF to extract sigma_offset.
 import os
 import re
 import subprocess
+from statistics import NormalDist
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TMP_REL = "tb/analog_cim/_mc_sa_probit.spice"
@@ -86,6 +87,31 @@ def interp_sigma(vdiff_list, prob_list, target_prob):
     # If target is outside the sweep range
     return None
 
+def probit_regression(vdiffs, probs):
+    """ROBUST sigma: fit Phi^-1(P) = (Vdiff - mu)/sigma over ALL interior points
+    (0<P<1) instead of two noisy CDF crossings. Returns (sigma, mu, r2)."""
+    xs, ys = [], []
+    for v, p in zip(vdiffs, probs):
+        if 0.0 < p < 1.0:
+            xs.append(v)
+            ys.append(NormalDist().inv_cdf(p))
+    if len(xs) < 3:
+        return None, None, None
+    n = len(xs)
+    sx, sy = sum(xs), sum(ys)
+    sxx = sum(x * x for x in xs)
+    sxy = sum(x * y for x, y in zip(xs, ys))
+    slope = (n * sxy - sx * sy) / (n * sxx - sx * sx)
+    icpt = (sy - slope * sx) / n
+    sigma = abs(1.0 / slope)
+    mu = -icpt / (1.0 / slope)
+    yb = sy / n
+    ssr = sum((y - (slope * x + icpt)) ** 2 for x, y in zip(xs, ys))
+    sst = sum((y - yb) ** 2 for y in ys)
+    r2 = 1.0 - ssr / sst if sst > 0 else 0.0
+    return sigma, mu, r2
+
+
 def main():
     print(f"Generating SPICE deck ({NUM_SAMPLES} samples per point)...")
     with open(TMP_REL, "w") as f:
@@ -135,11 +161,20 @@ def main():
         vdiffs.append(vdiff)
         probs.append(p)
         
-    # Extract -1 sigma (15.87%) and +1 sigma (84.13%)
+    # PRIMARY (robust): probit regression over every interior point.
+    pr_sigma, pr_mu, pr_r2 = probit_regression(vdiffs, probs)
+    print("\\n==== sigma_offset (probit regression -- ROBUST, uses all points) ====")
+    if pr_sigma is not None:
+        print(f"sigma_offset      : {pr_sigma*1000:.2f} mV")
+        print(f"3-Sigma Tolerance : {3*pr_sigma*1000:.2f} mV")
+        print(f"mean offset       : {pr_mu*1000:.2f} mV")
+        print(f"probit fit R^2    : {pr_r2:.3f}   (near 1.0 => real Gaussian MC, not a degenerate draw)")
+
+    # CROSS-CHECK: two-crossing method (fragile on a noisy 50-sample CDF).
     v_minus_sigma = interp_sigma(vdiffs, probs, 0.1587)
     v_plus_sigma  = interp_sigma(vdiffs, probs, 0.8413)
-    
-    print("\\n==== Extraction Results ====")
+
+    print("\\n==== cross-check: two-crossing method (fragile) ====")
     if v_minus_sigma is None or v_plus_sigma is None:
         print("ERROR: Sweep range did not fully cover the +/- 1 sigma probabilities (15.87% to 84.13%).")
         if v_minus_sigma is None: print("Failed to find V_minus_sigma.")
