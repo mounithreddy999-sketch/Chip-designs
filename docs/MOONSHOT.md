@@ -37,10 +37,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   two-crossing read, which scatters 9.66–10.9 mV at 50 samples/point. Verdicts hold (see M10 below).
 - **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
   StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
-- **M10 — Layout + PEX** ◑ *parts A+B done*: bitline WIRE cap = **0.232 fF/µm**
-  (`pex/run_bitline_pex.py`) and MOM `Cc` density = **0.308 fF/µm²** (`pex/run_mom_pex.py` — 1 fF in
-  ~3 µm² single-layer). See results below. *Remaining:* access-transistor junction (needs the cell
-  drawn) + LVS via Netgen. The `C_BL / N·Cc` ratio is what decides whether the math survives physics.
+- **M10 — Layout + PEX** ◑ *parts A+B+C done*: WIRE `C_BL` **0.232 fF/µm** (`pex/run_bitline_pex.py`),
+  MOM `Cc` **0.308 fF/µm²** (`pex/run_mom_pex.py`), access-transistor junction **0.073 fF/cell**
+  (`pex/run_junction_pex.py`, real PDK device). **Every bitline-budget cap is now extracted from sky130
+  layout.** See results below. *Remaining stretch:* full 8T1C cell layout + Netgen LVS.
 - **M11 — EACB**: train a small classifier on the extracted hardware offset/noise model so final
   accuracy ≈ FP baseline at the analog macro's TOPS/W.
 
@@ -104,9 +104,24 @@ W/spacing) extracts **0.308 fF/µm²**:
 | 16 | 13.44 | 4.45 |
 
 So the **1 fF `Cc` assumption is real** — achievable in ~3.2 µm² single-layer (~1.8 µm square), or
-~1.3 µm² stacking M2–M4. The 16-row step is now silicon-grounded on *both* the wire `C_BL` and the
-MOM `Cc`. **Measured = wire cap (0.232 fF/µm) + MOM `Cc` (0.308 fF/µm²).** Still estimated: the
-access-transistor junction (→ draw the cell; verdict shown robust to it) and the 2 µm cell pitch.
+~1.3 µm² stacking M2–M4.
+
+**M10c — access-transistor junction (`pex/run_junction_pex.py`):** a real sky130 nfet (W=0.42, L=0.15)
+drawn with the PDK device generator extracts to `ad=0.122 µm²`, `pd=1.42 µm`, **drain junction
+`Cjd` = 0.073 fF/cell** (the only DRC flags are Metal1 min-area on the isolated terminal stubs — an
+extraction artifact that vanishes once pins connect to bitline/wordline routing; the diffusion geometry
+is valid). That's *smaller* than the 0.2 fF estimate, so the step nudges up.
+
+**Complete measured `C_BL` budget** (every cap from sky130 layout/MC; only the 2 µm pitch is assumed):
+
+| rows | wire | N·junc | N·Cc | step (mV/row) | vs 31 mV (3σ) |
+| --: | --: | --: | --: | --: | :-- |
+| 16 (segment) | 7.4 fF | 1.2 fF | 16 fF | **73.3** | 2.4× — resolvable, no cal |
+| 64 (continuous) | 29.7 fF | 4.7 fF | 64 fF | **18.3** | 0.6× — marginal, M9 |
+
+The **16-row segment is now fully silicon-grounded** — wire, MOM, junction all PEX-extracted, offset
+from real-PDK MC — and resolvable with zero calibration. The cell load `N·Cc` dominates; the verdict is
+robust to the 2 µm pitch assumption (3 µm → step still ~64 mV).
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
