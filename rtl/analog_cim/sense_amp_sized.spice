@@ -1,0 +1,33 @@
+* StrongARM latch comparator, INPUT-PAIR SIZE PARAMETERIZED (M9).
+*
+* Pelgrom: sigma_Vth = AVT/sqrt(W*L), and the input differential pair dominates the
+* comparator's input-referred offset. So scaling the input-pair width by `wmult` scales
+* its area by wmult and drops sigma_offset ~ 1/sqrt(wmult) -- the area<->offset<->rows
+* trade. Pass wmult at instantiation: Xsa ... strongarm_comparator wmult=4
+*
+* (Same topology as sense_amp.spice; only Xinp/Xinn width is parameterized.)
+
+.subckt strongarm_comparator VDD VSS CLK INP INN OUTP OUTN wmult=1
+
+* Tail current switch (gated by CLK)
+Xtail tail CLK VSS VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Input differential pair -- width scaled by wmult (area = wmult x baseline)
+Xinp dn INP tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wmult' l=0.15
+Xinn dp INN tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wmult' l=0.15
+
+* Cross-coupled latch NMOS
+Xlnp OUTP OUTN dp VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+Xlnn OUTN OUTP dn VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+
+* Cross-coupled latch PMOS
+Xlpp OUTP OUTN VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xlpn OUTN OUTP VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* Reset / precharge PMOS (CLK low -> pull nodes to VDD)
+Xrop OUTP CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xron OUTN CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xrdp dp   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+Xrdn dn   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+
+.ends

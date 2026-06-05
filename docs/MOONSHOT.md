@@ -35,8 +35,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   **smooth, R²=0.97** → real per-sample mismatch, Gaussian offset (not a degenerate single draw). Robust
   **probit-regression $\sigma_{offset} \approx 10.3\ mV$** (3σ ≈ 31 mV); this supersedes the fragile
   two-crossing read, which scatters 9.66–10.9 mV at 50 samples/point. Verdicts hold (see M10 below).
-- **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
-  StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
+- **M9 — Offset reduction** ✅ *done (sizing)*: input-pair upsizing sweep (`sw/mc_offset_vs_size.py`).
+  σ: 11.1→5.8 mV over 1→4× area (Pelgrom 1/√WL holds), then **floors ~5 mV at 8×** (latch mismatch
+  dominates). **4× input area makes the 64-row column resolvable** (σ=5.8, 3σ=17.4 < 18.3 mV step).
+  Below ~5 mV needs the latch upsized too, or auto-zero/CDS (area-free). See result below.
 - **M10 — Layout + PEX** ◑ *parts A+B+C done*: WIRE `C_BL` **0.232 fF/µm** (`pex/run_bitline_pex.py`),
   MOM `Cc` **0.308 fF/µm²** (`pex/run_mom_pex.py`), access-transistor junction **0.073 fF/cell**
   (`pex/run_junction_pex.py`, real PDK device). **Every bitline-budget cap is now extracted from sky130
@@ -122,6 +124,23 @@ is valid). That's *smaller* than the 0.2 fF estimate, so the step nudges up.
 The **16-row segment is now fully silicon-grounded** — wire, MOM, junction all PEX-extracted, offset
 from real-PDK MC — and resolvable with zero calibration. The cell load `N·Cc` dominates; the verdict is
 robust to the 2 µm pitch assumption (3 µm → step still ~64 mV).
+
+## M9 result — offset reduction by input-pair sizing (`sw/mc_offset_vs_size.py`)
+Swept the StrongARM input-pair width (area) and re-ran the `tt_mm` MC + probit fit at each:
+
+| input area | σ_offset (mV) | 3σ (mV) | σ·√area | 64-row (18.3 mV step)? |
+| --: | --: | --: | --: | :-- |
+| 1× | 11.1 | 33.3 | 11.1 | no |
+| 2× | 7.8 | 23.3 | 11.0 | no |
+| 4× | 5.8 | 17.4 | 11.6 | **yes** |
+| 8× | 5.25 | 15.8 | 14.9 | yes |
+
+**Pelgrom σ∝1/√(WL) holds 1→4×** (σ·√area ≈ 11, constant), then **floors at ~5 mV by 8×**: once the
+input pair is no longer dominant, the **latch regeneration mismatch** sets the floor, so input-pair
+upsizing saturates. **4× input-pair area makes the 64-row column resolvable** (3σ=17.4 < the 18.3 mV/row
+step). Going below ~5 mV (more rows / margin) needs the latch upsized too, or — the area-free route —
+**auto-zeroing / CDS** (sample-and-subtract the offset, limited only by charge-injection residual). That
+is the M9 follow-up for 128+ rows.
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
