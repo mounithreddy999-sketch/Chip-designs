@@ -1,0 +1,42 @@
+* StrongARM latch comparator (clocked sense amp) -- Sky130.
+*
+* The column readout for the analog CIM macro: turns the small differential
+* bitline voltage (Vdiff, ~tens-hundreds of mV) into a digital decision, with
+* ZERO static current (clocked, dynamic). Its input-referred OFFSET sets the
+* minimum resolvable Vdiff -> i.e. how many CIM rows you can distinguish (the
+* column-height limit). Its DECISION ENERGY, amortized over the column, is the
+* term that dominates a real CIM macro's energy budget.
+*
+* CLK low  = reset   : precharge OUTP/OUTN and internal di nodes to VDD, tail off
+*                      (no static current).
+* CLK high = evaluate: tail on; the input pair imbalance discharges di_p/di_n at
+*                      different rates; the cross-coupled latch regenerates to the
+*                      rails. OUTP = high when INP > INN (verify polarity in sim).
+*
+* Sizes are starting points -- tune Xtail/Xinp/Xinn (gain vs speed) and the latch
+* devices (regeneration) for your target offset.
+
+.subckt strongarm_comparator VDD VSS CLK INP INN OUTP OUTN
+
+* Tail current switch (gated by CLK)
+Xtail tail CLK VSS VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Input differential pair (sources at tail)
+Xinp dn INP tail VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+Xinn dp INN tail VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Cross-coupled latch NMOS (drain = output, source = di node)
+Xlnp OUTP OUTN dp VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+Xlnn OUTN OUTP dn VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+
+* Cross-coupled latch PMOS
+Xlpp OUTP OUTN VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xlpn OUTN OUTP VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* Reset / precharge PMOS (CLK low -> pull nodes to VDD)
+Xrop OUTP CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xron OUTN CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xrdp dp   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+Xrdn dn   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+
+.ends

@@ -1,0 +1,79 @@
+* Linear-region charge-domain CIM array  --  the FUNCTIONAL measurement.
+*
+* tb_cim_array.spice railed the 100 fF bitline (Vdiff ~ -1.8 V = full discharge).
+* A railed line is a saturated digital-ish dump: the cells starve once BL hits 0,
+* so the energy is just the cap CV^2 (artificially low when divided by rows) and
+* the analog SUM is unreadable. This deck keeps the bitline in the LINEAR region
+* (partial discharge) by using a larger bitline cap, so:
+*   1. Vdiff stays a readable fraction of VPRE and ENCODES sum(X*W) (real analog MAC), and
+*   2. the recharge energy reflects the cells' TRUE delivered charge, not cap CV^2.
+*
+* Functional sweep: re-run driving 1, 2, 3, then 4 rows high (edit Vx2/Vx3) and
+* confirm |Vdiff| scales ~linearly with the active-row count. That linearity IS
+* the analog accumulation; without it there is no analog MAC to report.
+*
+* NOTE on energy: this cell sinks ~300 uA (strong, full-swing). In the linear
+* regime its per-1b-MAC energy lands in the hundreds-of-fJ range, NOT sub-100 fJ.
+* The path to genuinely low FUNCTIONAL energy is a WEAKER (subthreshold / current-
+* limited) cell -- smaller w, lower drive -- which this deck is set up to explore.
+
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+
+* Precharge: low = precharge to 1.8V (0-4ns), high = evaluate (4-12ns), recharge at 12ns
+Vpre PRE 0 PULSE(0 1.8 4n 0.1n 0.1n 8n 20n)
+Xpre_l BL     PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r BL_bar PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* LARGER bitline cap so 2 strong cells only PARTIALLY discharge it (linear, not railed).
+Cbl     BL     0 2p
+Cbl_bar BL_bar 0 2p
+
+* Weights: Row0,1,3 = 1 ; Row2 = 0
+Vw0 W0 0 DC 1.8
+Vw0_bar W0_bar 0 DC 0
+Vw1 W1 0 DC 1.8
+Vw1_bar W1_bar 0 DC 0
+Vw2 W2 0 DC 0
+Vw2_bar W2_bar 0 DC 1.8
+Vw3 W3 0 DC 1.8
+Vw3_bar W3_bar 0 DC 0
+
+* Activations: short (1 ns) pulse for partial discharge. Drive X0,X1 (2 active rows).
+* Function sweep: enable X2 and/or X3 (copy the PULSE line) and watch |Vdiff| grow.
+Vx0 X0 0 PULSE(0 1.8 6n 0.1n 0.1n 1n 20n)
+Vx1 X1 0 PULSE(0 1.8 6n 0.1n 0.1n 1n 20n)
+Vx2 X2 0 DC 0
+Vx3 X3 0 DC 0
+
+Xrow0 VGND VPWR X0 W0 W0_bar BL BL_bar cim_cell
+Xrow1 VGND VPWR X1 W1 W1_bar BL BL_bar cim_cell
+Xrow2 VGND VPWR X2 W2 W2_bar BL BL_bar cim_cell
+Xrow3 VGND VPWR X3 W3 W3_bar BL BL_bar cim_cell
+
+.control
+  tran 0.02n 15n
+  run
+
+  * Function: differential readout after the 1 ns evaluate pulse (must be PARTIAL,
+  * |Vdiff| well under 1.8 V, and must grow with the number of active rows).
+  meas tran vbl_final     find v(BL)     at=8n
+  meas tran vbl_bar_final find v(BL_bar) at=8n
+  let v_diff = v(BL) - v(BL_bar)
+  meas tran vdiff_final find v_diff at=8n
+
+  * True dynamic energy: integrate supply power during the recharge restore phase.
+  let p_pwr = -i(vpwr) * 1.8
+  meas tran energy_precharge integ p_pwr from=12n to=15n
+
+  print vbl_final
+  print vbl_bar_final
+  print vdiff_final
+  print energy_precharge
+  quit
+.endc
+
+.end

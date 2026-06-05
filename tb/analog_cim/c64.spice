@@ -1,0 +1,285 @@
+* Auto-generated 64x1 analog CIM crossbar (cim_cell)
+* Activation pattern X = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+* Expected per-column active-AND-weight count = [64]
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+Vpre PRE 0 PULSE(0 1.8 4n 0.1n 0.1n 8n 20n)
+
+Xpre_l0 BL0  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r0 BLb0 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl0  BL0  0 3840.0f
+Cblb0 BLb0 0 3840.0f
+
+Vx0 X0 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx1 X1 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx2 X2 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx3 X3 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx4 X4 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx5 X5 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx6 X6 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx7 X7 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx8 X8 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx9 X9 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx10 X10 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx11 X11 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx12 X12 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx13 X13 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx14 X14 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx15 X15 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx16 X16 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx17 X17 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx18 X18 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx19 X19 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx20 X20 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx21 X21 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx22 X22 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx23 X23 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx24 X24 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx25 X25 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx26 X26 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx27 X27 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx28 X28 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx29 X29 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx30 X30 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx31 X31 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx32 X32 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx33 X33 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx34 X34 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx35 X35 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx36 X36 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx37 X37 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx38 X38 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx39 X39 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx40 X40 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx41 X41 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx42 X42 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx43 X43 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx44 X44 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx45 X45 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx46 X46 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx47 X47 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx48 X48 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx49 X49 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx50 X50 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx51 X51 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx52 X52 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx53 X53 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx54 X54 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx55 X55 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx56 X56 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx57 X57 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx58 X58 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx59 X59 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx60 X60 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx61 X61 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx62 X62 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx63 X63 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+
+Vw0_0  W0_0  0 DC 1.8
+Vwb0_0 Wb0_0 0 DC 0.0
+Xr0c0 VGND VPWR X0 W0_0 Wb0_0 BL0 BLb0 cim_cell
+Vw1_0  W1_0  0 DC 1.8
+Vwb1_0 Wb1_0 0 DC 0.0
+Xr1c0 VGND VPWR X1 W1_0 Wb1_0 BL0 BLb0 cim_cell
+Vw2_0  W2_0  0 DC 1.8
+Vwb2_0 Wb2_0 0 DC 0.0
+Xr2c0 VGND VPWR X2 W2_0 Wb2_0 BL0 BLb0 cim_cell
+Vw3_0  W3_0  0 DC 1.8
+Vwb3_0 Wb3_0 0 DC 0.0
+Xr3c0 VGND VPWR X3 W3_0 Wb3_0 BL0 BLb0 cim_cell
+Vw4_0  W4_0  0 DC 1.8
+Vwb4_0 Wb4_0 0 DC 0.0
+Xr4c0 VGND VPWR X4 W4_0 Wb4_0 BL0 BLb0 cim_cell
+Vw5_0  W5_0  0 DC 1.8
+Vwb5_0 Wb5_0 0 DC 0.0
+Xr5c0 VGND VPWR X5 W5_0 Wb5_0 BL0 BLb0 cim_cell
+Vw6_0  W6_0  0 DC 1.8
+Vwb6_0 Wb6_0 0 DC 0.0
+Xr6c0 VGND VPWR X6 W6_0 Wb6_0 BL0 BLb0 cim_cell
+Vw7_0  W7_0  0 DC 1.8
+Vwb7_0 Wb7_0 0 DC 0.0
+Xr7c0 VGND VPWR X7 W7_0 Wb7_0 BL0 BLb0 cim_cell
+Vw8_0  W8_0  0 DC 1.8
+Vwb8_0 Wb8_0 0 DC 0.0
+Xr8c0 VGND VPWR X8 W8_0 Wb8_0 BL0 BLb0 cim_cell
+Vw9_0  W9_0  0 DC 1.8
+Vwb9_0 Wb9_0 0 DC 0.0
+Xr9c0 VGND VPWR X9 W9_0 Wb9_0 BL0 BLb0 cim_cell
+Vw10_0  W10_0  0 DC 1.8
+Vwb10_0 Wb10_0 0 DC 0.0
+Xr10c0 VGND VPWR X10 W10_0 Wb10_0 BL0 BLb0 cim_cell
+Vw11_0  W11_0  0 DC 1.8
+Vwb11_0 Wb11_0 0 DC 0.0
+Xr11c0 VGND VPWR X11 W11_0 Wb11_0 BL0 BLb0 cim_cell
+Vw12_0  W12_0  0 DC 1.8
+Vwb12_0 Wb12_0 0 DC 0.0
+Xr12c0 VGND VPWR X12 W12_0 Wb12_0 BL0 BLb0 cim_cell
+Vw13_0  W13_0  0 DC 1.8
+Vwb13_0 Wb13_0 0 DC 0.0
+Xr13c0 VGND VPWR X13 W13_0 Wb13_0 BL0 BLb0 cim_cell
+Vw14_0  W14_0  0 DC 1.8
+Vwb14_0 Wb14_0 0 DC 0.0
+Xr14c0 VGND VPWR X14 W14_0 Wb14_0 BL0 BLb0 cim_cell
+Vw15_0  W15_0  0 DC 1.8
+Vwb15_0 Wb15_0 0 DC 0.0
+Xr15c0 VGND VPWR X15 W15_0 Wb15_0 BL0 BLb0 cim_cell
+Vw16_0  W16_0  0 DC 1.8
+Vwb16_0 Wb16_0 0 DC 0.0
+Xr16c0 VGND VPWR X16 W16_0 Wb16_0 BL0 BLb0 cim_cell
+Vw17_0  W17_0  0 DC 1.8
+Vwb17_0 Wb17_0 0 DC 0.0
+Xr17c0 VGND VPWR X17 W17_0 Wb17_0 BL0 BLb0 cim_cell
+Vw18_0  W18_0  0 DC 1.8
+Vwb18_0 Wb18_0 0 DC 0.0
+Xr18c0 VGND VPWR X18 W18_0 Wb18_0 BL0 BLb0 cim_cell
+Vw19_0  W19_0  0 DC 1.8
+Vwb19_0 Wb19_0 0 DC 0.0
+Xr19c0 VGND VPWR X19 W19_0 Wb19_0 BL0 BLb0 cim_cell
+Vw20_0  W20_0  0 DC 1.8
+Vwb20_0 Wb20_0 0 DC 0.0
+Xr20c0 VGND VPWR X20 W20_0 Wb20_0 BL0 BLb0 cim_cell
+Vw21_0  W21_0  0 DC 1.8
+Vwb21_0 Wb21_0 0 DC 0.0
+Xr21c0 VGND VPWR X21 W21_0 Wb21_0 BL0 BLb0 cim_cell
+Vw22_0  W22_0  0 DC 1.8
+Vwb22_0 Wb22_0 0 DC 0.0
+Xr22c0 VGND VPWR X22 W22_0 Wb22_0 BL0 BLb0 cim_cell
+Vw23_0  W23_0  0 DC 1.8
+Vwb23_0 Wb23_0 0 DC 0.0
+Xr23c0 VGND VPWR X23 W23_0 Wb23_0 BL0 BLb0 cim_cell
+Vw24_0  W24_0  0 DC 1.8
+Vwb24_0 Wb24_0 0 DC 0.0
+Xr24c0 VGND VPWR X24 W24_0 Wb24_0 BL0 BLb0 cim_cell
+Vw25_0  W25_0  0 DC 1.8
+Vwb25_0 Wb25_0 0 DC 0.0
+Xr25c0 VGND VPWR X25 W25_0 Wb25_0 BL0 BLb0 cim_cell
+Vw26_0  W26_0  0 DC 1.8
+Vwb26_0 Wb26_0 0 DC 0.0
+Xr26c0 VGND VPWR X26 W26_0 Wb26_0 BL0 BLb0 cim_cell
+Vw27_0  W27_0  0 DC 1.8
+Vwb27_0 Wb27_0 0 DC 0.0
+Xr27c0 VGND VPWR X27 W27_0 Wb27_0 BL0 BLb0 cim_cell
+Vw28_0  W28_0  0 DC 1.8
+Vwb28_0 Wb28_0 0 DC 0.0
+Xr28c0 VGND VPWR X28 W28_0 Wb28_0 BL0 BLb0 cim_cell
+Vw29_0  W29_0  0 DC 1.8
+Vwb29_0 Wb29_0 0 DC 0.0
+Xr29c0 VGND VPWR X29 W29_0 Wb29_0 BL0 BLb0 cim_cell
+Vw30_0  W30_0  0 DC 1.8
+Vwb30_0 Wb30_0 0 DC 0.0
+Xr30c0 VGND VPWR X30 W30_0 Wb30_0 BL0 BLb0 cim_cell
+Vw31_0  W31_0  0 DC 1.8
+Vwb31_0 Wb31_0 0 DC 0.0
+Xr31c0 VGND VPWR X31 W31_0 Wb31_0 BL0 BLb0 cim_cell
+Vw32_0  W32_0  0 DC 1.8
+Vwb32_0 Wb32_0 0 DC 0.0
+Xr32c0 VGND VPWR X32 W32_0 Wb32_0 BL0 BLb0 cim_cell
+Vw33_0  W33_0  0 DC 1.8
+Vwb33_0 Wb33_0 0 DC 0.0
+Xr33c0 VGND VPWR X33 W33_0 Wb33_0 BL0 BLb0 cim_cell
+Vw34_0  W34_0  0 DC 1.8
+Vwb34_0 Wb34_0 0 DC 0.0
+Xr34c0 VGND VPWR X34 W34_0 Wb34_0 BL0 BLb0 cim_cell
+Vw35_0  W35_0  0 DC 1.8
+Vwb35_0 Wb35_0 0 DC 0.0
+Xr35c0 VGND VPWR X35 W35_0 Wb35_0 BL0 BLb0 cim_cell
+Vw36_0  W36_0  0 DC 1.8
+Vwb36_0 Wb36_0 0 DC 0.0
+Xr36c0 VGND VPWR X36 W36_0 Wb36_0 BL0 BLb0 cim_cell
+Vw37_0  W37_0  0 DC 1.8
+Vwb37_0 Wb37_0 0 DC 0.0
+Xr37c0 VGND VPWR X37 W37_0 Wb37_0 BL0 BLb0 cim_cell
+Vw38_0  W38_0  0 DC 1.8
+Vwb38_0 Wb38_0 0 DC 0.0
+Xr38c0 VGND VPWR X38 W38_0 Wb38_0 BL0 BLb0 cim_cell
+Vw39_0  W39_0  0 DC 1.8
+Vwb39_0 Wb39_0 0 DC 0.0
+Xr39c0 VGND VPWR X39 W39_0 Wb39_0 BL0 BLb0 cim_cell
+Vw40_0  W40_0  0 DC 1.8
+Vwb40_0 Wb40_0 0 DC 0.0
+Xr40c0 VGND VPWR X40 W40_0 Wb40_0 BL0 BLb0 cim_cell
+Vw41_0  W41_0  0 DC 1.8
+Vwb41_0 Wb41_0 0 DC 0.0
+Xr41c0 VGND VPWR X41 W41_0 Wb41_0 BL0 BLb0 cim_cell
+Vw42_0  W42_0  0 DC 1.8
+Vwb42_0 Wb42_0 0 DC 0.0
+Xr42c0 VGND VPWR X42 W42_0 Wb42_0 BL0 BLb0 cim_cell
+Vw43_0  W43_0  0 DC 1.8
+Vwb43_0 Wb43_0 0 DC 0.0
+Xr43c0 VGND VPWR X43 W43_0 Wb43_0 BL0 BLb0 cim_cell
+Vw44_0  W44_0  0 DC 1.8
+Vwb44_0 Wb44_0 0 DC 0.0
+Xr44c0 VGND VPWR X44 W44_0 Wb44_0 BL0 BLb0 cim_cell
+Vw45_0  W45_0  0 DC 1.8
+Vwb45_0 Wb45_0 0 DC 0.0
+Xr45c0 VGND VPWR X45 W45_0 Wb45_0 BL0 BLb0 cim_cell
+Vw46_0  W46_0  0 DC 1.8
+Vwb46_0 Wb46_0 0 DC 0.0
+Xr46c0 VGND VPWR X46 W46_0 Wb46_0 BL0 BLb0 cim_cell
+Vw47_0  W47_0  0 DC 1.8
+Vwb47_0 Wb47_0 0 DC 0.0
+Xr47c0 VGND VPWR X47 W47_0 Wb47_0 BL0 BLb0 cim_cell
+Vw48_0  W48_0  0 DC 1.8
+Vwb48_0 Wb48_0 0 DC 0.0
+Xr48c0 VGND VPWR X48 W48_0 Wb48_0 BL0 BLb0 cim_cell
+Vw49_0  W49_0  0 DC 1.8
+Vwb49_0 Wb49_0 0 DC 0.0
+Xr49c0 VGND VPWR X49 W49_0 Wb49_0 BL0 BLb0 cim_cell
+Vw50_0  W50_0  0 DC 1.8
+Vwb50_0 Wb50_0 0 DC 0.0
+Xr50c0 VGND VPWR X50 W50_0 Wb50_0 BL0 BLb0 cim_cell
+Vw51_0  W51_0  0 DC 1.8
+Vwb51_0 Wb51_0 0 DC 0.0
+Xr51c0 VGND VPWR X51 W51_0 Wb51_0 BL0 BLb0 cim_cell
+Vw52_0  W52_0  0 DC 1.8
+Vwb52_0 Wb52_0 0 DC 0.0
+Xr52c0 VGND VPWR X52 W52_0 Wb52_0 BL0 BLb0 cim_cell
+Vw53_0  W53_0  0 DC 1.8
+Vwb53_0 Wb53_0 0 DC 0.0
+Xr53c0 VGND VPWR X53 W53_0 Wb53_0 BL0 BLb0 cim_cell
+Vw54_0  W54_0  0 DC 1.8
+Vwb54_0 Wb54_0 0 DC 0.0
+Xr54c0 VGND VPWR X54 W54_0 Wb54_0 BL0 BLb0 cim_cell
+Vw55_0  W55_0  0 DC 1.8
+Vwb55_0 Wb55_0 0 DC 0.0
+Xr55c0 VGND VPWR X55 W55_0 Wb55_0 BL0 BLb0 cim_cell
+Vw56_0  W56_0  0 DC 1.8
+Vwb56_0 Wb56_0 0 DC 0.0
+Xr56c0 VGND VPWR X56 W56_0 Wb56_0 BL0 BLb0 cim_cell
+Vw57_0  W57_0  0 DC 1.8
+Vwb57_0 Wb57_0 0 DC 0.0
+Xr57c0 VGND VPWR X57 W57_0 Wb57_0 BL0 BLb0 cim_cell
+Vw58_0  W58_0  0 DC 1.8
+Vwb58_0 Wb58_0 0 DC 0.0
+Xr58c0 VGND VPWR X58 W58_0 Wb58_0 BL0 BLb0 cim_cell
+Vw59_0  W59_0  0 DC 1.8
+Vwb59_0 Wb59_0 0 DC 0.0
+Xr59c0 VGND VPWR X59 W59_0 Wb59_0 BL0 BLb0 cim_cell
+Vw60_0  W60_0  0 DC 1.8
+Vwb60_0 Wb60_0 0 DC 0.0
+Xr60c0 VGND VPWR X60 W60_0 Wb60_0 BL0 BLb0 cim_cell
+Vw61_0  W61_0  0 DC 1.8
+Vwb61_0 Wb61_0 0 DC 0.0
+Xr61c0 VGND VPWR X61 W61_0 Wb61_0 BL0 BLb0 cim_cell
+Vw62_0  W62_0  0 DC 1.8
+Vwb62_0 Wb62_0 0 DC 0.0
+Xr62c0 VGND VPWR X62 W62_0 Wb62_0 BL0 BLb0 cim_cell
+Vw63_0  W63_0  0 DC 1.8
+Vwb63_0 Wb63_0 0 DC 0.0
+Xr63c0 VGND VPWR X63 W63_0 Wb63_0 BL0 BLb0 cim_cell
+
+.control
+  tran 0.05n 15n
+  save v(BL0) v(BLb0) i(vpwr)
+  run
+  let vd0 = v(BL0) - v(BLb0)
+  meas tran vdiff0 find vd0 at=10.5n
+  let p_pwr = -i(vpwr) * 1.8
+  meas tran energy integ p_pwr from=12n to=15n
+  print vdiff0
+  print energy
+  quit
+.endc
+.end

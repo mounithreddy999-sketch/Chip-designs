@@ -1,0 +1,477 @@
+* Auto-generated 16x8 analog CIM crossbar (cim_cell)
+* Activation pattern X = [1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1]
+* Expected per-column active-AND-weight count = [5, 2, 4, 5, 8, 5, 7, 6]
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+Vpre PRE 0 PULSE(0 1.8 4n 0.1n 0.1n 8n 20n)
+
+Xpre_l0 BL0  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r0 BLb0 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl0  BL0  0 100.0f
+Cblb0 BLb0 0 100.0f
+Xpre_l1 BL1  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r1 BLb1 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl1  BL1  0 100.0f
+Cblb1 BLb1 0 100.0f
+Xpre_l2 BL2  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r2 BLb2 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl2  BL2  0 100.0f
+Cblb2 BLb2 0 100.0f
+Xpre_l3 BL3  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r3 BLb3 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl3  BL3  0 100.0f
+Cblb3 BLb3 0 100.0f
+Xpre_l4 BL4  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r4 BLb4 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl4  BL4  0 100.0f
+Cblb4 BLb4 0 100.0f
+Xpre_l5 BL5  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r5 BLb5 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl5  BL5  0 100.0f
+Cblb5 BLb5 0 100.0f
+Xpre_l6 BL6  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r6 BLb6 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl6  BL6  0 100.0f
+Cblb6 BLb6 0 100.0f
+Xpre_l7 BL7  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r7 BLb7 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl7  BL7  0 100.0f
+Cblb7 BLb7 0 100.0f
+
+Vx0 X0 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx1 X1 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx2 X2 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx3 X3 0 DC 0
+Vx4 X4 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx5 X5 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx6 X6 0 DC 0
+Vx7 X7 0 DC 0
+Vx8 X8 0 DC 0
+Vx9 X9 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx10 X10 0 DC 0
+Vx11 X11 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx12 X12 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx13 X13 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx14 X14 0 DC 0
+Vx15 X15 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+
+Vw0_0  W0_0  0 DC 0.0
+Vwb0_0 Wb0_0 0 DC 1.8
+Xr0c0 VGND VPWR X0 W0_0 Wb0_0 BL0 BLb0 cim_cell
+Vw0_1  W0_1  0 DC 0.0
+Vwb0_1 Wb0_1 0 DC 1.8
+Xr0c1 VGND VPWR X0 W0_1 Wb0_1 BL1 BLb1 cim_cell
+Vw0_2  W0_2  0 DC 1.8
+Vwb0_2 Wb0_2 0 DC 0.0
+Xr0c2 VGND VPWR X0 W0_2 Wb0_2 BL2 BLb2 cim_cell
+Vw0_3  W0_3  0 DC 0.0
+Vwb0_3 Wb0_3 0 DC 1.8
+Xr0c3 VGND VPWR X0 W0_3 Wb0_3 BL3 BLb3 cim_cell
+Vw0_4  W0_4  0 DC 1.8
+Vwb0_4 Wb0_4 0 DC 0.0
+Xr0c4 VGND VPWR X0 W0_4 Wb0_4 BL4 BLb4 cim_cell
+Vw0_5  W0_5  0 DC 1.8
+Vwb0_5 Wb0_5 0 DC 0.0
+Xr0c5 VGND VPWR X0 W0_5 Wb0_5 BL5 BLb5 cim_cell
+Vw0_6  W0_6  0 DC 1.8
+Vwb0_6 Wb0_6 0 DC 0.0
+Xr0c6 VGND VPWR X0 W0_6 Wb0_6 BL6 BLb6 cim_cell
+Vw0_7  W0_7  0 DC 1.8
+Vwb0_7 Wb0_7 0 DC 0.0
+Xr0c7 VGND VPWR X0 W0_7 Wb0_7 BL7 BLb7 cim_cell
+Vw1_0  W1_0  0 DC 0.0
+Vwb1_0 Wb1_0 0 DC 1.8
+Xr1c0 VGND VPWR X1 W1_0 Wb1_0 BL0 BLb0 cim_cell
+Vw1_1  W1_1  0 DC 0.0
+Vwb1_1 Wb1_1 0 DC 1.8
+Xr1c1 VGND VPWR X1 W1_1 Wb1_1 BL1 BLb1 cim_cell
+Vw1_2  W1_2  0 DC 1.8
+Vwb1_2 Wb1_2 0 DC 0.0
+Xr1c2 VGND VPWR X1 W1_2 Wb1_2 BL2 BLb2 cim_cell
+Vw1_3  W1_3  0 DC 0.0
+Vwb1_3 Wb1_3 0 DC 1.8
+Xr1c3 VGND VPWR X1 W1_3 Wb1_3 BL3 BLb3 cim_cell
+Vw1_4  W1_4  0 DC 1.8
+Vwb1_4 Wb1_4 0 DC 0.0
+Xr1c4 VGND VPWR X1 W1_4 Wb1_4 BL4 BLb4 cim_cell
+Vw1_5  W1_5  0 DC 1.8
+Vwb1_5 Wb1_5 0 DC 0.0
+Xr1c5 VGND VPWR X1 W1_5 Wb1_5 BL5 BLb5 cim_cell
+Vw1_6  W1_6  0 DC 0.0
+Vwb1_6 Wb1_6 0 DC 1.8
+Xr1c6 VGND VPWR X1 W1_6 Wb1_6 BL6 BLb6 cim_cell
+Vw1_7  W1_7  0 DC 1.8
+Vwb1_7 Wb1_7 0 DC 0.0
+Xr1c7 VGND VPWR X1 W1_7 Wb1_7 BL7 BLb7 cim_cell
+Vw2_0  W2_0  0 DC 1.8
+Vwb2_0 Wb2_0 0 DC 0.0
+Xr2c0 VGND VPWR X2 W2_0 Wb2_0 BL0 BLb0 cim_cell
+Vw2_1  W2_1  0 DC 0.0
+Vwb2_1 Wb2_1 0 DC 1.8
+Xr2c1 VGND VPWR X2 W2_1 Wb2_1 BL1 BLb1 cim_cell
+Vw2_2  W2_2  0 DC 0.0
+Vwb2_2 Wb2_2 0 DC 1.8
+Xr2c2 VGND VPWR X2 W2_2 Wb2_2 BL2 BLb2 cim_cell
+Vw2_3  W2_3  0 DC 1.8
+Vwb2_3 Wb2_3 0 DC 0.0
+Xr2c3 VGND VPWR X2 W2_3 Wb2_3 BL3 BLb3 cim_cell
+Vw2_4  W2_4  0 DC 0.0
+Vwb2_4 Wb2_4 0 DC 1.8
+Xr2c4 VGND VPWR X2 W2_4 Wb2_4 BL4 BLb4 cim_cell
+Vw2_5  W2_5  0 DC 0.0
+Vwb2_5 Wb2_5 0 DC 1.8
+Xr2c5 VGND VPWR X2 W2_5 Wb2_5 BL5 BLb5 cim_cell
+Vw2_6  W2_6  0 DC 0.0
+Vwb2_6 Wb2_6 0 DC 1.8
+Xr2c6 VGND VPWR X2 W2_6 Wb2_6 BL6 BLb6 cim_cell
+Vw2_7  W2_7  0 DC 0.0
+Vwb2_7 Wb2_7 0 DC 1.8
+Xr2c7 VGND VPWR X2 W2_7 Wb2_7 BL7 BLb7 cim_cell
+Vw3_0  W3_0  0 DC 1.8
+Vwb3_0 Wb3_0 0 DC 0.0
+Xr3c0 VGND VPWR X3 W3_0 Wb3_0 BL0 BLb0 cim_cell
+Vw3_1  W3_1  0 DC 0.0
+Vwb3_1 Wb3_1 0 DC 1.8
+Xr3c1 VGND VPWR X3 W3_1 Wb3_1 BL1 BLb1 cim_cell
+Vw3_2  W3_2  0 DC 1.8
+Vwb3_2 Wb3_2 0 DC 0.0
+Xr3c2 VGND VPWR X3 W3_2 Wb3_2 BL2 BLb2 cim_cell
+Vw3_3  W3_3  0 DC 0.0
+Vwb3_3 Wb3_3 0 DC 1.8
+Xr3c3 VGND VPWR X3 W3_3 Wb3_3 BL3 BLb3 cim_cell
+Vw3_4  W3_4  0 DC 0.0
+Vwb3_4 Wb3_4 0 DC 1.8
+Xr3c4 VGND VPWR X3 W3_4 Wb3_4 BL4 BLb4 cim_cell
+Vw3_5  W3_5  0 DC 1.8
+Vwb3_5 Wb3_5 0 DC 0.0
+Xr3c5 VGND VPWR X3 W3_5 Wb3_5 BL5 BLb5 cim_cell
+Vw3_6  W3_6  0 DC 1.8
+Vwb3_6 Wb3_6 0 DC 0.0
+Xr3c6 VGND VPWR X3 W3_6 Wb3_6 BL6 BLb6 cim_cell
+Vw3_7  W3_7  0 DC 0.0
+Vwb3_7 Wb3_7 0 DC 1.8
+Xr3c7 VGND VPWR X3 W3_7 Wb3_7 BL7 BLb7 cim_cell
+Vw4_0  W4_0  0 DC 1.8
+Vwb4_0 Wb4_0 0 DC 0.0
+Xr4c0 VGND VPWR X4 W4_0 Wb4_0 BL0 BLb0 cim_cell
+Vw4_1  W4_1  0 DC 0.0
+Vwb4_1 Wb4_1 0 DC 1.8
+Xr4c1 VGND VPWR X4 W4_1 Wb4_1 BL1 BLb1 cim_cell
+Vw4_2  W4_2  0 DC 0.0
+Vwb4_2 Wb4_2 0 DC 1.8
+Xr4c2 VGND VPWR X4 W4_2 Wb4_2 BL2 BLb2 cim_cell
+Vw4_3  W4_3  0 DC 1.8
+Vwb4_3 Wb4_3 0 DC 0.0
+Xr4c3 VGND VPWR X4 W4_3 Wb4_3 BL3 BLb3 cim_cell
+Vw4_4  W4_4  0 DC 1.8
+Vwb4_4 Wb4_4 0 DC 0.0
+Xr4c4 VGND VPWR X4 W4_4 Wb4_4 BL4 BLb4 cim_cell
+Vw4_5  W4_5  0 DC 0.0
+Vwb4_5 Wb4_5 0 DC 1.8
+Xr4c5 VGND VPWR X4 W4_5 Wb4_5 BL5 BLb5 cim_cell
+Vw4_6  W4_6  0 DC 1.8
+Vwb4_6 Wb4_6 0 DC 0.0
+Xr4c6 VGND VPWR X4 W4_6 Wb4_6 BL6 BLb6 cim_cell
+Vw4_7  W4_7  0 DC 0.0
+Vwb4_7 Wb4_7 0 DC 1.8
+Xr4c7 VGND VPWR X4 W4_7 Wb4_7 BL7 BLb7 cim_cell
+Vw5_0  W5_0  0 DC 0.0
+Vwb5_0 Wb5_0 0 DC 1.8
+Xr5c0 VGND VPWR X5 W5_0 Wb5_0 BL0 BLb0 cim_cell
+Vw5_1  W5_1  0 DC 1.8
+Vwb5_1 Wb5_1 0 DC 0.0
+Xr5c1 VGND VPWR X5 W5_1 Wb5_1 BL1 BLb1 cim_cell
+Vw5_2  W5_2  0 DC 0.0
+Vwb5_2 Wb5_2 0 DC 1.8
+Xr5c2 VGND VPWR X5 W5_2 Wb5_2 BL2 BLb2 cim_cell
+Vw5_3  W5_3  0 DC 1.8
+Vwb5_3 Wb5_3 0 DC 0.0
+Xr5c3 VGND VPWR X5 W5_3 Wb5_3 BL3 BLb3 cim_cell
+Vw5_4  W5_4  0 DC 1.8
+Vwb5_4 Wb5_4 0 DC 0.0
+Xr5c4 VGND VPWR X5 W5_4 Wb5_4 BL4 BLb4 cim_cell
+Vw5_5  W5_5  0 DC 0.0
+Vwb5_5 Wb5_5 0 DC 1.8
+Xr5c5 VGND VPWR X5 W5_5 Wb5_5 BL5 BLb5 cim_cell
+Vw5_6  W5_6  0 DC 1.8
+Vwb5_6 Wb5_6 0 DC 0.0
+Xr5c6 VGND VPWR X5 W5_6 Wb5_6 BL6 BLb6 cim_cell
+Vw5_7  W5_7  0 DC 1.8
+Vwb5_7 Wb5_7 0 DC 0.0
+Xr5c7 VGND VPWR X5 W5_7 Wb5_7 BL7 BLb7 cim_cell
+Vw6_0  W6_0  0 DC 1.8
+Vwb6_0 Wb6_0 0 DC 0.0
+Xr6c0 VGND VPWR X6 W6_0 Wb6_0 BL0 BLb0 cim_cell
+Vw6_1  W6_1  0 DC 1.8
+Vwb6_1 Wb6_1 0 DC 0.0
+Xr6c1 VGND VPWR X6 W6_1 Wb6_1 BL1 BLb1 cim_cell
+Vw6_2  W6_2  0 DC 0.0
+Vwb6_2 Wb6_2 0 DC 1.8
+Xr6c2 VGND VPWR X6 W6_2 Wb6_2 BL2 BLb2 cim_cell
+Vw6_3  W6_3  0 DC 1.8
+Vwb6_3 Wb6_3 0 DC 0.0
+Xr6c3 VGND VPWR X6 W6_3 Wb6_3 BL3 BLb3 cim_cell
+Vw6_4  W6_4  0 DC 0.0
+Vwb6_4 Wb6_4 0 DC 1.8
+Xr6c4 VGND VPWR X6 W6_4 Wb6_4 BL4 BLb4 cim_cell
+Vw6_5  W6_5  0 DC 1.8
+Vwb6_5 Wb6_5 0 DC 0.0
+Xr6c5 VGND VPWR X6 W6_5 Wb6_5 BL5 BLb5 cim_cell
+Vw6_6  W6_6  0 DC 1.8
+Vwb6_6 Wb6_6 0 DC 0.0
+Xr6c6 VGND VPWR X6 W6_6 Wb6_6 BL6 BLb6 cim_cell
+Vw6_7  W6_7  0 DC 0.0
+Vwb6_7 Wb6_7 0 DC 1.8
+Xr6c7 VGND VPWR X6 W6_7 Wb6_7 BL7 BLb7 cim_cell
+Vw7_0  W7_0  0 DC 1.8
+Vwb7_0 Wb7_0 0 DC 0.0
+Xr7c0 VGND VPWR X7 W7_0 Wb7_0 BL0 BLb0 cim_cell
+Vw7_1  W7_1  0 DC 1.8
+Vwb7_1 Wb7_1 0 DC 0.0
+Xr7c1 VGND VPWR X7 W7_1 Wb7_1 BL1 BLb1 cim_cell
+Vw7_2  W7_2  0 DC 0.0
+Vwb7_2 Wb7_2 0 DC 1.8
+Xr7c2 VGND VPWR X7 W7_2 Wb7_2 BL2 BLb2 cim_cell
+Vw7_3  W7_3  0 DC 1.8
+Vwb7_3 Wb7_3 0 DC 0.0
+Xr7c3 VGND VPWR X7 W7_3 Wb7_3 BL3 BLb3 cim_cell
+Vw7_4  W7_4  0 DC 0.0
+Vwb7_4 Wb7_4 0 DC 1.8
+Xr7c4 VGND VPWR X7 W7_4 Wb7_4 BL4 BLb4 cim_cell
+Vw7_5  W7_5  0 DC 0.0
+Vwb7_5 Wb7_5 0 DC 1.8
+Xr7c5 VGND VPWR X7 W7_5 Wb7_5 BL5 BLb5 cim_cell
+Vw7_6  W7_6  0 DC 1.8
+Vwb7_6 Wb7_6 0 DC 0.0
+Xr7c6 VGND VPWR X7 W7_6 Wb7_6 BL6 BLb6 cim_cell
+Vw7_7  W7_7  0 DC 1.8
+Vwb7_7 Wb7_7 0 DC 0.0
+Xr7c7 VGND VPWR X7 W7_7 Wb7_7 BL7 BLb7 cim_cell
+Vw8_0  W8_0  0 DC 1.8
+Vwb8_0 Wb8_0 0 DC 0.0
+Xr8c0 VGND VPWR X8 W8_0 Wb8_0 BL0 BLb0 cim_cell
+Vw8_1  W8_1  0 DC 0.0
+Vwb8_1 Wb8_1 0 DC 1.8
+Xr8c1 VGND VPWR X8 W8_1 Wb8_1 BL1 BLb1 cim_cell
+Vw8_2  W8_2  0 DC 1.8
+Vwb8_2 Wb8_2 0 DC 0.0
+Xr8c2 VGND VPWR X8 W8_2 Wb8_2 BL2 BLb2 cim_cell
+Vw8_3  W8_3  0 DC 0.0
+Vwb8_3 Wb8_3 0 DC 1.8
+Xr8c3 VGND VPWR X8 W8_3 Wb8_3 BL3 BLb3 cim_cell
+Vw8_4  W8_4  0 DC 1.8
+Vwb8_4 Wb8_4 0 DC 0.0
+Xr8c4 VGND VPWR X8 W8_4 Wb8_4 BL4 BLb4 cim_cell
+Vw8_5  W8_5  0 DC 1.8
+Vwb8_5 Wb8_5 0 DC 0.0
+Xr8c5 VGND VPWR X8 W8_5 Wb8_5 BL5 BLb5 cim_cell
+Vw8_6  W8_6  0 DC 0.0
+Vwb8_6 Wb8_6 0 DC 1.8
+Xr8c6 VGND VPWR X8 W8_6 Wb8_6 BL6 BLb6 cim_cell
+Vw8_7  W8_7  0 DC 0.0
+Vwb8_7 Wb8_7 0 DC 1.8
+Xr8c7 VGND VPWR X8 W8_7 Wb8_7 BL7 BLb7 cim_cell
+Vw9_0  W9_0  0 DC 0.0
+Vwb9_0 Wb9_0 0 DC 1.8
+Xr9c0 VGND VPWR X9 W9_0 Wb9_0 BL0 BLb0 cim_cell
+Vw9_1  W9_1  0 DC 0.0
+Vwb9_1 Wb9_1 0 DC 1.8
+Xr9c1 VGND VPWR X9 W9_1 Wb9_1 BL1 BLb1 cim_cell
+Vw9_2  W9_2  0 DC 0.0
+Vwb9_2 Wb9_2 0 DC 1.8
+Xr9c2 VGND VPWR X9 W9_2 Wb9_2 BL2 BLb2 cim_cell
+Vw9_3  W9_3  0 DC 0.0
+Vwb9_3 Wb9_3 0 DC 1.8
+Xr9c3 VGND VPWR X9 W9_3 Wb9_3 BL3 BLb3 cim_cell
+Vw9_4  W9_4  0 DC 1.8
+Vwb9_4 Wb9_4 0 DC 0.0
+Xr9c4 VGND VPWR X9 W9_4 Wb9_4 BL4 BLb4 cim_cell
+Vw9_5  W9_5  0 DC 1.8
+Vwb9_5 Wb9_5 0 DC 0.0
+Xr9c5 VGND VPWR X9 W9_5 Wb9_5 BL5 BLb5 cim_cell
+Vw9_6  W9_6  0 DC 1.8
+Vwb9_6 Wb9_6 0 DC 0.0
+Xr9c6 VGND VPWR X9 W9_6 Wb9_6 BL6 BLb6 cim_cell
+Vw9_7  W9_7  0 DC 1.8
+Vwb9_7 Wb9_7 0 DC 0.0
+Xr9c7 VGND VPWR X9 W9_7 Wb9_7 BL7 BLb7 cim_cell
+Vw10_0  W10_0  0 DC 1.8
+Vwb10_0 Wb10_0 0 DC 0.0
+Xr10c0 VGND VPWR X10 W10_0 Wb10_0 BL0 BLb0 cim_cell
+Vw10_1  W10_1  0 DC 0.0
+Vwb10_1 Wb10_1 0 DC 1.8
+Xr10c1 VGND VPWR X10 W10_1 Wb10_1 BL1 BLb1 cim_cell
+Vw10_2  W10_2  0 DC 1.8
+Vwb10_2 Wb10_2 0 DC 0.0
+Xr10c2 VGND VPWR X10 W10_2 Wb10_2 BL2 BLb2 cim_cell
+Vw10_3  W10_3  0 DC 0.0
+Vwb10_3 Wb10_3 0 DC 1.8
+Xr10c3 VGND VPWR X10 W10_3 Wb10_3 BL3 BLb3 cim_cell
+Vw10_4  W10_4  0 DC 0.0
+Vwb10_4 Wb10_4 0 DC 1.8
+Xr10c4 VGND VPWR X10 W10_4 Wb10_4 BL4 BLb4 cim_cell
+Vw10_5  W10_5  0 DC 1.8
+Vwb10_5 Wb10_5 0 DC 0.0
+Xr10c5 VGND VPWR X10 W10_5 Wb10_5 BL5 BLb5 cim_cell
+Vw10_6  W10_6  0 DC 0.0
+Vwb10_6 Wb10_6 0 DC 1.8
+Xr10c6 VGND VPWR X10 W10_6 Wb10_6 BL6 BLb6 cim_cell
+Vw10_7  W10_7  0 DC 1.8
+Vwb10_7 Wb10_7 0 DC 0.0
+Xr10c7 VGND VPWR X10 W10_7 Wb10_7 BL7 BLb7 cim_cell
+Vw11_0  W11_0  0 DC 1.8
+Vwb11_0 Wb11_0 0 DC 0.0
+Xr11c0 VGND VPWR X11 W11_0 Wb11_0 BL0 BLb0 cim_cell
+Vw11_1  W11_1  0 DC 0.0
+Vwb11_1 Wb11_1 0 DC 1.8
+Xr11c1 VGND VPWR X11 W11_1 Wb11_1 BL1 BLb1 cim_cell
+Vw11_2  W11_2  0 DC 1.8
+Vwb11_2 Wb11_2 0 DC 0.0
+Xr11c2 VGND VPWR X11 W11_2 Wb11_2 BL2 BLb2 cim_cell
+Vw11_3  W11_3  0 DC 1.8
+Vwb11_3 Wb11_3 0 DC 0.0
+Xr11c3 VGND VPWR X11 W11_3 Wb11_3 BL3 BLb3 cim_cell
+Vw11_4  W11_4  0 DC 1.8
+Vwb11_4 Wb11_4 0 DC 0.0
+Xr11c4 VGND VPWR X11 W11_4 Wb11_4 BL4 BLb4 cim_cell
+Vw11_5  W11_5  0 DC 1.8
+Vwb11_5 Wb11_5 0 DC 0.0
+Xr11c5 VGND VPWR X11 W11_5 Wb11_5 BL5 BLb5 cim_cell
+Vw11_6  W11_6  0 DC 1.8
+Vwb11_6 Wb11_6 0 DC 0.0
+Xr11c6 VGND VPWR X11 W11_6 Wb11_6 BL6 BLb6 cim_cell
+Vw11_7  W11_7  0 DC 0.0
+Vwb11_7 Wb11_7 0 DC 1.8
+Xr11c7 VGND VPWR X11 W11_7 Wb11_7 BL7 BLb7 cim_cell
+Vw12_0  W12_0  0 DC 1.8
+Vwb12_0 Wb12_0 0 DC 0.0
+Xr12c0 VGND VPWR X12 W12_0 Wb12_0 BL0 BLb0 cim_cell
+Vw12_1  W12_1  0 DC 1.8
+Vwb12_1 Wb12_1 0 DC 0.0
+Xr12c1 VGND VPWR X12 W12_1 Wb12_1 BL1 BLb1 cim_cell
+Vw12_2  W12_2  0 DC 0.0
+Vwb12_2 Wb12_2 0 DC 1.8
+Xr12c2 VGND VPWR X12 W12_2 Wb12_2 BL2 BLb2 cim_cell
+Vw12_3  W12_3  0 DC 0.0
+Vwb12_3 Wb12_3 0 DC 1.8
+Xr12c3 VGND VPWR X12 W12_3 Wb12_3 BL3 BLb3 cim_cell
+Vw12_4  W12_4  0 DC 0.0
+Vwb12_4 Wb12_4 0 DC 1.8
+Xr12c4 VGND VPWR X12 W12_4 Wb12_4 BL4 BLb4 cim_cell
+Vw12_5  W12_5  0 DC 0.0
+Vwb12_5 Wb12_5 0 DC 1.8
+Xr12c5 VGND VPWR X12 W12_5 Wb12_5 BL5 BLb5 cim_cell
+Vw12_6  W12_6  0 DC 0.0
+Vwb12_6 Wb12_6 0 DC 1.8
+Xr12c6 VGND VPWR X12 W12_6 Wb12_6 BL6 BLb6 cim_cell
+Vw12_7  W12_7  0 DC 1.8
+Vwb12_7 Wb12_7 0 DC 0.0
+Xr12c7 VGND VPWR X12 W12_7 Wb12_7 BL7 BLb7 cim_cell
+Vw13_0  W13_0  0 DC 0.0
+Vwb13_0 Wb13_0 0 DC 1.8
+Xr13c0 VGND VPWR X13 W13_0 Wb13_0 BL0 BLb0 cim_cell
+Vw13_1  W13_1  0 DC 0.0
+Vwb13_1 Wb13_1 0 DC 1.8
+Xr13c1 VGND VPWR X13 W13_1 Wb13_1 BL1 BLb1 cim_cell
+Vw13_2  W13_2  0 DC 0.0
+Vwb13_2 Wb13_2 0 DC 1.8
+Xr13c2 VGND VPWR X13 W13_2 Wb13_2 BL2 BLb2 cim_cell
+Vw13_3  W13_3  0 DC 0.0
+Vwb13_3 Wb13_3 0 DC 1.8
+Xr13c3 VGND VPWR X13 W13_3 Wb13_3 BL3 BLb3 cim_cell
+Vw13_4  W13_4  0 DC 1.8
+Vwb13_4 Wb13_4 0 DC 0.0
+Xr13c4 VGND VPWR X13 W13_4 Wb13_4 BL4 BLb4 cim_cell
+Vw13_5  W13_5  0 DC 0.0
+Vwb13_5 Wb13_5 0 DC 1.8
+Xr13c5 VGND VPWR X13 W13_5 Wb13_5 BL5 BLb5 cim_cell
+Vw13_6  W13_6  0 DC 1.8
+Vwb13_6 Wb13_6 0 DC 0.0
+Xr13c6 VGND VPWR X13 W13_6 Wb13_6 BL6 BLb6 cim_cell
+Vw13_7  W13_7  0 DC 0.0
+Vwb13_7 Wb13_7 0 DC 1.8
+Xr13c7 VGND VPWR X13 W13_7 Wb13_7 BL7 BLb7 cim_cell
+Vw14_0  W14_0  0 DC 1.8
+Vwb14_0 Wb14_0 0 DC 0.0
+Xr14c0 VGND VPWR X14 W14_0 Wb14_0 BL0 BLb0 cim_cell
+Vw14_1  W14_1  0 DC 0.0
+Vwb14_1 Wb14_1 0 DC 1.8
+Xr14c1 VGND VPWR X14 W14_1 Wb14_1 BL1 BLb1 cim_cell
+Vw14_2  W14_2  0 DC 0.0
+Vwb14_2 Wb14_2 0 DC 1.8
+Xr14c2 VGND VPWR X14 W14_2 Wb14_2 BL2 BLb2 cim_cell
+Vw14_3  W14_3  0 DC 1.8
+Vwb14_3 Wb14_3 0 DC 0.0
+Xr14c3 VGND VPWR X14 W14_3 Wb14_3 BL3 BLb3 cim_cell
+Vw14_4  W14_4  0 DC 1.8
+Vwb14_4 Wb14_4 0 DC 0.0
+Xr14c4 VGND VPWR X14 W14_4 Wb14_4 BL4 BLb4 cim_cell
+Vw14_5  W14_5  0 DC 0.0
+Vwb14_5 Wb14_5 0 DC 1.8
+Xr14c5 VGND VPWR X14 W14_5 Wb14_5 BL5 BLb5 cim_cell
+Vw14_6  W14_6  0 DC 0.0
+Vwb14_6 Wb14_6 0 DC 1.8
+Xr14c6 VGND VPWR X14 W14_6 Wb14_6 BL6 BLb6 cim_cell
+Vw14_7  W14_7  0 DC 0.0
+Vwb14_7 Wb14_7 0 DC 1.8
+Xr14c7 VGND VPWR X14 W14_7 Wb14_7 BL7 BLb7 cim_cell
+Vw15_0  W15_0  0 DC 1.8
+Vwb15_0 Wb15_0 0 DC 0.0
+Xr15c0 VGND VPWR X15 W15_0 Wb15_0 BL0 BLb0 cim_cell
+Vw15_1  W15_1  0 DC 0.0
+Vwb15_1 Wb15_1 0 DC 1.8
+Xr15c1 VGND VPWR X15 W15_1 Wb15_1 BL1 BLb1 cim_cell
+Vw15_2  W15_2  0 DC 1.8
+Vwb15_2 Wb15_2 0 DC 0.0
+Xr15c2 VGND VPWR X15 W15_2 Wb15_2 BL2 BLb2 cim_cell
+Vw15_3  W15_3  0 DC 1.8
+Vwb15_3 Wb15_3 0 DC 0.0
+Xr15c3 VGND VPWR X15 W15_3 Wb15_3 BL3 BLb3 cim_cell
+Vw15_4  W15_4  0 DC 1.8
+Vwb15_4 Wb15_4 0 DC 0.0
+Xr15c4 VGND VPWR X15 W15_4 Wb15_4 BL4 BLb4 cim_cell
+Vw15_5  W15_5  0 DC 1.8
+Vwb15_5 Wb15_5 0 DC 0.0
+Xr15c5 VGND VPWR X15 W15_5 Wb15_5 BL5 BLb5 cim_cell
+Vw15_6  W15_6  0 DC 1.8
+Vwb15_6 Wb15_6 0 DC 0.0
+Xr15c6 VGND VPWR X15 W15_6 Wb15_6 BL6 BLb6 cim_cell
+Vw15_7  W15_7  0 DC 1.8
+Vwb15_7 Wb15_7 0 DC 0.0
+Xr15c7 VGND VPWR X15 W15_7 Wb15_7 BL7 BLb7 cim_cell
+
+.control
+  tran 0.05n 15n
+  run
+  let vd0 = v(BL0) - v(BLb0)
+  meas tran vdiff0 find vd0 at=10.5n
+  let vd1 = v(BL1) - v(BLb1)
+  meas tran vdiff1 find vd1 at=10.5n
+  let vd2 = v(BL2) - v(BLb2)
+  meas tran vdiff2 find vd2 at=10.5n
+  let vd3 = v(BL3) - v(BLb3)
+  meas tran vdiff3 find vd3 at=10.5n
+  let vd4 = v(BL4) - v(BLb4)
+  meas tran vdiff4 find vd4 at=10.5n
+  let vd5 = v(BL5) - v(BLb5)
+  meas tran vdiff5 find vd5 at=10.5n
+  let vd6 = v(BL6) - v(BLb6)
+  meas tran vdiff6 find vd6 at=10.5n
+  let vd7 = v(BL7) - v(BLb7)
+  meas tran vdiff7 find vd7 at=10.5n
+  let p_pwr = -i(vpwr) * 1.8
+  meas tran energy integ p_pwr from=12n to=15n
+  print vdiff0
+  print vdiff1
+  print vdiff2
+  print vdiff3
+  print vdiff4
+  print vdiff5
+  print vdiff6
+  print vdiff7
+  print energy
+  quit
+.endc
+.end

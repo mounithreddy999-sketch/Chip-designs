@@ -1,0 +1,2 @@
+wrote tb/analog_cim/_cim_array.spice  (32x8, VXHI=0.7 V)
+expected per-column active count: [7, 5, 9, 6, 8, 10, 7, 10]

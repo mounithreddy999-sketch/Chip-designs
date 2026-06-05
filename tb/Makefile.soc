@@ -3,16 +3,29 @@ TOPLEVEL_LANG ?= verilog
 
 # RTL source files
 VERILOG_SOURCES += $(PWD)/../rtl/picorv32.v
-VERILOG_SOURCES += $(PWD)/../rtl/soc_mem.v
-VERILOG_SOURCES += $(PWD)/../rtl/cgra_pe.v
-VERILOG_SOURCES += $(PWD)/../rtl/cgra_mesh.v
-VERILOG_SOURCES += $(PWD)/../rtl/cgra_sequencer.v
-VERILOG_SOURCES += $(PWD)/../rtl/cgra_top.v
-VERILOG_SOURCES += $(PWD)/../rtl/cgra_mmio_bridge.v
+VERILOG_SOURCES += $(PWD)/../rtl/picorv32_axi_wrapper.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/arbiter.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/priority_encoder.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_crossbar.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_crossbar_addr.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_crossbar_rd.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_crossbar_wr.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_register_rd.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_register_wr.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi/rtl/axi_ram.v
+VERILOG_SOURCES += $(PWD)/../rtl/soc_interconnect_axi.v
+VERILOG_SOURCES += $(PWD)/../rtl/axi_stream_dma.v
+VERILOG_SOURCES += $(PWD)/../rtl/pim_matmul_macro.v
+VERILOG_SOURCES += $(PWD)/../rtl/mx_pwl_exp.v
+VERILOG_SOURCES += $(PWD)/../rtl/mx_pwl_recip.v
+VERILOG_SOURCES += $(PWD)/../rtl/mx_softmax_unit.v
+VERILOG_SOURCES += $(PWD)/../rtl/attention_block.v
 VERILOG_SOURCES += $(PWD)/../rtl/soc_top.v
 
 # Top-level module name inside RTL
 TOPLEVEL = soc_top
+
+COMPILE_ARGS += -I $(PWD)/../rtl
 
 # Name of the python testbench file (without .py)
 MODULE = tb_soc_top

@@ -1,0 +1,51 @@
+* StrongARM comparator characterization  --  M4 (the CIM column readout).
+*
+* Measures the two specs that gate the whole macro:
+*   1. DECISION ENERGY  : supply energy per clock cycle (amortizes over the column).
+*   2. RESOLUTION/OFFSET: smallest Vdiff that resolves correctly. Sweep VDIFF down
+*      (50, 20, 10, 5, 2, 1 mV) and find where OUTP no longer goes high for INP>INN.
+*      That minimum Vdiff = your sense floor -> with the CIM per-row step it sets
+*      the MAX COLUMN HEIGHT (rows you can tell apart). This is the number that
+*      replaces the un-measured "breaks at 64 rows" guess.
+*
+* Common mode = 1.2 V to match the CIM bitline bias. This single run applies a
+* +50 mV differential (a healthy multi-row CIM sum) and should resolve OUTP high.
+
+.include "../../rtl/analog_cim/sense_amp.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+.param VCM  = 1.2
+.param VDIFF = 0.0001      ; <-- sweep this down to find the resolution floor
+
+Vvdd VDD 0 DC 1.8
+Vvss VSS 0 DC 0
+
+* Clock: low = reset (0-5ns), high = evaluate (5-15ns), reset again at 15ns
+Vclk CLK 0 PULSE(0 1.8 5n 0.1n 0.1n 10n 20n)
+
+* Differential input at common mode 1.2 V (INP - INN = VDIFF)
+Vinp INP 0 DC 1.2001      ; VCM + VDIFF/2  (edit together with VDIFF)
+Vinn INN 0 DC 1.1999      ; VCM - VDIFF/2
+
+Xsa VDD VSS CLK INP INN OUTP OUTN strongarm_comparator
+
+.control
+  tran 0.02n 20n
+  save v(OUTP) v(OUTN) i(Vvdd)
+  run
+
+  * Decision: after the latch settles (mid-evaluate). INP>INN -> OUTP high, OUTN low.
+  meas tran outp_v find v(OUTP) at=9.5n
+  meas tran outn_v find v(OUTN) at=9.5n
+
+  * Decision energy: supply power integrated over one full clock cycle.
+  let p_vdd = -i(Vvdd) * 1.8
+  meas tran e_decision integ p_vdd from=5n to=20n
+
+  print outp_v
+  print outn_v
+  print e_decision
+  quit
+.endc
+
+.end

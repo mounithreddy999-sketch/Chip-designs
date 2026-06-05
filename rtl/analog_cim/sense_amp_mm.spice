@@ -1,0 +1,42 @@
+* StrongARM comparator with per-device Vth-mismatch injection -- for M5 Monte-Carlo.
+*
+* Same topology as sense_amp.spice, but each dominant-offset device (the input
+* pair + the latch NMOS) has a gate-referred offset source. The MC harness
+* (sw/mc_offset.py) draws off_* ~ N(0, sigma_Vth) per sample and bisects the input
+* VDIFF that balances the decision = that sample's input-referred offset. The
+* gate is high-impedance, so the offset source carries no current -- it only
+* shifts the effective Vgs (a clean, portable model of Vth mismatch).
+*
+* (First-order: input pair + latch NMOS. Latch-PMOS mismatch is a smaller term;
+*  add it the same way for a tighter estimate. The gold number is the sky130
+*  statistical models -- this gives a defensible figure for a stated AVT now.)
+
+.subckt strongarm_comparator_mm VDD VSS CLK INP INN OUTP OUTN
++ off_inp=0 off_inn=0 off_lnp=0 off_lnn=0
+
+* Tail
+Xtail tail CLK VSS VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Input pair with injected gate offsets
+Voi INPg INP DC {off_inp}
+Voj INNg INN DC {off_inn}
+Xinp dn INPg tail VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+Xinn dp INNg tail VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Latch NMOS with injected gate offsets (gates are the cross-coupled outputs)
+Vol lnpg OUTN DC {off_lnp}
+Vom lnng OUTP DC {off_lnn}
+Xlnp OUTP lnpg dp VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+Xlnn OUTN lnng dn VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+
+* Latch PMOS
+Xlpp OUTP OUTN VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xlpn OUTN OUTP VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* Reset / precharge PMOS
+Xrop OUTP CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xron OUTN CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xrdp dp CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+Xrdn dn CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+
+.ends

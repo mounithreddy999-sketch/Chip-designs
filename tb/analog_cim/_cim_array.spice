@@ -1,0 +1,93 @@
+* Auto-generated 16x1 analog CIM crossbar (cim_cell)
+* Activation pattern X = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+* Expected per-column active-AND-weight count = [16]
+.include "../../rtl/analog_cim/cim_cell.spice"
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+Vpwr VPWR 0 DC 1.8
+Vgnd VGND 0 DC 0
+Vpre PRE 0 PULSE(0 1.8 4n 0.1n 0.1n 8n 20n)
+
+Xpre_l0 BL0  PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xpre_r0 BLb0 PRE VPWR VPWR sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Cbl0  BL0  0 960.0f
+Cblb0 BLb0 0 960.0f
+
+Vx0 X0 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx1 X1 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx2 X2 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx3 X3 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx4 X4 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx5 X5 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx6 X6 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx7 X7 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx8 X8 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx9 X9 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx10 X10 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx11 X11 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx12 X12 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx13 X13 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx14 X14 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+Vx15 X15 0 PULSE(0 0.7 6n 0.1n 0.1n 4n 20n)
+
+Vw0_0  W0_0  0 DC 1.8
+Vwb0_0 Wb0_0 0 DC 0.0
+Xr0c0 VGND VPWR X0 W0_0 Wb0_0 BL0 BLb0 cim_cell
+Vw1_0  W1_0  0 DC 1.8
+Vwb1_0 Wb1_0 0 DC 0.0
+Xr1c0 VGND VPWR X1 W1_0 Wb1_0 BL0 BLb0 cim_cell
+Vw2_0  W2_0  0 DC 1.8
+Vwb2_0 Wb2_0 0 DC 0.0
+Xr2c0 VGND VPWR X2 W2_0 Wb2_0 BL0 BLb0 cim_cell
+Vw3_0  W3_0  0 DC 1.8
+Vwb3_0 Wb3_0 0 DC 0.0
+Xr3c0 VGND VPWR X3 W3_0 Wb3_0 BL0 BLb0 cim_cell
+Vw4_0  W4_0  0 DC 1.8
+Vwb4_0 Wb4_0 0 DC 0.0
+Xr4c0 VGND VPWR X4 W4_0 Wb4_0 BL0 BLb0 cim_cell
+Vw5_0  W5_0  0 DC 1.8
+Vwb5_0 Wb5_0 0 DC 0.0
+Xr5c0 VGND VPWR X5 W5_0 Wb5_0 BL0 BLb0 cim_cell
+Vw6_0  W6_0  0 DC 1.8
+Vwb6_0 Wb6_0 0 DC 0.0
+Xr6c0 VGND VPWR X6 W6_0 Wb6_0 BL0 BLb0 cim_cell
+Vw7_0  W7_0  0 DC 1.8
+Vwb7_0 Wb7_0 0 DC 0.0
+Xr7c0 VGND VPWR X7 W7_0 Wb7_0 BL0 BLb0 cim_cell
+Vw8_0  W8_0  0 DC 1.8
+Vwb8_0 Wb8_0 0 DC 0.0
+Xr8c0 VGND VPWR X8 W8_0 Wb8_0 BL0 BLb0 cim_cell
+Vw9_0  W9_0  0 DC 1.8
+Vwb9_0 Wb9_0 0 DC 0.0
+Xr9c0 VGND VPWR X9 W9_0 Wb9_0 BL0 BLb0 cim_cell
+Vw10_0  W10_0  0 DC 1.8
+Vwb10_0 Wb10_0 0 DC 0.0
+Xr10c0 VGND VPWR X10 W10_0 Wb10_0 BL0 BLb0 cim_cell
+Vw11_0  W11_0  0 DC 1.8
+Vwb11_0 Wb11_0 0 DC 0.0
+Xr11c0 VGND VPWR X11 W11_0 Wb11_0 BL0 BLb0 cim_cell
+Vw12_0  W12_0  0 DC 1.8
+Vwb12_0 Wb12_0 0 DC 0.0
+Xr12c0 VGND VPWR X12 W12_0 Wb12_0 BL0 BLb0 cim_cell
+Vw13_0  W13_0  0 DC 1.8
+Vwb13_0 Wb13_0 0 DC 0.0
+Xr13c0 VGND VPWR X13 W13_0 Wb13_0 BL0 BLb0 cim_cell
+Vw14_0  W14_0  0 DC 1.8
+Vwb14_0 Wb14_0 0 DC 0.0
+Xr14c0 VGND VPWR X14 W14_0 Wb14_0 BL0 BLb0 cim_cell
+Vw15_0  W15_0  0 DC 1.8
+Vwb15_0 Wb15_0 0 DC 0.0
+Xr15c0 VGND VPWR X15 W15_0 Wb15_0 BL0 BLb0 cim_cell
+
+.control
+  tran 0.05n 15n
+  save v(BL0) v(BLb0) i(vpwr)
+  run
+  let vd0 = v(BL0) - v(BLb0)
+  meas tran vdiff0 find vd0 at=10.5n
+  let p_pwr = -i(vpwr) * 1.8
+  meas tran energy integ p_pwr from=12n to=15n
+  print vdiff0
+  print energy
+  quit
+.endc
+.end
