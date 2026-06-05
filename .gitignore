@@ -11,3 +11,5 @@ __pycache__/
 *.pyc
 # Compiled binaries
 *.exe
+# Auto-generated analog sweep decks (regenerate via sw/*.py)
+tb/analog_cim/_*.spice

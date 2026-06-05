@@ -26,10 +26,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
 | **EACB (system)** | train the net on the *measured* hardware non-idealities to absorb residual noise | hardware-aware AdaBoost |
 
 ## Execution plan (mapped to our tooling)
-- **M6 — Charge-domain cell** ✦ *first build*: `rtl/analog_cim/cim_cell_charge.spice` — MOM
-  coupling cap + product driver. Demonstrate the RBL voltage is **linear** in Σ(X·W).
-- **M7 — Segmented vs continuous**: local-BL clusters + buffer onto global BL. Show the per-row
-  step stays resolvable at 16, 32, 64 rows where the continuous array collapsed at ~9.
+- **M6 — Charge-domain cell** ✅ *done (behavioral)*: `rtl/analog_cim/cim_cell_charge.spice` — MOM
+  coupling cap + product driver. RBL voltage confirmed **linear** in Σ(X·W) (R²=1.0). See result below.
+- **M7 — Segmented vs continuous** ✅ *done (behavioral)*: `sw/run_charge_linearity.py`. Per-row step
+  stays resolvable at 16 rows (15.5 mV) where the continuous 64-row line collapses (3.2 mV). See below.
 - **M8 — Real PDK Monte-Carlo offset**: rewrite the MC to use the *actual* sky130 statistical
   models — `.param mc_mm_switch=1` / `mc_pr_switch=0` + a `.control` reset/run loop — instead of
   the injected-source hack that broke the solver. Probit-fit σ_offset.
@@ -40,6 +40,31 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   from PEX is what decides whether the math survives physics.
 - **M11 — EACB**: train a small classifier on the extracted hardware offset/noise model so final
   accuracy ≈ FP baseline at the analog macro's TOPS/W.
+
+## M6/M7 result — linearity + segmentation (`sw/run_charge_linearity.py`)
+Swept active rows 0..N for three column configs in ngspice (batch, iic-osic-tools Docker).
+The SPICE reproduces the capacitor-divider closed form `V_BL(n)=n·Cc·VDD/(N·Cc+C_BL)` **exactly**:
+
+| config | N | C_BL | step (mV/row) | analytic | R² | vs 5 mV offset |
+| :-- | --: | --: | --: | --: | --: | :-- |
+| segment-8 | 8 | 50 fF | 31.0 | 31.0 | 1.0000 | 6.2× resolvable |
+| segment-16 | 16 | 100 fF | 15.5 | 15.5 | 1.0000 | 3.1× resolvable |
+| continuous-64 | 64 | 500 fF | 3.2 | 3.2 | 1.0000 | 0.6× — below offset |
+
+**Establishes:** the charge-domain MAC is *linear* (a cap ratio), and the per-row step is set by
+`C_BL`. For the 64-row line, `C_BL` (500 fF wire) dominates `N·Cc` (64 fF) **8:1** → the step
+collapses from *bitline wire parasitic*, not the cells. **The ~9-row passive wall is a
+continuous-bitline property, not a charge-domain one; segmentation (small C_BL) is the lever.**
+
+**Does NOT yet prove (honest caveats):**
+- Behavioral cell (ideal product source + ideal cap): no NMOS-pass Vth drop, charge injection,
+  or junction cap. R²=1.0 confirms the *math is self-consistent*, **not silicon**.
+- The **5 mV offset is a placeholder** — real σ_offset comes from M8/M9 (real-PDK MC on the SA).
+- Every **C_BL is assumed** — the real value comes from M10 Magic PEX. The verdict hinges on the
+  `C_BL/Cc` ratio, so PEX is the decisive next measurement.
+
+Two numbers convert this from "mechanism shown" → "silicon-validated": **σ_offset (M8)** and
+**C_BL (M10)**.
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
