@@ -43,8 +43,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   MOM `Cc` **0.308 fF/µm²** (`pex/run_mom_pex.py`), access-transistor junction **0.073 fF/cell**
   (`pex/run_junction_pex.py`, real PDK device). **Every bitline-budget cap is now extracted from sky130
   layout.** See results below. *Remaining stretch:* full 8T1C cell layout + Netgen LVS.
-- **M11 — EACB**: train a small classifier on the extracted hardware offset/noise model so final
-  accuracy ≈ FP baseline at the analog macro's TOPS/W.
+- **M11 — EACB (offset-aware training)** ✅ *done*: `sw/eacb_demo.py` injects the measured FIXED
+  comparator-offset distribution into MLP training (digits). **At our ~7-bit readout SNR the offset
+  costs ~0.2 pt (97.4→97.2%) — EACB unneeded.** It earns its keep only at ~6× worse offset (naive
+  89.5% → EACB 94.0%, +4.5 pt), i.e. aggressive scaling / skipping M9. See result below.
 
 ## M6/M7 result — linearity + segmentation (`sw/run_charge_linearity.py`)
 Swept active rows 0..N for three column configs in ngspice (batch, iic-osic-tools Docker).
@@ -141,6 +143,23 @@ upsizing saturates. **4× input-pair area makes the 64-row column resolvable** (
 step). Going below ~5 mV (more rows / margin) needs the latch upsized too, or — the area-free route —
 **auto-zeroing / CDS** (sample-and-subtract the offset, limited only by charge-injection residual). That
 is the M9 follow-up for 128+ rows.
+
+## M11 result — offset-aware (EACB) training (`sw/eacb_demo.py`)
+The comparator offset is a FIXED per-column bias (not random noise), so it is *trainable-away*.
+Injected the measured offset distribution into a 64→32→10 MLP (digits, both layers analog);
+deployment accuracy averaged over 25 offset draws ("chips"), ideal (clean) = 0.974:
+
+| offset (× pre-act std) | naive | EACB | EACB gain |
+| :-- | --: | --: | --: |
+| 0.05 (~HW point, SNR 114) | 0.972 | 0.976 | +0.4 pt |
+| 0.10 | 0.967 | 0.971 | +0.3 pt |
+| 0.20 | 0.950 | 0.953 | +0.3 pt |
+| 0.30 (~6× our offset) | 0.895 | 0.940 | **+4.5 pt** |
+
+**Honest takeaway: at the extracted readout SNR the fixed offset costs ~0.2 pt — EACB is *not needed*
+for the 16/64-row column.** It earns its keep only at ~6× worse offset (naive loses 8 pt, EACB recovers
+4.5), i.e. when pushing to very high row counts or skipping the M9 sizing. A clean-enough analog macro
+beats one that *relies* on error-correction.
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
