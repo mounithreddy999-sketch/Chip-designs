@@ -13,3 +13,11 @@ __pycache__/
 *.exe
 # Auto-generated analog sweep decks (regenerate via sw/*.py)
 tb/analog_cim/_*.spice
+# Magic PEX artifacts (regenerate via pex/run_bitline_pex.py)
+pex/_*.tcl
+pex/*.mag
+pex/*.ext
+pex/*.spice
+pex/*.sim
+pex/*.nodes
+pex/*.res.ext

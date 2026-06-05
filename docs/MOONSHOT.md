@@ -33,9 +33,10 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
 - **M8 — Real PDK Monte-Carlo offset** ✅ *done*: We ran a 50-sample Monte Carlo simulation for $V_{diff}$ using Sky130 `tt_mm` mismatch models on the StrongARM sense amp. Extracted $\sigma_{offset} = 9.66\ mV$. 3-sigma tolerance = $29\ mV$. Since our bitline swing is $\approx 100\ mV$, this offset is safely resolvable!
 - **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
   StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
-- **M10 — Layout + PEX**: draw the cell in Magic; extract parasitics with
-  `ext2spice cthresh 0.01` + `ext2spice extresist on`, LVS via Netgen. The C_par/C_unit ratio
-  from PEX is what decides whether the math survives physics.
+- **M10 — Layout + PEX** ◑ *part A done*: bitline WIRE cap extracted in Magic
+  (`pex/run_bitline_pex.py`) = **0.232 fF/µm** (met2, min-width, min-spacing grounded neighbors).
+  See result below. *Part B (pending):* draw the cell → extract the MOM cap Cc + access-transistor
+  junction; LVS via Netgen. The `C_BL / N·Cc` ratio is what decides whether the math survives physics.
 - **M11 — EACB**: train a small classifier on the extracted hardware offset/noise model so final
   accuracy ≈ FP baseline at the analog macro's TOPS/W.
 
@@ -49,20 +50,46 @@ The SPICE reproduces the capacitor-divider closed form `V_BL(n)=n·Cc·VDD/(N·C
 | segment-16 | 16 | 100 fF | 15.5 | 15.5 | 1.0000 | 3.1× resolvable |
 | continuous-64 | 64 | 500 fF | 3.2 | 3.2 | 1.0000 | 0.6× — below offset |
 
-**Establishes:** the charge-domain MAC is *linear* (a cap ratio), and the per-row step is set by
-`C_BL`. For the 64-row line, `C_BL` (500 fF wire) dominates `N·Cc` (64 fF) **8:1** → the step
-collapses from *bitline wire parasitic*, not the cells. **The ~9-row passive wall is a
-continuous-bitline property, not a charge-domain one; segmentation (small C_BL) is the lever.**
+**Establishes:** the charge-domain MAC is *linear* (a cap ratio); the per-row step is set by the
+ratio of parasitic `C_BL` to the cell load `N·Cc`. **The `C_BL` column above is placeholder** — M10
+PEX (below) extracts the real value, which revises the magnitudes substantially.
 
-**Does NOT yet prove (honest caveats):**
+**Does NOT prove / since-corrected (honest caveats):**
 - Behavioral cell (ideal product source + ideal cap): no NMOS-pass Vth drop, charge injection,
   or junction cap. R²=1.0 confirms the *math is self-consistent*, **not silicon**.
-- **The real extracted offset is 9.66 mV** (from M8 Monte-Carlo on the StrongARM), meaning a 3-sigma tolerance requires ~29 mV. The 8-segment and 16-segment configs are physically realizable.
-- Every **C_BL is assumed** — the real value comes from M10 Magic PEX. The verdict hinges on the
-  `C_BL/Cc` ratio, so PEX is the decisive next measurement.
+- **σ_offset = 9.66 mV** extracted (M8 MC on the StrongARM) → 3σ ≈ 29 mV.
+- **The C_BL placeholders were ~10× too high.** M10 PEX (below) measures the real wire C_BL; with it
+  the 16-row step is ~67 mV (resolvable, *no* calibration) and the 64-row step ~17 mV (marginal, M9).
+  i.e. the cell load `N·Cc` dominates the small parasitic — the *opposite* of what the placeholders
+  implied. The ~9-row wall was a *current-steering* property; the charge-domain limit is ~16–60 rows.
 
-Two numbers convert this from "mechanism shown" → "silicon-validated": **σ_offset (M8)** and
-**C_BL (M10)**.
+Remaining to fully close: extract the MOM cap **Cc** + the access-transistor junction (M10b), then **M9**.
+
+## M10 result (part A) — real bitline WIRE cap via Magic PEX (`pex/run_bitline_pex.py`)
+Extracted sky130 met2 bitline cap (W=0.14 µm, min-spacing grounded neighbors, resistance off,
+`cthresh 0.01`), three cross-sections to bracket it:
+
+| cross-section | fF/µm |
+| :-- | --: |
+| isolated over substrate (floor) | 0.078 |
+| **+ grounded neighbor bitlines (coupling)** | **0.232** |
+| + met1 ground plane (ceiling) | 0.277 |
+
+Coupling to adjacent min-spacing bitlines triples the wire cap — the dominant wire term, as expected.
+At a ~2 µm cell pitch the realistic **wire** C_BL is 0.46 fF/row → **7.4 fF over 16 rows, 29.7 fF over
+64 rows** — ~10× *smaller* than the 50/100/500 fF placeholders.
+
+Real per-row step `Cc·VDD/(N·Cc + C_BL)`, using extracted wire + estimated ~0.2 fF/cell junction +
+the cells' MOM load (Cc = 1 fF, *still placeholder*):
+
+| rows | N·Cc | C_BL (wire+junc) | step (mV/row) | vs 29 mV (3σ) |
+| --: | --: | --: | --: | :-- |
+| 16 (segment) | 16 fF | ~11 fF | **~67** | 2.3× — resolvable per-row, no cal |
+| 64 (continuous) | 64 fF | ~44 fF | **~17** | 0.6× — marginal, needs M9 |
+
+The 16-row verdict is **robust to the junction estimate**: even at a generous 0.5 fF/cell the step is
+~57 mV ≫ 29 mV. **Measured = the wire cap (0.232 fF/µm).** Still estimated/assumed: the MOM cap `Cc`
+(→ M10b extract the interdigitated fingers), the junction (→ draw the cell), and the 2 µm pitch.
 
 ## Verification methodology (open-source, from the research)
 - **ngspice MC**: `mc_mm_switch=1` (local mismatch), `mc_pr_switch=0` (no global spread); loop
