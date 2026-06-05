@@ -1,0 +1,24 @@
+diff --git a/rtl/axi_ram.v b/rtl/axi_ram.v
+index 7eea203..aef1f5a 100644
+--- a/rtl/axi_ram.v
++++ b/rtl/axi_ram.v
+@@ -42,7 +42,8 @@ module axi_ram #
+     // Width of ID signal
+     parameter ID_WIDTH = 8,
+     // Extra pipeline register on output
+-    parameter PIPELINE_OUTPUT = 0
++    parameter PIPELINE_OUTPUT = 0,
++    parameter INIT_FILE = ""
+ )
+ (
+     input  wire                   clk,
+@@ -173,6 +174,9 @@ initial begin
+             mem[j] = 0;
+         end
+     end
++    if (INIT_FILE != "") begin
++        $readmemh(INIT_FILE, mem);
++    end
+ end
+ 
+ always @* begin
