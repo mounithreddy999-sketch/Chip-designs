@@ -10,7 +10,7 @@
 `default_nettype none
 
 module attention_block #(
-    parameter N = 4,
+    parameter N = 16,
     parameter ACT_W = 8,
     parameter W_W = 8,
     parameter OUT_W = 24
@@ -26,10 +26,10 @@ module attention_block #(
     output reg  [31:0] s_axi_rdata,   output reg  [ 1:0] s_axi_rresp,   output reg         s_axi_rvalid,  input  wire        s_axi_rready,
 
     // AXI-Stream Input (Data In - Q Vectors)
-    input  wire [31:0] s_axis_n_tdata, input  wire s_axis_n_tvalid, output wire s_axis_n_tready,
+    input  wire [N*ACT_W-1:0] s_axis_n_tdata, input  wire s_axis_n_tvalid, output wire s_axis_n_tready,
     
     // AXI-Stream Output (Attention Result)
-    output reg  [31:0] m_axis_out_tdata, output reg m_axis_out_tvalid, input wire m_axis_out_tready
+    output reg  [N*8-1:0] m_axis_out_tdata, output reg m_axis_out_tvalid, input wire m_axis_out_tready
 );
 
     // ----------------------------------------------------
@@ -42,13 +42,15 @@ module attention_block #(
     assign s_axi_awready = !aw_done && !s_axi_bvalid;
     assign s_axi_wready  = !w_done && !s_axi_bvalid;
 
+    localparam AW = $clog2(N);
+
     // PIM programming interface
     reg        pim_k_wen;
-    reg [1:0]  pim_k_row, pim_k_col;
+    reg [AW-1:0] pim_k_row, pim_k_col;
     reg [7:0]  pim_k_wdata;
 
     reg        pim_v_wen;
-    reg [1:0]  pim_v_row, pim_v_col;
+    reg [AW-1:0] pim_v_row, pim_v_col;
     reg [7:0]  pim_v_wdata;
 
     // FSM Control
@@ -78,19 +80,19 @@ module attention_block #(
                     if ((w_done ? wdata_reg : s_axi_wdata) & 1) start_pipeline <= 1;
                 end
                 
-                // 0x100 - 0x13C: Write to PIM_K weights
-                if (((aw_done ? awaddr_reg : s_axi_awaddr) & 32'h00000F00) == 32'h100) begin
+                // 0x1000 - 0x13FC: Write to PIM_K weights
+                if (((aw_done ? awaddr_reg : s_axi_awaddr) & 32'h0000F000) == 32'h1000) begin
                     pim_k_wen <= 1;
-                    pim_k_row <= (aw_done ? awaddr_reg[5:4] : s_axi_awaddr[5:4]);
-                    pim_k_col <= (aw_done ? awaddr_reg[3:2] : s_axi_awaddr[3:2]);
+                    pim_k_row <= (aw_done ? awaddr_reg[AW+AW+1:AW+2] : s_axi_awaddr[AW+AW+1:AW+2]);
+                    pim_k_col <= (aw_done ? awaddr_reg[AW+1:2] : s_axi_awaddr[AW+1:2]);
                     pim_k_wdata <= (w_done ? wdata_reg[7:0] : s_axi_wdata[7:0]);
                 end
 
-                // 0x200 - 0x23C: Write to PIM_V weights
-                if (((aw_done ? awaddr_reg : s_axi_awaddr) & 32'h00000F00) == 32'h200) begin
+                // 0x2000 - 0x23FC: Write to PIM_V weights
+                if (((aw_done ? awaddr_reg : s_axi_awaddr) & 32'h0000F000) == 32'h2000) begin
                     pim_v_wen <= 1;
-                    pim_v_row <= (aw_done ? awaddr_reg[5:4] : s_axi_awaddr[5:4]);
-                    pim_v_col <= (aw_done ? awaddr_reg[3:2] : s_axi_awaddr[3:2]);
+                    pim_v_row <= (aw_done ? awaddr_reg[AW+AW+1:AW+2] : s_axi_awaddr[AW+AW+1:AW+2]);
+                    pim_v_col <= (aw_done ? awaddr_reg[AW+1:2] : s_axi_awaddr[AW+1:2]);
                     pim_v_wdata <= (w_done ? wdata_reg[7:0] : s_axi_wdata[7:0]);
                 end
             end
@@ -117,7 +119,7 @@ module attention_block #(
 
     assign s_axis_n_tready = (state == STATE_STREAM);
 
-    wire [N*ACT_W-1:0] q_vec = s_axis_n_tdata; // 32 bits = 4 * 8 bits
+    wire [N*ACT_W-1:0] q_vec = s_axis_n_tdata;
     wire q_valid = (state == STATE_STREAM) && s_axis_n_tvalid;
 
     always @(posedge clk) begin
@@ -213,12 +215,8 @@ module attention_block #(
         .out_vector(pim_v_out), .out_valid(pim_v_valid)
     );
 
-    // ----------------------------------------------------
-    // Output Formatting (24-bit -> 8-bit/32-bit AXI Out)
-    // ----------------------------------------------------
-    // We will truncate the 24-bit accumulation back to 8 bits for the AXI stream.
-    // 4 elements * 8 bits = 32-bit output.
-    wire [31:0] final_out_vec;
+    // Output Formatting
+    wire [N*8-1:0] final_out_vec;
     generate
         for (i = 0; i < N; i = i + 1) begin : final_out_gen
             assign final_out_vec[i*8 +: 8] = pim_v_out[i*24 + 4 +: 8]; // Example truncation

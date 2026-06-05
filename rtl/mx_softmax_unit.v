@@ -58,12 +58,12 @@ module mx_softmax_unit #(
     
     // Stage 1: Max Finder & Difference Calculation
     reg signed [15:0] max_val;
-    integer i;
+    integer i, i_comb;
     always @(*) begin
         max_val = $signed(in_flat[0 +: 16]);
-        for (i = 1; i < N; i = i + 1) begin
-            if ($signed(in_flat[i*16 +: 16]) > max_val) begin
-                max_val = $signed(in_flat[i*16 +: 16]);
+        for (i_comb = 1; i_comb < N; i_comb = i_comb + 1) begin
+            if ($signed(in_flat[i_comb*16 +: 16]) > max_val) begin
+                max_val = $signed(in_flat[i_comb*16 +: 16]);
             end
         end
     end
@@ -74,8 +74,8 @@ module mx_softmax_unit #(
     reg [19:0] sum_exp_q1_15;
     always @(*) begin
         sum_exp_q1_15 = 20'd0;
-        for (i = 0; i < N; i = i + 1) begin
-            sum_exp_q1_15 = sum_exp_q1_15 + {4'd0, exp_out[i]};
+        for (i_comb = 0; i_comb < N; i_comb = i_comb + 1) begin
+            sum_exp_q1_15 = sum_exp_q1_15 + {4'd0, exp_out[i_comb]};
         end
     end
 

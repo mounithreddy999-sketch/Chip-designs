@@ -8,7 +8,7 @@
         "dir::../../rtl/mx_softmax_unit.v",
         "dir::../../rtl/attention_block.v"
     ],
-    "CLOCK_PERIOD": 20.0,
+    "CLOCK_PERIOD": 15.0,
     "CLOCK_PORT": "clk",
     "CLOCK_NET": "clk",
     "SYNTH_PARAMETERS": [],
