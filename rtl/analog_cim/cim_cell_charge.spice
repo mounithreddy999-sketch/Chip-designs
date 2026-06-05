@@ -1,0 +1,26 @@
+* Charge-Domain CIM cell (C3SRAM-style)  --  the moon-shot pivot.
+*
+* The current-steering cim_cell.spice failed: bitline droop -> triode compression ->
+* ~9-row passive limit + exponential Vth-mismatch sensitivity. This cell computes in
+* the CHARGE domain instead: the 1-bit product (X AND W) drives a MOM coupling
+* capacitor, and passive charge sharing onto the bitline yields a voltage that is
+* LINEAR in the sum of products (a capacitor RATIO, not a transistor current -> PVT
+* robust).
+*
+* RBL_final ~ Vinit + ( sum_i (Xi*Wi) * Cunit * VDD ) / ( N*Cunit + C_BL )
+*
+* This first cut uses a BEHAVIORAL product driver (B-source) so the charge-domain
+* linearity is visible without device non-idealities. The real cell is an 8T1C
+* bitcell: 6T weight storage + 2 access/compute transistors + this MOM cap. M-next
+* swaps Bm for the real sky130 transistor logic and studies the NMOS-pass-high Vth
+* drop (the reason 9T1C/10T1C exist).
+*
+* Cc = 1 fF MOM fringe capacitor (interdigitated M3/M4 in layout -- NOT a MOSCAP,
+* which would be wildly non-linear).
+
+.subckt cim_cell_charge VDD VSS X W EN BL
+* product P = X AND W AND EN -> node m driven to VDD (P=1) or VSS (P=0)
+Bm m VSS V = V(VDD) * (V(X) > 0.9) * (V(W) > 0.9) * (V(EN) > 0.9)
+* MOM coupling capacitor (the compute element)
+Cc m BL 1f
+.ends

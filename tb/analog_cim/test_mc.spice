@@ -1,0 +1,11 @@
+* Test MC randomness
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt_mm
+Vdd D 0 DC 0.8
+Vg G 0 DC 0.4
+XM1 D G 0 0 sky130_fd_pr__nfet_01v8 w=1.0 l=0.15
+.control
+  op
+  print i(Vdd)
+  quit
+.endc
+.end

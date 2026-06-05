@@ -1,0 +1,66 @@
+* Charge-domain linearity + segmentation demo (M6/M7 foundation).
+*
+* 8 charge-domain cells share one bitline (cap C_BL). All W=1; the ACTIVE ones have
+* X=1. The bitline is precharged to 0, released, then EN fires and the active cells
+* couple their MOM caps onto it. The settled RBL voltage should be LINEAR in the
+* active count (the charge-domain MAC).
+*
+* TWO sweeps prove the moon thesis:
+*   1. Sweep ACTIVE (edit Vx0..Vx7 high count 0..8) -> RBL is linear, constant per-step.
+*   2. Sweep CBL: SEGMENT (small, ~50f) vs CONTINUOUS 64-row bitline (~500f).
+*      Segment keeps the per-row step ~31 mV; continuous collapses to ~3.5 mV (< sense
+*      floor) -- THAT is why segmented bitlines break our measured ~9-row ceiling.
+*
+* Behavioral cell -> runs in plain ngspice, no PDK lib needed, isolates the architecture.
+
+.include "../../rtl/analog_cim/cim_cell_charge.spice"
+
+Vvdd VDD 0 DC 1.8
+Vvss VSS 0 DC 0
+
+* Bitline cap: 50f = short local segment ; 500f = long continuous 64-row bitline
+.param CBL = 50f
+Cbl BL 0 {CBL}
+
+* Precharge BL to 0 while PREB high (0-5ns), then release (float) for compute
+Vpre PREB 0 PULSE(1.8 0 5n 0.1n 0.1n 10n 20n)
+Spre BL 0 PREB 0 swpre
+.model swpre sw vt=0.9 ron=10 roff=1e12
+
+* Compute enable (fires at 6ns)
+Ven EN 0 PULSE(0 1.8 6n 0.1n 0.1n 8n 20n)
+
+* All weights = 1
+Vw W 0 DC 1.8
+
+* Activations: this config = 5 of 8 active (edit to sweep the active count)
+Vx0 X0 0 DC 1.8
+Vx1 X1 0 DC 1.8
+Vx2 X2 0 DC 1.8
+Vx3 X3 0 DC 1.8
+Vx4 X4 0 DC 1.8
+Vx5 X5 0 DC 0
+Vx6 X6 0 DC 0
+Vx7 X7 0 DC 0
+
+Xc0 VDD VSS X0 W EN BL cim_cell_charge
+Xc1 VDD VSS X1 W EN BL cim_cell_charge
+Xc2 VDD VSS X2 W EN BL cim_cell_charge
+Xc3 VDD VSS X3 W EN BL cim_cell_charge
+Xc4 VDD VSS X4 W EN BL cim_cell_charge
+Xc5 VDD VSS X5 W EN BL cim_cell_charge
+Xc6 VDD VSS X6 W EN BL cim_cell_charge
+Xc7 VDD VSS X7 W EN BL cim_cell_charge
+
+.control
+  tran 0.02n 15n
+  save v(BL)
+  run
+  meas tran vbl find v(BL) at=12n
+  print vbl
+  * vbl should track the active count linearly; rerun with different active counts
+  * and with CBL=500f to see the continuous-bitline collapse.
+  quit
+.endc
+
+.end
