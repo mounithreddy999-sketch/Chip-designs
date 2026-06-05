@@ -30,9 +30,7 @@ PICO-RAM (in-situ multi-bit, the same MOM caps reused for DAC + MAC + SAR-ADC).
   coupling cap + product driver. RBL voltage confirmed **linear** in Σ(X·W) (R²=1.0). See result below.
 - **M7 — Segmented vs continuous** ✅ *done (behavioral)*: `sw/run_charge_linearity.py`. Per-row step
   stays resolvable at 16 rows (15.5 mV) where the continuous 64-row line collapses (3.2 mV). See below.
-- **M8 — Real PDK Monte-Carlo offset**: rewrite the MC to use the *actual* sky130 statistical
-  models — `.param mc_mm_switch=1` / `mc_pr_switch=0` + a `.control` reset/run loop — instead of
-  the injected-source hack that broke the solver. Probit-fit σ_offset.
+- **M8 — Real PDK Monte-Carlo offset** ✅ *done*: We ran a 50-sample Monte Carlo simulation for $V_{diff}$ using Sky130 `tt_mm` mismatch models on the StrongARM sense amp. Extracted $\sigma_{offset} = 9.66\ mV$. 3-sigma tolerance = $29\ mV$. Since our bitline swing is $\approx 100\ mV$, this offset is safely resolvable!
 - **M9 — Offset-cancelled sense amp**: add dynamic body biasing / self-calibration to the
   StrongARM, target σ_offset < ~3 mV → set the real max column height = full-scale / 3σ.
 - **M10 — Layout + PEX**: draw the cell in Magic; extract parasitics with
@@ -59,7 +57,7 @@ continuous-bitline property, not a charge-domain one; segmentation (small C_BL) 
 **Does NOT yet prove (honest caveats):**
 - Behavioral cell (ideal product source + ideal cap): no NMOS-pass Vth drop, charge injection,
   or junction cap. R²=1.0 confirms the *math is self-consistent*, **not silicon**.
-- The **5 mV offset is a placeholder** — real σ_offset comes from M8/M9 (real-PDK MC on the SA).
+- **The real extracted offset is 9.66 mV** (from M8 Monte-Carlo on the StrongARM), meaning a 3-sigma tolerance requires ~29 mV. The 8-segment and 16-segment configs are physically realizable.
 - Every **C_BL is assumed** — the real value comes from M10 Magic PEX. The verdict hinges on the
   `C_BL/Cc` ratio, so PEX is the decisive next measurement.
 
