@@ -1,0 +1,155 @@
+
+Circuit 1 cell sky130_fd_pr__special_nfet_pass and Circuit 2 cell sky130_fd_pr__special_nfet_pass are black boxes.
+Equate elements:  no current cell.
+Device classes sky130_fd_pr__special_nfet_pass and sky130_fd_pr__special_nfet_pass are equivalent.
+
+Circuit 1 cell sky130_fd_pr__special_pfet_latch and Circuit 2 cell sky130_fd_pr__special_pfet_latch are black boxes.
+Equate elements:  no current cell.
+Device classes sky130_fd_pr__special_pfet_latch and sky130_fd_pr__special_pfet_latch are equivalent.
+
+Circuit 1 cell sky130_fd_pr__special_nfet_latch and Circuit 2 cell sky130_fd_pr__special_nfet_latch are black boxes.
+Equate elements:  no current cell.
+Device classes sky130_fd_pr__special_nfet_latch and sky130_fd_pr__special_nfet_latch are equivalent.
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Equate elements:  no current cell.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+
+Class ../rtl/analog_cim/cim_cell_8t1c.spice (1):  Merged 1 parallel devices.
+Subcircuit summary:
+Circuit 1: cim_cell_8t1c_flat.spice        |Circuit 2: ../rtl/analog_cim/cim_cell_8t1c 
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__special_nfet_pass (2)        |sky130_fd_pr__special_nfet_pass (2)        
+sky130_fd_pr__special_pfet_latch (4)       |sky130_fd_pr__special_pfet_latch (4->3) ** 
+sky130_fd_pr__special_nfet_latch (2)       |sky130_fd_pr__special_nfet_latch (2)       
+sky130_fd_pr__nfet_01v8 (2)                |sky130_fd_pr__nfet_01v8 (2)                
+Number of devices: 10 **Mismatch**         |Number of devices: 9 **Mismatch**          
+Number of nets: 16 **Mismatch**            |Number of nets: 13 **Mismatch**            
+---------------------------------------------------------------------------------------
+NET mismatches: Class fragments follow (with fanout counts):
+Circuit 1: cim_cell_8t1c_flat.spice        |Circuit 2: ../rtl/analog_cim/cim_cell_8t1c 
+
+---------------------------------------------------------------------------------------
+Net: a_42_208#                             |Net: read_int                              
+  sky130_fd_pr__special_nfet_pass/(1|3) =  |  sky130_fd_pr__nfet_01v8/(1|3) = 2        
+  sky130_fd_pr__special_pfet_latch/2 = 1   |                                           
+  sky130_fd_pr__special_nfet_latch/2 = 1   |                                           
+  sky130_fd_pr__special_pfet_latch/(1|3) = |                                           
+  sky130_fd_pr__special_nfet_latch/(1|3) = |                                           
+                                           |                                           
+Net: VSUBS                                 |Net: VSUBS                                 
+  sky130_fd_pr__nfet_01v8/4 = 2            |  sky130_fd_pr__nfet_01v8/4 = 2            
+                                           |                                           
+Net: a_26_50#                              |Net: RBL                                   
+  sky130_fd_pr__special_nfet_pass/2 = 1    |  sky130_fd_pr__nfet_01v8/(1|3) = 1        
+  sky130_fd_pr__special_pfet_latch/2 = 1   |                                           
+                                           |                                           
+Net: sky130_fd_bd_sram__sram_sp_cell_opt1_ |Net: RWL                                   
+  sky130_fd_pr__special_pfet_latch/2 = 1   |  sky130_fd_pr__nfet_01v8/2 = 1            
+  sky130_fd_pr__special_nfet_pass/2 = 1    |                                           
+                                           |                                           
+Net: sky130_fd_bd_sram__sram_sp_cell_opt1_ |Net: VPWR                                  
+  sky130_fd_pr__special_pfet_latch/(1|3) = |  sky130_fd_pr__special_pfet_latch/(1|3) = 
+                                           |                                           
+Net: sky130_fd_bd_sram__sram_sp_cell_opt1_ |Net: Q_bar                                 
+  sky130_fd_pr__special_nfet_latch/(1|3) = |  sky130_fd_pr__special_nfet_pass/(1|3) =  
+                                           |  sky130_fd_pr__special_nfet_latch/2 = 1   
+                                           |  sky130_fd_pr__special_nfet_latch/(1|3) = 
+                                           |  sky130_fd_pr__special_pfet_latch/2 = 1   
+                                           |  sky130_fd_pr__special_pfet_latch/(1|3) = 
+                                           |                                           
+Net: a_600_350#                            |Net: WL                                    
+  sky130_fd_pr__nfet_01v8/(1|3) = 2        |  sky130_fd_pr__special_nfet_pass/2 = 2    
+                                           |  sky130_fd_pr__special_pfet_latch/2 = 1   
+                                           |                                           
+Net: a_42_130#                             |Net: VPB                                   
+  sky130_fd_pr__special_pfet_latch/(1|3) = |  sky130_fd_pr__special_pfet_latch/4 = 3   
+  sky130_fd_pr__special_nfet_latch/(1|3) = |                                           
+  sky130_fd_pr__special_nfet_pass/(1|3) =  |                                           
+  sky130_fd_pr__special_nfet_latch/2 = 1   |                                           
+  sky130_fd_pr__special_pfet_latch/2 = 1   |                                           
+                                           |                                           
+Net: a_600_440#                            |Net: Q                                     
+  sky130_fd_pr__nfet_01v8/(1|3) = 1        |  sky130_fd_pr__special_nfet_pass/(1|3) =  
+                                           |  sky130_fd_pr__special_nfet_latch/(1|3) = 
+                                           |  sky130_fd_pr__special_nfet_latch/2 = 1   
+                                           |  sky130_fd_pr__special_pfet_latch/(1|3) = 
+                                           |  sky130_fd_pr__special_pfet_latch/2 = 1   
+                                           |  sky130_fd_pr__nfet_01v8/2 = 1            
+                                           |                                           
+Net: a_600_240#                            |(no matching net)                          
+  sky130_fd_pr__nfet_01v8/(1|3) = 1        |                                           
+                                           |                                           
+Net: a_560_410#                            |(no matching net)                          
+  sky130_fd_pr__nfet_01v8/2 = 1            |                                           
+                                           |                                           
+Net: a_560_320#                            |(no matching net)                          
+  sky130_fd_pr__nfet_01v8/2 = 1            |                                           
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Net: sky130_fd_bd_sram__sram_sp_cell_opt1_ |Net: VGND                                  
+  sky130_fd_pr__special_pfet_latch/4 = 4   |  sky130_fd_pr__special_nfet_latch/(1|3) = 
+                                           |  sky130_fd_pr__special_pfet_latch/(1|3) = 
+                                           |  sky130_fd_pr__nfet_01v8/(1|3) = 1        
+                                           |                                           
+Net: sky130_fd_bd_sram__sram_sp_cell_opt1_ |Net: VNB                                   
+  sky130_fd_pr__special_nfet_pass/4 = 2    |  sky130_fd_pr__special_nfet_pass/4 = 2    
+  sky130_fd_pr__special_nfet_latch/4 = 2   |  sky130_fd_pr__special_nfet_latch/4 = 2   
+---------------------------------------------------------------------------------------
+DEVICE mismatches: Class fragments follow (with node fanout counts):
+Circuit 1: cim_cell_8t1c_flat.spice        |Circuit 2: ../rtl/analog_cim/cim_cell_8t1c 
+
+---------------------------------------------------------------------------------------
+Instance: sky130_fd_pr__special_pfet_latch |Instance: sky130_fd_pr__special_pfet_latch 
+  (1,3) = (7,2)                            |  (1,3) = (8,1)                            
+  2 = 7                                    |  2 = 5                                    
+  4 = 4                                    |  4 = 3                                    
+                                           |                                           
+Instance: sky130_fd_pr__special_pfet_latch |Instance: sky130_fd_pr__special_pfet_latch 
+  (1,3) = (7,7)                            |  (1,3) = (8,8)                            
+  2 = 2                                    |  2 = 3                                    
+  4 = 4                                    |  4 = 3                                    
+                                           |                                           
+Instance: sky130_fd_pr__special_pfet_latch |Instance: sky130_fd_pr__special_pfet_latch 
+  (1,3) = (7,2)                            |  (1,3) = (5,4)                            
+  2 = 7                                    |  2 = 8                                    
+  4 = 4                                    |  4 = 3                                    
+                                           |                                           
+Instance: sky130_fd_pr__special_pfet_latch |(no matching instance)                     
+  (1,3) = (7,7)                            |                                           
+  2 = 2                                    |                                           
+  4 = 4                                    |                                           
+                                           |                                           
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Instance: sky130_fd_pr__nfet_01v8:5        |Instance: sky130_fd_pr__nfet_01v8:Mread2   
+  (1,3) = (2,1)                            |  (1,3) = (2,1)                            
+  2 = 1                                    |  2 = 1                                    
+  4 = 2                                    |  4 = 2                                    
+                                           |                                           
+Instance: sky130_fd_pr__nfet_01v8:4        |Instance: sky130_fd_pr__nfet_01v8:Mread1   
+  (1,3) = (2,1)                            |  (1,3) = (4,2)                            
+  2 = 1                                    |  2 = 8                                    
+  4 = 2                                    |  4 = 2                                    
+---------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+Instance: sky130_fd_pr__special_nfet_latch |Instance: sky130_fd_pr__special_nfet_latch 
+  (1,3) = (7,2)                            |  (1,3) = (5,4)                            
+  2 = 7                                    |  2 = 8                                    
+  4 = 4                                    |  4 = 4                                    
+                                           |                                           
+Instance: sky130_fd_pr__special_nfet_latch |Instance: sky130_fd_pr__special_nfet_latch 
+  (1,3) = (7,2)                            |  (1,3) = (8,4)                            
+  2 = 7                                    |  2 = 5                                    
+  4 = 4                                    |  4 = 4                                    
+---------------------------------------------------------------------------------------
+Netlists do not match.
+Port matching may fail to disambiguate symmetries.
+Cells have no pins;  pin matching not needed.
+Device classes cim_cell_8t1c_flat.spice and ../rtl/analog_cim/cim_cell_8t1c.spice are equivalent.
+
+Final result: Netlists do not match.
+Port matching may fail to disambiguate symmetries.

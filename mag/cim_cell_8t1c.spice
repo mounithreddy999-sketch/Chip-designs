@@ -1,0 +1,66 @@
+* NGSPICE file created from cim_cell_8t1c.ext - technology: sky130A
+
+X0 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.47 as=0.035 ps=0.78 w=0.14 l=0.025
+X1 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.39 as=0.032 ps=0.57 w=0.14 l=0.15
+X2 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB sky130_fd_pr__special_pfet_latch ad=0.032 pd=0.57 as=0.0175 ps=0.47 w=0.14 l=0.15
+X3 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.39 as=0.035 ps=0.78 w=0.14 l=0.025
+X4 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND VSUBS sky130_fd_pr__special_nfet_latch ad=0.02187 pd=0.53 as=0.0404 ps=0.64 w=0.21 l=0.15
+X5 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR VSUBS sky130_fd_pr__special_nfet_pass ad=0.02187 pd=0.46 as=0.0168 ps=0.52 w=0.14 l=0.15
+X6 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# VSUBS sky130_fd_pr__special_nfet_latch ad=0.0404 pd=0.64 as=0.02187 ps=0.46 w=0.21 l=0.15
+X7 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# VSUBS sky130_fd_pr__special_nfet_pass ad=0.0168 pd=0.52 as=0.02187 ps=0.53 w=0.14 l=0.15
+X8 a_600_440# a_560_410# a_600_350# VSUBS sky130_fd_pr__nfet_01v8 ad=0.252 pd=2.04 as=0.063 ps=0.72 w=0.42 l=0.15
+X9 a_600_350# a_560_320# a_600_240# VSUBS sky130_fd_pr__nfet_01v8 ad=0.063 pd=0.72 as=0.168 ps=1.64 w=0.42 l=0.15
+C0 m3_600_800# MOM_GND 0.85854f
+C1 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB 0.01928f
+C2 RBL a_600_440# 0.01037f
+C3 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL 0.04497f
+C4 li_40_516# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR 0.10011f
+C5 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.16732f
+C6 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# 0.11926f
+C7 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.15675f
+C8 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.01702f
+C9 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB 0.01917f
+C10 sky130_fd_bd_sram__sram_sp_cell_opt1_0/m2_0_59# sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.01602f
+C11 a_560_410# a_560_320# 0.02253f
+C12 RBL sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR 0.01907f
+C13 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR 0.01377f
+C14 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.0348f
+C15 sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.01055f
+C16 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# 0.17474f
+C17 sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# 0.01535f
+C18 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR 0.15921f
+C19 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.16114f
+C20 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# 0.03357f
+C21 sky130_fd_bd_sram__sram_sp_cell_opt1_0/m2_0_59# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.13667f
+C22 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# 0.01559f
+C23 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# 0.01047f
+C24 li_40_516# RBL 0.03013f
+C25 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB 0.01723f
+C26 sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB 0.01917f
+C27 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.04318f
+C28 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.02513f
+C29 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR 0.05203f
+C30 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND 0.02002f
+C31 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL 0.11973f
+C32 m3_600_800# RBL 0.01391f
+C33 sky130_fd_bd_sram__sram_sp_cell_opt1_0/m2_0_59# sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR 0.01924f
+C34 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# 0.0445f
+C35 MOM_GND VSUBS 0.56256f
+C36 RWL VSUBS 0.05558f
+C37 RBL VSUBS 0.099f
+C38 m3_600_800# VSUBS 0.55333f
+C39 li_40_516# VSUBS 0.24925f
+C40 a_600_240# VSUBS 0.02262f $ **FLOATING
+C41 a_560_320# VSUBS 0.0675f $ **FLOATING
+C42 a_560_410# VSUBS 0.06769f $ **FLOATING
+C43 a_600_440# VSUBS 0.02245f $ **FLOATING
+C44 sky130_fd_bd_sram__sram_sp_cell_opt1_0/m2_0_59# VSUBS 0.05587f
+C45 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR VSUBS 0.07167f $ **FLOATING
+C46 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24# VSUBS 0.09361f $ **FLOATING
+C47 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR VSUBS 0.26037f $ **FLOATING
+C48 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND VSUBS 0.12575f $ **FLOATING
+C49 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182# VSUBS 0.10209f $ **FLOATING
+C50 sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104# VSUBS 0.0971f $ **FLOATING
+C51 sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL VSUBS 0.09361f $ **FLOATING
+C52 sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL VSUBS 0.07299f $ **FLOATING
+C53 sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB VSUBS 0.36403f $ **FLOATING

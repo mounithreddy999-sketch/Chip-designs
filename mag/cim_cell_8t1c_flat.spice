@@ -1,0 +1,13 @@
+* NGSPICE file created from cim_cell_8t1c_flat.ext - technology: sky130A
+
+X0 a_42_208# a_26_50# sky130_fd_bd_sram__sram_sp_cell_opt1_0.BR sky130_fd_bd_sram__sram_sp_cell_opt1_0.VNB sky130_fd_pr__special_nfet_pass ad=0.02187 pd=0.46 as=0.0168 ps=0.52 w=0.14 l=0.15
+X1 a_42_130# a_42_208# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPWR sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.39 as=0.032 ps=0.57 w=0.14 l=0.15
+X2 a_42_130# a_42_208# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VGND sky130_fd_bd_sram__sram_sp_cell_opt1_0.VNB sky130_fd_pr__special_nfet_latch ad=0.02187 pd=0.53 as=0.0404 ps=0.64 w=0.21 l=0.15
+X3 a_42_208# a_26_50# a_42_208# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.47 as=0.035 ps=0.78 w=0.14 l=0.025
+X4 a_600_440# a_560_410# a_600_350# VSUBS sky130_fd_pr__nfet_01v8 ad=0.252 pd=2.04 as=0.063 ps=0.72 w=0.42 l=0.15
+X5 a_600_350# a_560_320# a_600_240# VSUBS sky130_fd_pr__nfet_01v8 ad=0.063 pd=0.72 as=0.168 ps=1.64 w=0.42 l=0.15
+X6 a_42_130# sky130_fd_bd_sram__sram_sp_cell_opt1_0.WL a_42_130# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPB sky130_fd_pr__special_pfet_latch ad=0.0175 pd=0.39 as=0.035 ps=0.78 w=0.14 l=0.025
+X7 sky130_fd_bd_sram__sram_sp_cell_opt1_0.BL sky130_fd_bd_sram__sram_sp_cell_opt1_0.WL a_42_130# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VNB sky130_fd_pr__special_nfet_pass ad=0.0168 pd=0.52 as=0.02187 ps=0.53 w=0.14 l=0.15
+X8 sky130_fd_bd_sram__sram_sp_cell_opt1_0.VGND a_42_130# a_42_208# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VNB sky130_fd_pr__special_nfet_latch ad=0.0404 pd=0.64 as=0.02187 ps=0.46 w=0.21 l=0.15
+X9 sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPWR a_42_130# a_42_208# sky130_fd_bd_sram__sram_sp_cell_opt1_0.VPB sky130_fd_pr__special_pfet_latch ad=0.032 pd=0.57 as=0.0175 ps=0.47 w=0.14 l=0.15
+

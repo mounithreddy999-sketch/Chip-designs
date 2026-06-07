@@ -1,0 +1,103 @@
+timestamp 1780753113
+version 8.3
+tech sky130A
+style ngspice()
+scale 1000 1 500000
+resistclasses 4400000 2200000 950000 3050000 120000 197000 114000 191000 120000 197000 114000 191000 48200 319800 2000000 48200 48200 12800 125 125 47 47 29 5
+use sky130_fd_bd_sram__sram_sp_cell_opt1 sky130_fd_bd_sram__sram_sp_cell_opt1_0 1 0 26 0 1 26
+parameters sky130_fd_pr__nfet_01v8 l=l w=w a1=as p1=ps a2=ad p2=pd
+port "MOM_GND" 3 1496 1600 1608 1696 m3
+port "RWL" 1 780 420 800 440 m2
+port "RBL" 2 620 580 660 600 m3
+node "MOM_GND" 1 562.556 1496 1600 m3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 250880 4704 0 0 0 0 0 0
+node "m3_600_800#" 1 553.327 600 800 m3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 250880 4704 0 0 0 0 0 0
+node "m1_0_260#" 5 207.004 0 260 v 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2000 240 14000 1400 0 0 0 0 0 0 0 0
+node "RWL" 1 55.578 780 420 m2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 400 80 1920 232 0 0 0 0 0 0 0 0
+node "RBL" 0 98.9959 620 580 m3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1600 160 1600 160 5600 360 0 0 0 0 0 0
+node "li_40_516#" 17 247.585 40 516 v0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 576 96 976 176 16680 1500 0 0 0 0 0 0 0 0
+node "a_600_240#" 139 22.6058 600 240 ndif 0 0 0 0 0 0 0 0 6720 328 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1600 160 0 0 0 0 0 0 0 0 0 0 0 0
+node "a_560_320#" 276 67.2589 560 320 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4920 388 0 0 400 80 0 0 0 0 0 0 0 0 0 0 0 0
+node "a_600_350#" 168 0 600 350 ndif 0 0 0 0 0 0 0 0 5040 288 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "a_560_410#" 276 67.6917 560 410 p 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4920 388 0 0 400 80 0 0 0 0 0 0 0 0 0 0 0 0
+node "a_600_440#" 184 22.4468 600 440 ndif 0 0 0 0 0 0 0 0 10080 408 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1600 160 0 0 0 0 0 0 0 0 0 0 0 0
+node "w_26_26#" 9656 0 26 26 pw 45504 920 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+substrate "VSUBS" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "RBL" "li_40_516#" 30.1338
+cap "m3_600_800#" "RWL" 1.61758
+cap "li_40_516#" "m1_0_260#" 97.5797
+cap "a_560_320#" "RBL" 1.4122
+cap "RBL" "a_600_240#" 1.49175
+cap "a_560_410#" "li_40_516#" 2.30298
+cap "a_560_320#" "m1_0_260#" 1.77193
+cap "a_600_240#" "m1_0_260#" 9.07031
+cap "a_600_350#" "li_40_516#" 1.29477
+cap "a_560_320#" "a_560_410#" 22.526
+cap "a_560_410#" "a_600_240#" 0.784658
+cap "w_26_26#" "m1_0_260#" 11.788
+cap "a_600_440#" "li_40_516#" 2.0401
+cap "a_600_350#" "a_600_240#" 1.55983
+cap "a_560_320#" "m3_600_800#" 0.519508
+cap "a_560_320#" "a_600_440#" 0.784658
+cap "RWL" "li_40_516#" 5.63009
+cap "m3_600_800#" "a_600_240#" 0.386369
+cap "a_600_440#" "a_600_240#" 6.1644
+cap "a_560_320#" "RWL" 0.533725
+cap "RBL" "m1_0_260#" 19.072
+cap "RBL" "a_560_410#" 1.62621
+cap "a_560_410#" "m1_0_260#" 1.30365
+cap "a_600_350#" "RBL" 2.09223
+cap "a_560_320#" "li_40_516#" 4.89539
+cap "a_600_350#" "m1_0_260#" 1.94081
+cap "RBL" "m3_600_800#" 13.9126
+cap "RBL" "a_600_440#" 10.3706
+cap "m3_600_800#" "m1_0_260#" 0.424736
+cap "a_600_440#" "m1_0_260#" 1.00367
+cap "w_26_26#" "li_40_516#" 4.98521
+cap "a_560_320#" "a_600_240#" 1.67597
+cap "m3_600_800#" "MOM_GND" 858.537
+cap "a_600_440#" "a_560_410#" 1.67597
+cap "a_560_410#" "m3_600_800#" 1.36386
+cap "a_560_320#" "w_26_26#" 0.455279
+cap "w_26_26#" "a_600_240#" 0.590086
+cap "a_600_350#" "m3_600_800#" 0.371881
+cap "a_600_350#" "a_600_440#" 1.55983
+cap "a_560_410#" "RWL" 4.33346
+cap "a_600_440#" "m3_600_800#" 2.06378
+device msubckt sky130_fd_pr__nfet_01v8 600 320 601 321 l=30 w=84 "VSUBS" "a_560_320#" 60 0 "a_600_240#" 84 6720,328 "a_600_350#" 84 2520,144
+device msubckt sky130_fd_pr__nfet_01v8 600 410 601 411 l=30 w=84 "VSUBS" "a_560_410#" 60 0 "a_600_350#" 84 2520,144 "a_600_440#" 84 10080,408
+cap "a_600_240#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR" 0.00135861
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 0.0285853
+cap "a_600_240#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VNB" -0.575334
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB" "a_600_240#" 0.10843
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND" 1.63602
+cap "a_560_320#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND" 0.0111498
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR" 0.0384773
+cap "a_600_240#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND" 0.000384461
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VNB" -11.5066
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 0.229737
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL" "li_40_516#" 1.42403
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_0_24#" 0.0472152
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104#" 1.16949
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VGND" 22.9894
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL" "a_600_240#" 0.0650233
+cap "a_600_240#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104#" 2.86193
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182#" 0.21328
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 2.53074
+cap "a_560_320#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 0.333837
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/WL" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 0.402457
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL" "li_40_516#" 6.41669
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL" "a_560_320#" 1.18599
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_104#" 2.15857
+cap "a_600_240#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" 0.773087
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BL" "a_600_240#" 0.00101206
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR" 0.834095
+cap "a_560_320#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/BR" 0.0327543
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/a_16_182#" 0.00208556
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VNB" -3.32089
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB" "li_40_516#" 0.273517
+cap "a_560_320#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VNB" -0.213748
+cap "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPB" "a_560_320#" 0.318832
+cap "li_40_516#" "sky130_fd_bd_sram__sram_sp_cell_opt1_0/m2_0_59#" 0.0264586
+merge "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VNB" "VSUBS" 0 -45504 -920 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+merge "VSUBS" "w_26_26#"
+merge "sky130_fd_bd_sram__sram_sp_cell_opt1_0/VPWR" "m1_0_260#" -109.315 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -5020 -542 0 0 0 0 0 0 0 0

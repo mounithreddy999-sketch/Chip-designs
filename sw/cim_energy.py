@@ -5,7 +5,7 @@ Charge-domain CIM energy/MAC -- the payoff metric, from MEASURED inputs only.
 Every term here is extracted or simulated, not assumed:
   - MOM cap Cc           = 1.0 fF        (M10b, pex/run_mom_pex.py: 0.308 fF/um^2, real)
   - bitline wire / row   = 0.464 fF      (M10a, 0.232 fF/um x 2 um pitch)
-  - access junction/cell = 0.073 fF      (M10c, pex/run_junction_pex.py, real PDK device)
+  - access junction/cell = 0.114 fF      (M10c, pex/run_cell_pex.py, real PDK device)
   - StrongARM decision   = 58.8 fJ       (measured: integ i(VDD) over one cycle)
 
 Per column-evaluation (one binary MVM of N products):
@@ -18,7 +18,7 @@ Real multi-bit charge-weighted cells cut that factor a lot (noted, not claimed h
 VDD = 1.8
 CC = 1.0e-15            # F   (M10b)
 WIRE_PER_ROW = 0.464e-15  # F  (M10a, 2 um pitch)
-JUNC = 0.073e-15       # F   (M10c)
+JUNC = 0.114e-15       # F   (M10c)
 E_SA = 58.8e-15        # J   (measured)
 C_PER_ROW = CC + WIRE_PER_ROW + JUNC   # total bitline cap added per row
 

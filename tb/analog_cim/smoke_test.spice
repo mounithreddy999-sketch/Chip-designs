@@ -1,0 +1,40 @@
+* Smoke Test for 8T1C CIM Cell
+
+.lib "/foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+.include "cim_cell_8t1c_wrapper.spice"
+
+* Supplies
+VVDD VPWR 0 1.8
+VGND VGND 0 0
+VVPB VPB 0 1.8
+VVNB VNB 0 0
+
+* Inputs
+VBL BL 0 pulse(0 1.8 1ns 100ps 100ps 4ns 10ns)
+VBR BR 0 pulse(1.8 0 1ns 100ps 100ps 4ns 10ns)
+VWL WL 0 pulse(0 1.8 2ns 100ps 100ps 2ns 10ns)
+
+* Read Wordline (fires after write is complete)
+VRWL RWL 0 pulse(0 1.8 6ns 100ps 100ps 2ns 10ns)
+
+* Read Bitline (precharged to 1.8V, then floats during read)
+* We use a switch or simply a resistor to precharge, then float.
+* Simple precharge: RBL is pulled to 1.8V until 5.5ns, then floats.
+VPRE precharge 0 pwl(0 1.8 5.5ns 1.8 5.6ns 0)
+Rpre RBL precharge 1k
+
+* Load on RBL to represent parasitic wire + MOM cap (0.172fF)
+Cload RBL 0 0.172f
+
+* Instantiate the cell
+Xcell BL BR VGND VPWR VPB VNB WL RWL RBL cim_cell_8t1c
+
+.control
+tran 10ps 10ns
+wrdata smoke_test.dat v(BL) v(BR) v(WL) v(Xcell.Q) v(Xcell.Q_bar) v(RWL) v(RBL)
+print v(Xcell.Q) v(RBL)
+quit
+.endc
+
+.end

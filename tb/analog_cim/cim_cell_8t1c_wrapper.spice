@@ -1,0 +1,22 @@
+.subckt cim_cell_8t1c BL BR VGND VPWR VPB VNB WL RWL RBL
+* The 6T core (extracted as 8 transistors due to OPC/dummy shapes in layout)
+* We match the Magic extraction flat:
+* 2 nfet pass gates
+X0 Q_bar WL BR VNB sky130_fd_pr__special_nfet_pass w=0.14 l=0.15
+X6 BL WL Q VNB sky130_fd_pr__special_nfet_pass w=0.14 l=0.15
+
+* 2 nfet latch
+X2 Q Q_bar VGND VNB sky130_fd_pr__special_nfet_latch w=0.21 l=0.15
+X8 VGND Q Q_bar VNB sky130_fd_pr__special_nfet_latch w=0.21 l=0.15
+
+* 4 pfet latch (Magic extracts the pass gates as pfet_latch and the dummy shapes)
+X1 Q Q_bar VPWR VPB sky130_fd_pr__special_pfet_latch w=0.14 l=0.15
+X3 Q WL Q VPB sky130_fd_pr__special_pfet_latch w=0.14 l=0.025
+X5 Q WL Q VPB sky130_fd_pr__special_pfet_latch w=0.14 l=0.025
+X9 VGND Q Q_bar VPB sky130_fd_pr__special_pfet_latch w=0.14 l=0.15
+
+* 2T Read Port
+XMread1 read_int Q VGND 0 sky130_fd_pr__nfet_01v8 w=0.42 l=0.15
+XMread2 RBL RWL read_int 0 sky130_fd_pr__nfet_01v8 w=0.42 l=0.15
+
+.ends

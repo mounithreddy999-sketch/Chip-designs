@@ -1,0 +1,4 @@
+box 0 0 0 0
+getcell sky130_fd_bd_sram__sram_sp_cell_opt1
+save sky130_fd_bd_sram__sram_sp_cell_opt1_copy.mag
+quit

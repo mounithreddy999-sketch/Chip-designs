@@ -1,0 +1,39 @@
+* StrongARM latch comparator, OFFSET-CANCELLED / SELF-CALIBRATED (M9 Option A).
+*
+* Adds a secondary, smaller differential pair (Xtrimp/Xtrimn) in parallel with
+* the main input pair. By applying a differential calibration voltage (VTRIM)
+* to these auxiliary inputs, we can inject a fine-grained offset current that
+* perfectly nullifies the intrinsic Vth mismatch of the main transistors.
+*
+* wmult scales the main input pair area (Pelgrom baseline).
+* wtrim_mult scales the auxiliary trimming pair.
+
+.subckt strongarm_comparator_calibrated VDD VSS CLK INP INN TRIMP TRIMN OUTP OUTN wmult=1 wtrim_mult=0.5
+
+* Tail current switch (gated by CLK)
+Xtail tail CLK VSS VSS sky130_fd_pr__nfet_01v8 w=4.0 l=0.15
+
+* Main Input differential pair -- width scaled by wmult
+Xinp dn INP tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wmult' l=0.15
+Xinn dp INN tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wmult' l=0.15
+
+* Auxiliary Trimming differential pair -- width scaled by wtrim_mult
+* A smaller width allows fine-grained VTRIM DAC control without dominating capacitance
+Xtrimp dn TRIMP tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wtrim_mult' l=0.15
+Xtrimn dp TRIMN tail VSS sky130_fd_pr__nfet_01v8 w='4.0*wtrim_mult' l=0.15
+
+* Cross-coupled latch NMOS
+Xlnp OUTP OUTN dp VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+Xlnn OUTN OUTP dn VSS sky130_fd_pr__nfet_01v8 w=2.0 l=0.15
+
+* Cross-coupled latch PMOS
+Xlpp OUTP OUTN VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xlpn OUTN OUTP VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+
+* Reset / precharge PMOS (CLK low -> pull nodes to VDD)
+Xrop OUTP CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xron OUTN CLK VDD VDD sky130_fd_pr__pfet_01v8 w=2.0 l=0.15
+Xrdp dp   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+Xrdn dn   CLK VDD VDD sky130_fd_pr__pfet_01v8 w=1.0 l=0.15
+
+.ends
